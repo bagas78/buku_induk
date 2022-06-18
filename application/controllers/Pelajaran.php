@@ -75,10 +75,10 @@ class Pelajaran extends CI_Controller{
 
 		redirect(base_url('pelajaran'));
 	}
-}
-function get(){
-	$id = $_POST['id'];
-	$db = $this->db->query("SELECT * FROM t_kategori WHERE kategori_id = '$id'")->row_array();
+	function get(){
+		$id = $_POST['id'];
+		$db = $this->db->query("SELECT * FROM t_kategori WHERE kategori_id = '$id'")->row_array();
 
-	echo json_encode($db);
+		echo json_encode($db);
+	}
 }

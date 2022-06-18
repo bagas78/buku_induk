@@ -98,19 +98,50 @@
                       <div class="modal-body">
                         <form role="form" method="post" action="<?php echo base_url('pelajaran/update/'.$key['pelajaran_id']) ?>" enctype="multipart/form-data">
                           <div class="box-body">
-                            <div class="form-group">
-                              <label>Nama</label>
-                              <input required="" type="text" name="user_name" class="form-control" placeholder="Nama Lengkap" value="<?php echo $key['user_name'] ?>">
+                            <div class="form-group"> 
+                              <label>Pelajaran</label>
+                              <input required="" type="text" name="pelajaran_nama" class="form-control" placeholder="Pelajaran" value="<?php echo $key['pelajaran_nama'] ?>">
                             </div>
                             <div class="form-group">
-                              <label>Email</label>
-                              <input required="" type="text" name="user_email" class="form-control" placeholder="Email" value="<?php echo $key['user_email'] ?>">
+                              <label>Kategori</label>
+                              <select id="kategori<?php echo $key['pelajaran_id'] ?>" onchange="sub(this.value,'view_sub<?php echo $key["pelajaran_id"] ?>')" class="form-control" required="" name="pelajaran_kategori">
+                                <option value="" hidden="">-- Pilih --</option>
+                                <?php foreach ($kategori_data as $kat): ?>
+                                  <option value="<?php echo $kat['kategori_id'] ?>"><?php echo $kat['kategori_nama'] ?></option>
+                                <?php endforeach ?>
+                              </select>
+
+                              <script type="text/javascript">
+                                $('#kategori<?php echo $key['pelajaran_id'] ?>').val(<?php echo $key['pelajaran_kategori'] ?>).change();
+                              </script>
                             </div>
-                            <div class="form-group">
-                              <label>Pasword</label>
-                              <input type="password" name="user_password" class="form-control" placeholder="Password" value="">
-                              <small class="text-danger">* isi jika ingin mengganti password</small>
+
+                            <div id="view_sub<?php echo $key['pelajaran_id'] ?>">
+
+                              <?php $sub = json_decode($key['kategori_sub']); ?>
+
+                              <?php if (@$sub[0] == '' || @$sub == null): ?>
+                                <!--kosong-->
+                                <input type="hidden" name="pelajaran_kategori_sub">
+                              
+                              <?php else: ?>
+
+                                <!-- ada kategori -->
+                                <label>Sub Kategori</label>
+                                <select id="sub<?php echo $key['pelajaran_id'] ?>" class="form-control" required="" name="pelajaran_kategori_sub">
+                                  <?php foreach ($sub as $i => $value): ?>
+                                    <option value="<?php echo $i ?>"><?php echo $value ?></option>
+                                  <?php endforeach ?>
+                                </select>
+
+                                <script type="text/javascript">
+                                  $('#sub<?php echo $key['pelajaran_id'] ?>').val(<?php echo $key['pelajaran_kategori_sub'] ?>).change();
+                                </script>
+                              
+                              <?php endif ?>
+
                             </div>
+
                           </div>
                           <!-- /.box-body -->
 
@@ -144,13 +175,13 @@
         <div class="modal-body">
           <form role="form" method="post" action="<?php echo base_url('pelajaran/add') ?>" enctype="multipart/form-data">
             <div class="box-body">
-              <div class="form-group">
+              <div class="form-group"> 
                 <label>Pelajaran</label>
                 <input required="" type="text" name="pelajaran_nama" class="form-control" placeholder="Pelajaran">
               </div>
               <div class="form-group">
                 <label>Kategori</label>
-                <select class="form-control" required="" name="pelajaran_kategori">
+                <select onchange="sub(this.value,'view_sub')" class="form-control" required="" name="pelajaran_kategori">
                   <option value="" hidden="">-- Pilih --</option>
                   <?php foreach ($kategori_data as $kat): ?>
                     <option value="<?php echo $kat['kategori_id'] ?>"><?php echo $kat['kategori_nama'] ?></option>
@@ -158,7 +189,7 @@
                 </select>
               </div>
 
-              <div id="sub">
+              <div id="view_sub">
                 <input type="hidden" name="pelajaran_kategori_sub">
               </div>
 
@@ -174,3 +205,48 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+    function sub(id,target){
+
+      $.ajax({
+        url: '<?php echo base_url('pelajaran/get') ?>',
+        type: 'POST',
+        dataType: 'json',
+        data: {id: id},
+      })
+      .done(function(data) {
+        var sub = jQuery.parseJSON(data.kategori_sub);
+
+        if (!(sub == '' || sub == null)) {
+          //ada
+          
+          var html = '';
+
+          html += '<span>';
+          html += '<div class="form-group">';
+          html += '<label>Sub Kategori</label>';
+          html += '<select class="form-control" required="" name="pelajaran_kategori_sub">';
+
+          $.each(sub, function(index) {
+             
+             html += '<option value="'+index+'">'+sub[index]+'</option>';
+
+          });
+          
+          html += '</select>';
+          html += '</div>';
+
+          $('#'+target).empty();
+          $('#'+target).append(html);
+          
+        }else{
+          html = '<input type="hidden" name="pelajaran_kategori_sub">';
+          $('#'+target).empty();
+          $('#'+target).append(html);
+        }
+
+      });
+      
+    }
+  </script>
