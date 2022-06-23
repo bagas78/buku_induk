@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 12, 2022 at 08:59 PM
+-- Generation Time: Jun 23, 2022 at 07:18 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -89,8 +89,29 @@ CREATE TABLE `t_kategori` (
 
 INSERT INTO `t_kategori` (`kategori_id`, `kategori_nama`, `kategori_alpha`, `kategori_sub`, `kategori_hapus`) VALUES
 (3, 'Muatan Nasional', 'A', '[\"\"]', 0),
-(4, 'Muatan Kewilayahan', 'B', '[\"\"]', 0),
+(4, 'Muatan Kewilayahan', 'B', 'null', 0),
 (5, 'Kelompok C (Permintaan)', 'C', '[\"Dasar Bidang Keahlian *)\",\"Dasar Program Keahlian *)\",\"Paket Keahlian *) Lintas Minat\\/Pendalaman Minat\"]', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_kelengkapan`
+--
+
+CREATE TABLE `t_kelengkapan` (
+  `kelengkapan_id` int(11) NOT NULL,
+  `kelengkapan_user` text NOT NULL DEFAULT '',
+  `kelengkapan_data` text NOT NULL DEFAULT '',
+  `kelengkapan_hapus` int(11) NOT NULL DEFAULT 0,
+  `kelengkapan_tanggal` date NOT NULL DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_kelengkapan`
+--
+
+INSERT INTO `t_kelengkapan` (`kelengkapan_id`, `kelengkapan_user`, `kelengkapan_data`, `kelengkapan_hapus`, `kelengkapan_tanggal`) VALUES
+(1, '3', '{\"a1\":\"15\",\"a2\":\"5\",\"a3\":\"0\",\"b1\":\"Merdeka Cell\",\"b2\":\"-\",\"b3\":\"Kademangan\",\"b4\":\"-\",\"b5\":\"Jualan Pulsa\",\"b6\":\"-\",\"c1\":\"Basket\",\"c2\":\"Pramuka\",\"c3\":\"Paskibra\",\"d1\":\"12\",\"d2\":\"kademangan\",\"d3\":\"lulus\",\"d4\":\"2022-06-23\"}', 0, '2022-06-23');
 
 -- --------------------------------------------------------
 
@@ -103,6 +124,7 @@ CREATE TABLE `t_pelajaran` (
   `pelajaran_nama` text NOT NULL,
   `pelajaran_kategori` text NOT NULL,
   `pelajaran_kategori_sub` text NOT NULL,
+  `pelajaran_kkm` text NOT NULL,
   `pelajaran_tanggal` date NOT NULL DEFAULT curdate(),
   `pelajaran_hapus` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
@@ -111,13 +133,45 @@ CREATE TABLE `t_pelajaran` (
 -- Dumping data for table `t_pelajaran`
 --
 
-INSERT INTO `t_pelajaran` (`pelajaran_id`, `pelajaran_nama`, `pelajaran_kategori`, `pelajaran_kategori_sub`, `pelajaran_tanggal`, `pelajaran_hapus`) VALUES
-(1, 'Pendidikan Agama dan Pekerti', '3', '', '2022-06-13', 0),
-(2, 'Pendidikan Pancasila dan Kewarganegaraan', '3', '', '2022-06-13', 0),
-(3, 'Bahasa Indonesia', '3', '', '2022-06-13', 0),
-(4, 'Matematika', '3', '', '2022-06-13', 0),
-(5, 'Sejarah Indonesia', '3', '', '2022-06-13', 0),
-(6, 'Bahasa Inggris', '3', '', '2022-06-13', 0);
+INSERT INTO `t_pelajaran` (`pelajaran_id`, `pelajaran_nama`, `pelajaran_kategori`, `pelajaran_kategori_sub`, `pelajaran_kkm`, `pelajaran_tanggal`, `pelajaran_hapus`) VALUES
+(1, 'Pendidikan Agama dan Pekerti', '3', '', '70', '2022-06-13', 0),
+(2, 'Pendidikan Pancasila dan Kewarganegaraan', '3', '', '70', '2022-06-13', 0),
+(3, 'Bahasa Indonesia', '3', '', '70', '2022-06-13', 0),
+(4, 'Matematika', '3', '', '70', '2022-06-13', 0),
+(5, 'Sejarah Indonesia', '3', '', '70', '2022-06-13', 0),
+(6, 'Bahasa Inggris', '3', '', '70', '2022-06-13', 0),
+(8, 'Seni Budaya', '4', '', '70', '2022-06-14', 0),
+(9, 'Pendidikan Jasmani Olah Raga & Kesehatan', '4', '', '70', '2022-06-14', 0),
+(10, 'Muatan Peminatan Kejuruan', '4', '', '70', '2022-06-14', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_penilaian`
+--
+
+CREATE TABLE `t_penilaian` (
+  `penilaian_id` int(11) NOT NULL,
+  `penilaian_user` text NOT NULL,
+  `penilaian_semester` text NOT NULL,
+  `penilaian_np_nilai` text NOT NULL,
+  `penilaian_np_predikat` text NOT NULL,
+  `penilaian_nk_nilai` text NOT NULL,
+  `penilaian_nk_predikat` text NOT NULL,
+  `penilaian_nss_mapel` text NOT NULL,
+  `penilaian_type` set('text','file') NOT NULL DEFAULT '',
+  `penilaian_file` text NOT NULL,
+  `penilaian_tanggal` date NOT NULL DEFAULT curdate(),
+  `penilaian_hapus` int(11) NOT NULL DEFAULT 0
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_penilaian`
+--
+
+INSERT INTO `t_penilaian` (`penilaian_id`, `penilaian_user`, `penilaian_semester`, `penilaian_np_nilai`, `penilaian_np_predikat`, `penilaian_nk_nilai`, `penilaian_nk_predikat`, `penilaian_nss_mapel`, `penilaian_type`, `penilaian_file`, `penilaian_tanggal`, `penilaian_hapus`) VALUES
+(3, '3', '1', '85', 'B', '100', 'A', 'SB', 'text', '', '2022-06-21', 0),
+(11, '3', '2', '', '', '', '', '', 'file', 'd3b0eb901da135ff4a4a5a3a3258a232.png', '2022-06-23', 0);
 
 -- --------------------------------------------------------
 
@@ -190,10 +244,22 @@ ALTER TABLE `t_kategori`
   ADD PRIMARY KEY (`kategori_id`);
 
 --
+-- Indexes for table `t_kelengkapan`
+--
+ALTER TABLE `t_kelengkapan`
+  ADD PRIMARY KEY (`kelengkapan_id`);
+
+--
 -- Indexes for table `t_pelajaran`
 --
 ALTER TABLE `t_pelajaran`
   ADD PRIMARY KEY (`pelajaran_id`);
+
+--
+-- Indexes for table `t_penilaian`
+--
+ALTER TABLE `t_penilaian`
+  ADD PRIMARY KEY (`penilaian_id`);
 
 --
 -- Indexes for table `t_pribadi`
@@ -230,10 +296,22 @@ ALTER TABLE `t_kategori`
   MODIFY `kategori_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
+-- AUTO_INCREMENT for table `t_kelengkapan`
+--
+ALTER TABLE `t_kelengkapan`
+  MODIFY `kelengkapan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `t_pelajaran`
 --
 ALTER TABLE `t_pelajaran`
-  MODIFY `pelajaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `pelajaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+
+--
+-- AUTO_INCREMENT for table `t_penilaian`
+--
+ALTER TABLE `t_penilaian`
+  MODIFY `penilaian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `t_pribadi`
