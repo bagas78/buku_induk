@@ -8,7 +8,7 @@
         <li class="active">Dashboard</li>
       </ol>
     </section> 
-
+ 
     <!-- Main content --> 
     <section class="content">
 
@@ -50,6 +50,7 @@
               <tr>
                 <th>Pelajaran</th>
                 <th>Kategori</th>
+                <th>KKM</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -58,19 +59,20 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
-                  <td><?php echo $key['pelajaran_nama'] ?></td>
-                  <td><?php echo $key['kategori_nama'] ?></td>
+                  <td><?php echo @$key['pelajaran_nama'] ?></td>
+                  <td><?php echo @$key['kategori_nama'] ?></td>
+                  <td><?php echo @$key['pelajaran_kkm'] ?></td>
                   <td style="width: 50px;">
                     <div>
-                    <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['pelajaran_id'] ?>"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo $key['pelajaran_id'] ?>"><i class="fa fa-trash"></i></button>
+                    <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo @$key['pelajaran_id'] ?>"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo @$key['pelajaran_id'] ?>"><i class="fa fa-trash"></i></button>
 
                     </div>
                   </td>
                 </tr>
 
                  <!--modal hapus-->
-                    <div class="modal fade" id="modalHapus<?php echo $key['pelajaran_id'] ?>">
+                    <div class="modal fade" id="modalHapus<?php echo @$key['pelajaran_id'] ?>">
                       <div class="modal-dialog" align="center">
                         <div class="modal-content" style="max-width: 300px;">
                           <div class="modal-header">
@@ -79,7 +81,7 @@
                               <h4>Confirmed ?</h4>
                             </div>
                           <div class="modal-body" align="center">
-                             <a href="<?php echo base_url() ?>pelajaran/delete/<?php echo $key['pelajaran_id'] ?>"><button class="btn btn-success" style="width: 49%;">Yes</button></a>
+                             <a href="<?php echo base_url() ?>pelajaran/delete/<?php echo @$key['pelajaran_id'] ?>"><button class="btn btn-success" style="width: 49%;">Yes</button></a>
                              <button class="btn btn-danger" data-dismiss="modal" style="width: 49%;">No</button>
                           </div>
                         </div>
@@ -87,7 +89,7 @@
                      </div> 
 
 
-                <div class="modal fade" id="modal-edit<?php echo $key['pelajaran_id'] ?>">
+                <div class="modal fade" id="modal-edit<?php echo @$key['pelajaran_id'] ?>">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -96,15 +98,15 @@
                         <h4 class="modal-title">Edit Data</h4>
                       </div>
                       <div class="modal-body">
-                        <form role="form" method="post" action="<?php echo base_url('pelajaran/update/'.$key['pelajaran_id']) ?>" enctype="multipart/form-data">
+                        <form role="form" method="post" action="<?php echo base_url('pelajaran/update/'.@$key['pelajaran_id']) ?>" enctype="multipart/form-data">
                           <div class="box-body">
                             <div class="form-group"> 
                               <label>Pelajaran</label>
-                              <input required="" type="text" name="pelajaran_nama" class="form-control" placeholder="Pelajaran" value="<?php echo $key['pelajaran_nama'] ?>">
+                              <input required="" type="text" name="pelajaran_nama" class="form-control" placeholder="Pelajaran" value="<?php echo @$key['pelajaran_nama'] ?>">
                             </div>
                             <div class="form-group">
                               <label>Kategori</label>
-                              <select id="kategori<?php echo $key['pelajaran_id'] ?>" onchange="sub(this.value,'view_sub<?php echo $key["pelajaran_id"] ?>')" class="form-control" required="" name="pelajaran_kategori">
+                              <select id="kategori<?php echo @$key['pelajaran_id'] ?>" onchange="sub(this.value,'view_sub<?php echo @$key["pelajaran_id"] ?>')" class="form-control" required="" name="pelajaran_kategori">
                                 <option value="" hidden="">-- Pilih --</option>
                                 <?php foreach ($kategori_data as $kat): ?>
                                   <option value="<?php echo $kat['kategori_id'] ?>"><?php echo $kat['kategori_nama'] ?></option>
@@ -112,13 +114,18 @@
                               </select>
 
                               <script type="text/javascript">
-                                $('#kategori<?php echo $key['pelajaran_id'] ?>').val(<?php echo $key['pelajaran_kategori'] ?>).change();
+                                $('#kategori<?php echo @$key['pelajaran_id'] ?>').val(<?php echo @$key['pelajaran_kategori'] ?>).change();
                               </script>
                             </div>
 
-                            <div id="view_sub<?php echo $key['pelajaran_id'] ?>">
+                            <div class="form-group"> 
+                              <label>KKM</label>
+                              <input required="" type="number" name="pelajaran_kkm" class="form-control" placeholder="KKM" value="<?php echo @$key['pelajaran_kkm'] ?>">
+                            </div>
 
-                              <?php $sub = json_decode($key['kategori_sub']); ?>
+                            <div id="view_sub<?php echo @$key['pelajaran_id'] ?>">
+
+                              <?php $sub = json_decode(@$key['kategori_sub']); ?>
 
                               <?php if (@$sub[0] == '' || @$sub == null): ?>
                                 <!--kosong-->
@@ -128,14 +135,14 @@
 
                                 <!-- ada kategori -->
                                 <label>Sub Kategori</label>
-                                <select id="sub<?php echo $key['pelajaran_id'] ?>" class="form-control" required="" name="pelajaran_kategori_sub">
+                                <select id="sub<?php echo @$key['pelajaran_id'] ?>" class="form-control" required="" name="pelajaran_kategori_sub">
                                   <?php foreach ($sub as $i => $value): ?>
                                     <option value="<?php echo $i ?>"><?php echo $value ?></option>
                                   <?php endforeach ?>
                                 </select>
 
                                 <script type="text/javascript">
-                                  $('#sub<?php echo $key['pelajaran_id'] ?>').val(<?php echo $key['pelajaran_kategori_sub'] ?>).change();
+                                  $('#sub<?php echo @$key['pelajaran_id'] ?>').val(<?php echo @$key['pelajaran_kategori_sub'] ?>).change();
                                 </script>
                               
                               <?php endif ?>
@@ -187,6 +194,11 @@
                     <option value="<?php echo $kat['kategori_id'] ?>"><?php echo $kat['kategori_nama'] ?></option>
                   <?php endforeach ?>
                 </select>
+              </div>
+
+              <div class="form-group"> 
+                <label>KKM</label>
+                <input required="" type="number" name="pelajaran_kkm" class="form-control" placeholder="KKM" value="">
               </div>
 
               <div id="view_sub">

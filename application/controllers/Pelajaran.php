@@ -19,7 +19,7 @@ class Pelajaran extends CI_Controller{
 		    $this->load->view('v_template_admin/admin_footer');
 
 		}
-		else{
+		else{ 
 			redirect(base_url('login'));
 		} 
 	} 
@@ -28,6 +28,7 @@ class Pelajaran extends CI_Controller{
 							'pelajaran_nama' => @$_POST['pelajaran_nama'],
 							'pelajaran_kategori' => @$_POST['pelajaran_kategori'],
 							'pelajaran_kategori_sub' => @$_POST['pelajaran_kategori_sub'],
+							'pelajaran_kkm' => @$_POST['pelajaran_kkm'],
 						);
 
 		$this->db->set($set);
@@ -61,6 +62,7 @@ class Pelajaran extends CI_Controller{
 							'pelajaran_nama' => @$_POST['pelajaran_nama'],
 							'pelajaran_kategori' => @$_POST['pelajaran_kategori'],
 							'pelajaran_kategori_sub' => @$_POST['pelajaran_kategori_sub'],
+							'pelajaran_kkm' => @$_POST['pelajaran_kkm'],
 						);
 
 		$this->db->where('pelajaran_id',$id);

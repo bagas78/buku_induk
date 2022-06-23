@@ -225,6 +225,12 @@
               </ul>
             </li>
 
+            <li <?php echo @$penilaian; ?>>
+              <a href="<?php echo base_url() ?>penilaian">
+                <i class="fa fa-pencil"></i> <span>Penilaian Semester</span>
+              </a>
+            </li>
+
           <?php endif ?>
 
           <?php if ($this->session->userdata('level') == 3): ?>
