@@ -18,7 +18,7 @@
         <i class="icon fa fa-close"></i>
         <?php echo $this->session->flashdata('gagal'); ?>
       </div>
-    <?php endif ?>
+    <?php endif ?> 
  
     <?php if ($this->session->flashdata('success')): ?>
       <div class="alert alert-success alert-dismissible">
@@ -204,29 +204,41 @@
             $('#urutan').val(data.kategori_alpha).text(data.kategori_alpha);
             $('#mata').val(data.kategori_nama);
 
-            var sub = jQuery.parseJSON(data.kategori_sub);
-
-            var num = 0;
-            for (var i = 0; i < sub.length; i++) {
-
-              //copy and insert value
-              var copy = $('#copy').clone().removeAttr('hidden',true);
-              var value = copy.find('input').val(sub[i]);
-              $('#paste').append(copy);
-              
-              num ++;
-            }
-
-            if (num == sub.length) {
-              
-              //hapus element copy sesudah loop            
-              $('#first').empty();
+            if (data.kategori_sub == '') {
 
               //action
               $('#form').attr('action', '<?php echo base_url('kategori/update/') ?>'+id);
 
               //modal
               $('#modal-click').click();
+
+            }else{
+
+              var sub = jQuery.parseJSON(data.kategori_sub);
+
+              var num = 0;
+              for (var i = 0; i < sub.length; i++) {
+
+                //copy and insert value
+                var copy = $('#copy').clone().removeAttr('hidden',true);
+                var value = copy.find('input').val(sub[i]);
+                $('#paste').append(copy);
+                
+                num ++;
+              }
+
+              if (num == sub.length) {
+                
+                //hapus element copy sesudah loop            
+                $('#first').empty();
+
+                //action
+                $('#form').attr('action', '<?php echo base_url('kategori/update/') ?>'+id);
+
+                //modal
+                $('#modal-click').click();
+              }
+            
             }
 
           });

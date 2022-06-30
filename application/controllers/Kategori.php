@@ -6,7 +6,7 @@ class Kategori extends CI_Controller{
 	}  
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
-			$data['pelajaran_active'] = 'active';
+			$data['pelajaran_active'] = 'active'; 
 			$data['kategori'] = 'active';
 		    $data['title'] = 'Kategori';
 
@@ -17,7 +17,7 @@ class Kategori extends CI_Controller{
 		    foreach ($db as $key) {
 		    	$arr[] .= $key['kategori_alpha'];
 		    }
-
+ 
 		   	$merge = array_merge(range('A', 'Z'));
 		   	$diff = array_diff($merge, $arr);
 		   	//
@@ -35,11 +35,17 @@ class Kategori extends CI_Controller{
 		} 
 	} 
 	function add(){ 
+
+		if ($_POST['sub'][0] == '') {
+			$sub = '';
+		} else {
+			$sub = json_encode(@$_POST['sub']);
+		}
 		
 		$set = array(
 						'kategori_nama' => $_POST['kategori_nama'], 
 						'kategori_alpha' => $_POST['kategori_alpha'], 
-						'kategori_sub' => json_encode(@$_POST['sub']),
+						'kategori_sub' => $sub,
 					);
 
 		if ($this->query_builder->add('t_kategori',$set)) {
@@ -58,10 +64,17 @@ class Kategori extends CI_Controller{
 		echo json_encode($db);
 	}
 	function update($id){
+
+		if ($_POST['sub'][0] == '') {
+			$sub = '';
+		} else {
+			$sub = json_encode(@$_POST['sub']);
+		}
+
 		$set = array(
 						'kategori_nama' => $_POST['kategori_nama'], 
 						'kategori_alpha' => $_POST['kategori_alpha'],
-						'kategori_sub' => json_encode(@$_POST['sub']),
+						'kategori_sub' => $sub,
 					);
 
 		if ($this->query_builder->update('t_kategori',$set,'kategori_id ='.$id)) {

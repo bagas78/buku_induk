@@ -3,6 +3,10 @@
     background: whitesmoke;
     padding: 1%;
   }
+  .y{
+    background: cornsilk;
+    padding: 1%;
+  }
   .title{
     font-weight: 600;
     background: darkgray;
@@ -13,11 +17,11 @@
     margin-bottom: 2%;
   }
 </style>
-
-<section class="content-header">
+ 
+<section class="content-header"> 
       <h1>
-        <?php echo $title; ?>
-        <small>Control panel</small>
+        <?php echo $title; ?> 
+        <small>Control panel</small> 
       </h1> 
       <ol class="breadcrumb">
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
@@ -59,7 +63,18 @@
         </div>
         <div class="box-body">
 
-          <div align="center"><h4 class="title">SEMESTER <?php echo @$semester ?></h4></div>
+          <table class="table table-bordered" style="background: #f4f4f4;">
+            <tr>
+              <td>Nama</td>
+              <td><?php echo $data['user_name'] ?></td>
+            </tr>
+            <tr>
+              <td>Semester</td>
+              <td><?php echo $user ?></td>
+            </tr>
+          </table>
+
+          <br/>
          
           <form method="POST" action="<?php echo base_url('penilaian/save') ?>" enctype="multipart/form-data">
 
@@ -107,77 +122,89 @@
 
             <div id="text">
 
-              <h4 class="x">NP : Nilai Pengetahuan</h4>
+              <form role="form" method="post" action="" enctype="multipart/form-data">
 
-              <div class="form-group col-md-5 row">
-                <label>ANGKA 1 - 100</label>
-                <input class="form-control" type="number" name="np_nilai" value="<?php echo @$data['penilaian_np_nilai'] ?>">
+              <div class="box-body">
+
+              <?php foreach ($kategori_data as $kat): ?>
+
+                <?php if ($kat['kategori_sub'] == ''): ?>
+                  <!-- tanpa sub -->
+                  <h4 class="x"><?php echo $kat['kategori_nama'] ?></h4>
+
+                  <?php foreach ($pelajaran_data as $pel): ?>
+                    
+                      <?php if ($kat['kategori_id'] == $pel['pelajaran_kategori'] && $pel['pelajaran_kategori_sub'] == ''): ?>
+
+                        <div class="form-group"> 
+                          <label><?php echo $pel['pelajaran_nama'] ?></label>
+                        
+                          <div class="row">
+                            
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="<?php echo $pel['pelajaran_id'].'np' ?>" class="form-control" value="" placeholder="NP">
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="<?php echo $pel['pelajaran_id'].'nkk' ?>" class="form-control" value="" placeholder="NKK">
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="" class="form-control" value="<?php echo $pel['pelajaran_id'].'nsss' ?>" placeholder="NSSS">
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      <?php endif ?>
+                    
+                  <?php endforeach ?>
+
+                <?php else: ?>
+
+                  <!-- dengan sub -->
+                  <h4 class="x"><?php echo $kat['kategori_nama'] ?></h4>
+                  <?php $arr = json_decode($kat['kategori_sub'], true); ?>
+
+                  <?php foreach ($arr as $key => $value): ?>
+                    
+                    <h5 class="y"><?php echo $value ?></h5>
+
+                    <?php foreach ($pelajaran_data as $pel): ?>
+
+                      <?php if ($pel['pelajaran_kategori'] == $kat['kategori_id'] && $pel['pelajaran_kategori_sub'] == $key): ?>
+                        
+                        <div class="form-group"> 
+                          <label><?php echo $pel['pelajaran_nama'] ?></label>
+                        
+                          <div class="row">
+                            
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="" class="form-control" value="<?php echo $pel['pelajaran_id'].'np'.$key ?>" placeholder="NP">
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="<?php echo $pel['pelajaran_id'].'nkk'.$key ?>" class="form-control" value="" placeholder="NKK">
+                            </div>
+                            <div class="col-md-4 col-xs-4">
+                              <input type="number" name="" class="form-control" value="<?php echo $pel['pelajaran_id'].'nsss'.$key ?>" placeholder="NSSS">
+                            </div>
+
+                          </div>
+
+                        </div>
+
+                      <?php endif ?>
+
+                    <?php endforeach ?>
+
+                  <?php endforeach ?>
+
+                <?php endif ?>
+
+              <?php endforeach ?>
+
               </div>
 
-              <div class="clearfix"></div>
-              
-              <div class="form-group col-md-5 row">
-                <label>PREDIKAT A/B/C/D</label>
-                <select id="np_predikat" class="form-control" name="np_predikat">
-                  <option value="" hidden="">-- Pilih --</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-
-                <script type="text/javascript">
-                  $('#np_predikat').val('<?php echo $data['penilaian_np_predikat'] ?>').change();
-                </script>
-
-              </div>
-
-              <div class="clearfix"></div>
-
-              <h4 class="x">NK : Nilai Keterampilan</h4>
-
-              <div class="form-group col-md-5 row">
-                <label>ANGKA 1 - 100</label>
-                <input class="form-control" type="number" name="nk_nilai" value="<?php echo $data['penilaian_nk_nilai'] ?>">
-              </div>
-
-              <div class="clearfix"></div>
-              
-              <div class="form-group col-md-5 row">
-                <label>PREDIKAT A/B/C/D</label>
-                <select id="nk_predikat" class="form-control" name="nk_predikat">
-                  <option value="" hidden="">-- Pilih --</option>
-                  <option value="A">A</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="D">D</option>
-                </select>
-
-                <script type="text/javascript">
-                  $('#nk_predikat').val('<?php echo $data['penilaian_nk_predikat'] ?>').change();
-                </script>
-
-              </div>
-
-              <div class="clearfix"></div>
-
-              <h4 class="x">NSSS : Nilai Sikap Spiritual dan Sosial</h4>
-              
-              <div class="form-group col-md-5 row">
-                <label>DALAM MAPEL SB/B/C/K</label>
-                <select id="nsss_mapel" class="form-control" name="nsss_mapel">
-                  <option value="" hidden="">-- Pilih --</option>
-                  <option value="SB">SB</option>
-                  <option value="B">B</option>
-                  <option value="C">C</option>
-                  <option value="K">K</option>
-                </select>
-
-                <script type="text/javascript">
-                  $('#nsss_mapel').val('<?php echo $data['penilaian_nss_mapel'] ?>').change();
-                </script>
-
-              </div>
+              </form>
 
             </div>
 

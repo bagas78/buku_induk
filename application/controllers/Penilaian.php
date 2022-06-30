@@ -31,7 +31,7 @@ class Penilaian extends CI_Controller{
 
 		$semester = $_POST['semester'];
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0")->row_array();
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian as a JOIN t_user as b ON a.penilaian_user = b.user_id WHERE a.penilaian_user = '$user' AND a.penilaian_semester = '$semester' AND a.penilaian_hapus = 0")->row_array();
 
 		if (@$data['data']) {
 			// edit
@@ -40,6 +40,10 @@ class Penilaian extends CI_Controller{
 			// new
 			$data['status'] = 1;
 		}
+
+		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0")->result_array();
+
+		$data['pelajaran_data'] =  $this->db->query("SELECT * FROM t_pelajaran WHERE pelajaran_hapus = 0")->result_array();
 		
 		$data['penilaian'] = 'class="active"';
 		$data['title'] = 'Penilaian Semester';

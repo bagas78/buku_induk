@@ -20,7 +20,7 @@
               <div class="inner">
                 <h3>0</h3>
 
-                <p>User</p>
+                <p>NUll</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
@@ -36,7 +36,7 @@
             <div class="inner">
               <h3>0</h3>
 
-              <p>Penduduk</p>
+              <p>NUll</p>
             </div>
             <div class="icon">
               <i class="fa fa-user-circle-o"></i>
@@ -52,7 +52,7 @@
               <div class="inner">
                 <h3>0</h3>
 
-                <p>Kriteria</p>
+                <p>NUll</p>
               </div>
               <div class="icon">
                 <i class="fa fa-file"></i>
@@ -68,7 +68,7 @@
               <div class="inner">
                 <h3>0</h3>
 
-                <p>Sub Kriteria</p>
+                <p>NUll</p>
               </div>
               <div class="icon">
                 <i class="fa fa-file"></i>
@@ -80,7 +80,7 @@
       </div>
 
       <!-- AREA CHART -->
-      <div class="box box-primary">
+      <!-- <div class="box box-primary">
         <div class="box-header with-border">
           <h3 class="box-title">Hasil Rangking</h3>
 
@@ -95,8 +95,7 @@
           <div id="bar-chart" style="height: 300px;"></div>
 
         </div>
-        <!-- /.box-body -->
-      </div>
+      </div> -->
 
       
 <!-- jQuery 3 -->
