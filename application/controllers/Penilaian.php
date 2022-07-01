@@ -70,11 +70,7 @@ class Penilaian extends CI_Controller{
 			$set = array(
 							'penilaian_user' => $user, 
 							'penilaian_semester' => $semester, 
-							'penilaian_np_nilai' => $_POST['np_nilai'], 
-							'penilaian_np_predikat' => $_POST['np_predikat'], 
-							'penilaian_nk_nilai' => $_POST['nk_nilai'], 
-							'penilaian_nk_predikat' => $_POST['nk_predikat'], 
-							'penilaian_nss_mapel' => $_POST['nsss_mapel'], 
+							'penilaian_data' => json_encode($_POST),
 							'penilaian_type' => $type, 
 						);
 
