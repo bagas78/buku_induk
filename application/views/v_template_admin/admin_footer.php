@@ -58,6 +58,8 @@
 
 <script src="<?php echo base_url() ?>adminLTE/bower_components/ckeditor/ckeditor.js"></script>
 
+<script src="<?php echo base_url('assets/js/') ?>printThis.js"></script>
+
 <script>
 $(function () {
     // Replace the <textarea id="editor1"> with a CKEditor

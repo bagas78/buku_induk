@@ -72,7 +72,7 @@
             </tr>
             <tr>
               <td>Semester</td>
-              <td><?php echo $user ?></td>
+              <td><?php echo $semester ?></td>
             </tr>
           </table>
 
@@ -168,14 +168,14 @@
                             </div>
 
                             <div class="col-md-4 col-xs-4">
-                              <span>NKK (Nilai Keterampilan)</span>
+                              <span>NK (Nilai Keterampilan)</span>
 
                               <div class="row">
                                 <div class="col-md-6">
-                                  <input type="number" name="<?php echo $pel['pelajaran_id'].'_nkk_angka' ?>" class="form-control" value="<?php echo @$json[$pel['pelajaran_id'].'_nkk_angka'] ?>" placeholder="ANGKA (1 - 100)">
+                                  <input type="number" name="<?php echo $pel['pelajaran_id'].'_nk_angka' ?>" class="form-control" value="<?php echo @$json[$pel['pelajaran_id'].'_nk_angka'] ?>" placeholder="ANGKA (1 - 100)">
                                 </div>  
                                 <div class="col-md-6">
-                                  <select id="<?php echo $pel['pelajaran_id'].'_nkk_predikat' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_nkk_predikat' ?>">
+                                  <select id="<?php echo $pel['pelajaran_id'].'_nk_predikat' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_nk_predikat' ?>">
                                     <option value="" hidden="">PREDIKAT</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -184,7 +184,7 @@
                                   </select>
 
                                   <script type="text/javascript">
-                                    $('#<?php echo $pel['pelajaran_id'].'_nkk_predikat' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_nkk_predikat'] ?>').change();
+                                    $('#<?php echo $pel['pelajaran_id'].'_nk_predikat' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_nk_predikat'] ?>').change();
                                   </script>
 
                                 </div>  
@@ -192,20 +192,20 @@
                             </div>
 
                             <div class="col-md-4 col-xs-4">
-                              <span>NSSS (Nilai Sikap Spiritual dan Sosial)</span>
+                              <span>NSS (Nilai Sikap Spiritual dan Sosial)</span>
 
                               <div class="row">
                                 <div class="col-md-12">
-                                  <select id="<?php echo $pel['pelajaran_id'].'_nsss_mapel' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_nsss_mapel' ?>">
+                                  <select id="<?php echo $pel['pelajaran_id'].'_nss_mapel' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_nss_mapel' ?>">
                                     <option value="" hidden="">DALAM MAPEL</option>
                                     <option value="SB">SB</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
-                                    <option value="CK">CK</option>
+                                    <option value="K">K</option>
                                   </select>
 
                                   <script type="text/javascript">
-                                    $('#<?php echo $pel['pelajaran_id'].'_nsss_mapel' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_nsss_mapel'] ?>').change();
+                                    $('#<?php echo $pel['pelajaran_id'].'_nss_mapel' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_nss_mapel'] ?>').change();
                                   </script>
 
                                 </div>  
@@ -268,14 +268,14 @@
                             </div>
 
                             <div class="col-md-4 col-xs-4">
-                              <span>NKK (Nilai Keterampilan)</span>
+                              <span>NK (Nilai Keterampilan)</span>
 
                               <div class="row">
                                 <div class="col-md-6">
-                                  <input type="number" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_angka' ?>" class="form-control" value="<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_angka'] ?>" placeholder="1 - 100">
+                                  <input type="number" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_angka' ?>" class="form-control" value="<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_angka'] ?>" placeholder="1 - 100">
                                 </div>  
                                 <div class="col-md-6">
-                                  <select id="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_predikat' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_predikat' ?>">
+                                  <select id="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_predikat' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_predikat' ?>">
                                     <option value="" hidden="">PREDIKAT</option>
                                     <option value="A">A</option>
                                     <option value="B">B</option>
@@ -284,7 +284,7 @@
                                   </select>
 
                                   <script type="text/javascript">
-                                    $('#<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_predikat' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nkk_predikat'] ?>').change();
+                                    $('#<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_predikat' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nk_predikat'] ?>').change();
                                   </script>
 
                                 </div>  
@@ -292,20 +292,20 @@
                             </div>
 
                             <div class="col-md-4 col-xs-4">
-                              <span>NSSS (Nilai Sikap Spiritual dan Sosial)</span>
+                              <span>NSS (Nilai Sikap Spiritual dan Sosial)</span>
 
                               <div class="row">
                                 <div class="col-md-12">
-                                  <select id="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nsss_mapel' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nsss_mapel' ?>">
+                                  <select id="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nss_mapel' ?>" class="form-control" name="<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nss_mapel' ?>">
                                     <option value="" hidden="">DALAM MAPEL</option>
                                     <option value="SB">SB</option>
                                     <option value="B">B</option>
                                     <option value="C">C</option>
-                                    <option value="CK">CK</option>
+                                    <option value="K">K</option>
                                   </select>
 
                                   <script type="text/javascript">
-                                    $('#<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nsss_mapel' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nsss_mapel'] ?>').change();
+                                    $('#<?php echo $pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nss_mapel' ?>').val('<?php echo @$json[$pel['pelajaran_id'].'_'.$pel['pelajaran_kategori_sub'].'_nss_mapel'] ?>').change();
                                   </script>
 
                                 </div>  

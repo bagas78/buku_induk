@@ -225,4 +225,19 @@ class Penilaian extends CI_Controller{
 		redirect(base_url('penilaian'));
 
 	}
+	function view($user = '',$semester = 1){
+
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian as a JOIN t_user as b ON a.penilaian_user = b.user_id WHERE a.penilaian_user = '$user' AND a.penilaian_semester = '$semester'")->row_array();
+
+		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0 ORDER BY kategori_alpha ASC")->result_array();
+
+		$data['pelajaran_data'] =  $this->db->query("SELECT * FROM t_pelajaran WHERE pelajaran_hapus = 0")->result_array();
+
+		$data['penilaian'] = 'class="active"';
+	    $data['title'] = 'Penilaian Semester';
+
+	    $this->load->view('v_template_admin/admin_header',$data);
+	    $this->load->view('penilaian/view');
+	    $this->load->view('v_template_admin/admin_footer');
+	}
 }
