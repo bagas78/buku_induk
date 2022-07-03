@@ -1,3 +1,11 @@
+<style type="text/css">
+  .next{
+    border: 1px solid #ccc;
+    width: 50px;
+    margin-left: 20px;
+  }
+</style>
+
 <section class="content-header">
   <h1>
     <?php echo $title; ?>
@@ -45,14 +53,24 @@
 
     <div class="print-body">
 
+      <img class="file" hidden="" style="width: 100%;" src="<?php echo base_url('assets/gambar/penilaian/'.@$data['penilaian_file']) ?>">
+
       <table class="table table-bordered table-responssive table-striped">
         <tr>
-          <td>Nama</td>
-          <td><?php echo $data['user_name'] ?></td>
+          <td>Nama Peserta Didik</td>
+          <td><?php echo @$user_data['user_name'] ?></td>
+        </tr>
+        <tr>
+          <td>Nomor Induk Siswa Nasional</td>
+          <td><?php echo @$user_data['user_nisn'] ?></td>
+        </tr>
+        <tr>
+          <td>Nomor Induk Siswa Sekolah</td>
+          <td><?php echo @$user_data['user_nis'] ?></td>
         </tr>
         <tr>
           <td>Semester</td>
-          <td><?php echo $data['penilaian_semester'] ?></td>
+          <td><?php echo @$semester ?></td>
         </tr>
       </table>
 
@@ -169,14 +187,34 @@
     </div>
 
       <hr/>
+      
+      <form method="POST" action="<?php echo base_url('penilaian/view/'.$user) ?>">
+         <button type="button" class="btn btn-success" onclick="(preview())">Print <i class="fa fa-print"></i></button>
 
-      <button class="btn btn-success" onclick="(preview())">Print <i class="fa fa-print"></i></button>
-      <button class="btn btn-primary">Next <i class="fa fa-angle-double-right"></i></button>
+        <div style="width: max-content; float: right;">
+          <input min="1" max="8" class="btn next" type="number" name="semester" value="<?php echo $semester ?>">
+          <button type="submit" class="btn btn-primary">Next <i class="fa fa-angle-double-right"></i></button>
+        </div>
+      </form>
 
     </div>
   </div>
 
 <script type="text/javascript">
+
+  <?php if ($data['penilaian_type'] == 'file'): ?>
+      
+    //hidden
+    $('.file').removeAttr('hidden', true);
+    $('.table').attr('hidden', true);
+  
+  <?php else: ?>
+
+    //hidden
+    $('.table').removeAttr('hidden', true);
+    $('.file').attr('hidden', true);
+
+  <?php endif ?>
 
   //no urut
   $('.no').each(function(index, el) {

@@ -1,9 +1,9 @@
-<?php $json = json_decode($data['penilaian_data'], true) ?>
+<?php $json = json_decode(@$data['penilaian_data'], true) ?>
 
 <style type="text/css">
   .x{
     background: whitesmoke;
-    padding: 1%;
+    padding: 1%; 
   }
   .y{
     background: cornsilk;
@@ -68,11 +68,11 @@
           <table class="table table-bordered" style="background: #f4f4f440;">
             <tr>
               <td>Nama</td>
-              <td><?php echo $data['user_name'] ?></td>
+              <td><?php echo @$nama ?></td>
             </tr>
             <tr>
               <td>Semester</td>
-              <td><?php echo $semester ?></td>
+              <td><?php echo @$semester ?></td>
             </tr>
           </table>
 

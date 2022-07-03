@@ -225,31 +225,35 @@
               </ul>
             </li>
 
+          <?php endif ?>
+
+          <?php if ($this->session->userdata('level') > 1): ?>
+
             <li <?php echo @$penilaian; ?>>
               <a href="<?php echo base_url() ?>penilaian">
-                <i class="fa fa-pencil"></i> <span>Penilaian Semester</span>
+                <i class="fa fa-pencil"></i> <span><?= ($this->session->userdata('level') == 2)?'Penilaian':'Nilai' ?> Semester</span>
+              </a>
+            </li>
+
+            <li <?php echo @$lintas; ?>>
+              <a href="<?php echo base_url() ?>lintas">
+                <i class="fa fa-files-o"></i> <span>Lintas Minat / Pendalaman</span>
+              </a>
+            </li>
+            
+            <li <?php echo @$pribadi; ?>>
+              <a href="<?php echo base_url() ?>pribadi">
+                <i class="fa fa-drivers-license"></i> <span>Data <?= ($this->session->userdata('level') == 2)?'Siswa':'Pribadi' ?></span>
               </a>
             </li>
 
           <?php endif ?>
-
+          
           <?php if ($this->session->userdata('level') == 3): ?>
-            
-            <li <?php echo @$pribadi; ?>>
-              <a href="<?php echo base_url() ?>pribadi">
-                <i class="fa fa-drivers-license"></i> <span>Data Pribadi</span>
-              </a>
-            </li>
 
             <li <?php echo @$dokumen; ?>>
               <a href="<?php echo base_url() ?>dokumen">
                 <i class="fa fa-upload"></i> <span>Upload Dokumen</span>
-              </a>
-            </li>
-
-            <li <?php echo @$nilai; ?>>
-              <a href="<?php echo base_url() ?>nilai">
-                <i class="fa fa-tasks"></i> <span>Nilai Semester</span>
               </a>
             </li>
 

@@ -6,22 +6,31 @@ class Penilaian extends CI_Controller{
 	}  
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
+
+			$level = $this->session->userdata('level');
+
 			$data['penilaian'] = 'class="active"';
 		    $data['title'] = 'Penilaian Semester';
 
-		    $data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3")->result_array();
+		    if ($level == 2) {
+		    	// petugas
+		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3")->result_array();
+
+		    } else {
+		    	// siswa
+
+		    	$siswa = $this->session->userdata('id');
+
+		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3 AND a.user_id = '$siswa'")->result_array();
+
+		    }
 
 		    $data['semester_data'] = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0")->result_array();
-
-		    // $x = json_decode($data['data'][0]['kelengkapan_data']);
-
-		    // echo '<pre>';
-		    // print_r($x->a1);
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('penilaian/index');
 		    $this->load->view('v_template_admin/admin_footer');
-
+ 
 		}
 		else{
 			redirect(base_url('login'));
@@ -31,7 +40,7 @@ class Penilaian extends CI_Controller{
 
 		$semester = $_POST['semester'];
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian as a JOIN t_user as b ON a.penilaian_user = b.user_id WHERE a.penilaian_user = '$user' AND a.penilaian_semester = '$semester' AND a.penilaian_hapus = 0")->row_array();
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0")->row_array();
 
 		if (@$data['data']) {
 			// edit
@@ -47,6 +56,10 @@ class Penilaian extends CI_Controller{
 		
 		$data['penilaian'] = 'class="active"';
 		$data['title'] = 'Penilaian Semester';
+
+		$db_user = $this->db->query("SELECT * FROM t_user WHERE user_id = '$user'")->row_array();
+
+		$data['nama'] = @$db_user['user_name'];
 
 		$data['semester'] = $semester;
 		$data['user'] = $user;
@@ -227,11 +240,23 @@ class Penilaian extends CI_Controller{
 	}
 	function view($user = '',$semester = 1){
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian as a JOIN t_user as b ON a.penilaian_user = b.user_id WHERE a.penilaian_user = '$user' AND a.penilaian_semester = '$semester'")->row_array();
+		if (@$_POST['semester']) {
+			$sem = $_POST['semester'];
+		} else {
+			$sem = $semester;
+		}
+		
+
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$sem'")->row_array();
 
 		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0 ORDER BY kategori_alpha ASC")->result_array();
 
 		$data['pelajaran_data'] =  $this->db->query("SELECT * FROM t_pelajaran WHERE pelajaran_hapus = 0")->result_array();
+
+		$data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_id = '$user'")->row_array();
+
+		$data['semester'] = $sem;
+		$data['user'] = $user;
 
 		$data['penilaian'] = 'class="active"';
 	    $data['title'] = 'Penilaian Semester';

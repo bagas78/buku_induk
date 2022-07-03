@@ -599,6 +599,8 @@
                             
                         </div>
 
+                        <input type="hidden" name="id" value="<?= ($this->session->userdata('level') == 2)? $user : $this->session->userdata('id') ?>">
+
                         <button class="btn btn-success pull-right" type="submit">Finish!</button>
                     </div>
                 </div>

@@ -33,7 +33,7 @@
         <div class="box-header with-border">
 
             <div align="left">
-              <button class="btn btn-danger" data-toggle="modal" data-target="#modal-album"><i class="fa fa-plus"></i> Tambah Data</button>
+              <button class="btn btn-danger" data-toggle="modal" data-target="#modal-album"><i class="fa fa-plus"></i> Upload Dokumen</button>
             </div>
 
           <div class="box-tools pull-right">
@@ -48,10 +48,8 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>Nama</th>
-                <th>NIS</th>
-                <th>NISN</th>
-                <th>Email</th>
+                <th>Dokumen</th>
+                <th>Type</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -60,21 +58,20 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
-                  <td><?php echo @$key['user_name'] ?></td>
-                  <td><?php echo @$key['user_nis'] ?></td>
-                  <td><?php echo @$key['user_nisn'] ?></td>
-                  <td><?php echo @$key['user_email'] ?></td>
-                  <td style="width: 50px;">
+                  <td><?php echo $key['dokumen_name'] ?></td>
+                  <td><?php echo $key['dokumen_type'] ?></td>
+                  <td style="width: 80px;">
                     <div>
-                    <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo @$key['user_id'] ?>"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo @$key['user_id'] ?>"><i class="fa fa-trash"></i></button>
+                    <a href="<?php echo base_url('assets/gambar/dokumen/'.$key['dokumen_file']) ?>" download><button class="btn btn-xs btn-success" type="button"><i class="fa fa-download"></i></button></a>
+                    <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['dokumen_id'] ?>"><i class="fa fa-edit"></i></button>
+                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo $key['dokumen_id'] ?>"><i class="fa fa-trash"></i></button>
 
                     </div>
                   </td>
                 </tr>
 
                  <!--modal hapus-->
-                    <div class="modal fade" id="modalHapus<?php echo @$key['user_id'] ?>">
+                    <div class="modal fade" id="modalHapus<?php echo $key['dokumen_id'] ?>">
                       <div class="modal-dialog" align="center">
                         <div class="modal-content" style="max-width: 300px;">
                           <div class="modal-header">
@@ -83,7 +80,7 @@
                               <h4>Confirmed ?</h4>
                             </div>
                           <div class="modal-body" align="center">
-                             <a href="<?php echo base_url() ?>siswa/delete/<?php echo @$key['user_id'] ?>"><button class="btn btn-success" style="width: 49%;">Yes</button></a>
+                             <a href="<?php echo base_url() ?>dokumen/delete/<?php echo $key['dokumen_id'] ?>"><button class="btn btn-success" style="width: 49%;">Yes</button></a>
                              <button class="btn btn-danger" data-dismiss="modal" style="width: 49%;">No</button>
                           </div>
                         </div>
@@ -91,7 +88,7 @@
                      </div> 
 
 
-                <div class="modal fade" id="modal-edit<?php echo @$key['user_id'] ?>">
+                <div class="modal fade" id="modal-edit<?php echo $key['dokumen_id'] ?>">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -100,28 +97,20 @@
                         <h4 class="modal-title">Edit Data</h4>
                       </div>
                       <div class="modal-body">
-                        <form role="form" method="post" action="<?php echo base_url('siswa/update/'.@$key['user_id']) ?>" enctype="multipart/form-data">
+                        <form role="form" method="post" action="<?php echo base_url('dokumen/update/'.$key['dokumen_id']) ?>" enctype="multipart/form-data">
                           <div class="box-body">
                             <div class="form-group">
-                              <label>Nama</label>
-                              <input required="" type="text" name="user_name" class="form-control" placeholder="Nama Lengkap" value="<?php echo @$key['user_name'] ?>">
+                              <label>Nama Dokumen</label>
+                              <input required="" type="text" name="dokumen_name" class="form-control" placeholder="Nama Dokumen" value="<?php echo $key['dokumen_name'] ?>">
                             </div>
                             <div class="form-group">
-                              <label>NIS</label>
-                              <input required="" type="number" name="user_nis" class="form-control" placeholder="Nomor Induk Siswa Sekolah" value="<?php echo @$key['user_nis'] ?>">
+                              <label>Deskripsi Dokumen</label>
+                              <textarea class="form-control" name="dokumen_deskripsi" required="" placeholder="Deskripsi"><?php echo $key['dokumen_deskripsi'] ?></textarea>
                             </div>
                             <div class="form-group">
-                              <label>NISN</label>
-                              <input required="" type="number" name="user_nisn" class="form-control" placeholder="Nomor Induk Siswa Nasional" value="<?php echo @$key['user_nisn'] ?>">
-                            </div>
-                            <div class="form-group">
-                              <label>Email</label>
-                              <input required="" type="text" name="user_email" class="form-control" placeholder="Email" value="<?php echo @$key['user_email'] ?>">
-                            </div>
-                            <div class="form-group">
-                              <label>Pasword</label>
-                              <input type="password" name="user_password" class="form-control" placeholder="Password" value="">
-                              <small class="text-danger">* isi jika ingin mengganti password</small>
+                              <label>Pilih File</label>
+                              <input type="file" name="file" class="form-control">
+                              <small class="text-danger">* isi file untuk mengganti file</small>
                             </div>
                           </div>
                           <!-- /.box-body -->
@@ -151,30 +140,22 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Tambah Data</h4>
+          <h4 class="modal-title">Upload Dokumen</h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url('siswa/add') ?>" enctype="multipart/form-data">
+          <form role="form" method="post" action="<?php echo base_url('dokumen/add') ?>" enctype="multipart/form-data">
             <div class="box-body">
               <div class="form-group">
-                <label>Nama</label>
-                <input required="" type="text" name="user_name" class="form-control" placeholder="Nama Lengkap">
+                <label>Nama Dokumen</label>
+                <input required="" type="text" name="dokumen_name" class="form-control" placeholder="Nama Dokumen">
               </div>
               <div class="form-group">
-                <label>NIS</label>
-                <input required="" type="number" name="user_nis" class="form-control" placeholder="Nomor Induk Siswa Sekolah">
+                <label>Deskripsi Dokumen</label>
+                <textarea class="form-control" name="dokumen_deskripsi" required="" placeholder="Deskripsi"></textarea>
               </div>
               <div class="form-group">
-                <label>NISN</label>
-                <input required="" type="number" name="user_nisn" class="form-control" placeholder="Nomor Induk Siswa Nasional">
-              </div>
-              <div class="form-group">
-                <label>Email</label>
-                <input required="" type="text" name="user_email" class="form-control" placeholder="Email">
-              </div>
-              <div class="form-group">
-                <label>Pasword</label>
-                <input required="" type="password" name="user_password" class="form-control" placeholder="Password" value="">
+                <label>Pilih File</label>
+                <input required="" type="file" name="file" class="form-control">
               </div>
             </div>
             <!-- /.box-body -->
@@ -188,9 +169,3 @@
       </div>
     </div>
   </div>
-
-  <script type="text/javascript">
-   function res(){
-    $('.reset').click();
-   }
-  </script>

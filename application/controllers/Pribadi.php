@@ -3,29 +3,60 @@ class Pribadi extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
-	}   
+	}    
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 
 			$id = $this->session->userdata('id');
-
+			$level = $this->session->userdata('level');
+ 
 			$data['pribadi'] = 'class="active"';
-		    $data['title'] = 'Pribadi';
-		    $db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+		    $data['title'] = 'Data Pribadi';
+		    
 
-		    $data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+		    if ($level == 2) {
+		    	// petugas
+		    	
+		    	$data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_level = 3")->result_array();
 
-		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('pribadi/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    	$this->load->view('v_template_admin/admin_header',$data);
+			    $this->load->view('pribadi/table');
+			    $this->load->view('v_template_admin/admin_footer');
+
+		    } else {
+		    	// siswa
+
+		    	$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+
+		    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+
+		    	$this->load->view('v_template_admin/admin_header',$data);
+			    $this->load->view('pribadi/index');
+			    $this->load->view('v_template_admin/admin_footer');
+		    }
 
 		}
 		else{
 			redirect(base_url('login'));
 		} 
 	} 
+	function view($id){
+
+		$data['pribadi'] = 'class="active"';
+		$data['title'] = 'Data Pribadi';
+
+		$data['user'] = $id;
+
+		$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+
+    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+
+    	$this->load->view('v_template_admin/admin_header',$data);
+	    $this->load->view('pribadi/index');
+	    $this->load->view('v_template_admin/admin_footer');
+	}
 	function save(){
-		$id = $this->session->userdata('id');
+		$id = $_POST['id'];
 
 		$set = array(
 						'pribadi_siswa' => $id,

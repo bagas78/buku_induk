@@ -32,6 +32,8 @@ class Siswa extends CI_Controller{
 			$set = array(
 							'user_id' => $id,
 							'user_name' => $_POST['user_name'], 
+							'user_nis' => $_POST['user_nis'],
+							'user_nisn' => $_POST['user_nisn'], 
 							'user_email' => $x, 
 							'user_password' => md5($_POST['user_password']),
 							'user_tanggal'	=> date('Y-m-d'),
@@ -60,6 +62,8 @@ class Siswa extends CI_Controller{
 		$x = $_POST['user_email'];
 		$set = array(
 						'user_name' => $_POST['user_name'], 
+						'user_nis' => $_POST['user_nis'],
+						'user_nisn' => $_POST['user_nisn'], 
 						'user_email' => $x, 
 						'user_password' => md5($_POST['user_password']),
 						'user_tanggal'	=> date('Y-m-d'),

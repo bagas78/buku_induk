@@ -11,16 +11,33 @@
  
     <!-- Main content -->  
     <section class="content"> 
+
+      <?php if ($this->session->flashdata('gagal')): ?>
+        <div class="alert alert-danger alert-dismissible">
+           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <i class="icon fa fa-close"></i>
+          <?php echo $this->session->flashdata('gagal'); ?>
+        </div>
+      <?php endif ?>
+   
+      <?php if ($this->session->flashdata('success')): ?>
+        <div class="alert alert-success alert-dismissible">
+           <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+          <i class="icon fa fa-check"></i>
+          <?php echo $this->session->flashdata('success'); ?>
+        </div>
+      <?php endif ?>
+
       <!-- Small boxes (Stat box) -->
       <div class="row">
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
            <a href="#">
             <div class="small-box bg-aqua">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?php echo @$siswa_num ?></h3>
 
-                <p>NUll</p>
+                <p>SISWA</p>
               </div>
               <div class="icon">
                 <i class="fa fa-users"></i>
@@ -29,60 +46,43 @@
           </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
          <a href="#">
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>0</h3>
+              <h3><?php echo @$kategori_num ?></h3>
 
-              <p>NUll</p>
+              <p>KATEGORI PELAJARAN</p>
             </div>
             <div class="icon">
-              <i class="fa fa-user-circle-o"></i>
+              <i class="fa fa-th-large"></i>
             </div>
           </div>
         </a>
         </div>
         <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
+        <div class="col-lg-4 col-xs-6">
           <!-- small box -->
           <a href="#">
             <div class="small-box bg-yellow">
               <div class="inner">
-                <h3>0</h3>
+                <h3><?php echo @$pelajaran_num ?></h3>
 
-                <p>NUll</p>
+                <p>PELAJARAN</p>
               </div>
               <div class="icon">
-                <i class="fa fa-file"></i>
+                <i class="fa fa-file-text-o"></i>
               </div>
             </div>
           </a>
         </div>
-        <!-- ./col -->
-        <div class="col-lg-3 col-xs-6">
-          <!-- small box -->
-          <a href="#">
-            <div class="small-box bg-red">
-              <div class="inner">
-                <h3>0</h3>
-
-                <p>NUll</p>
-              </div>
-              <div class="icon">
-                <i class="fa fa-file"></i>
-              </div>
-            </div>
-          </div>
-        </a>
-        <!-- ./col -->
       </div>
 
       <!-- AREA CHART -->
-      <!-- <div class="box box-primary">
+      <div class="box box-default">
         <div class="box-header with-border">
-          <h3 class="box-title">Hasil Rangking</h3>
+          <h3 class="box-title">DATA SEKOLAH</h3>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
@@ -91,11 +91,123 @@
           </div>
         </div>
         <div class="box-body">
-          
-          <div id="bar-chart" style="height: 300px;"></div>
+         
+        <form style="background: aliceblue; padding: 2%; border-radius: 20px;" method="POST" action="<?= ($this->session->userdata('level') < 3)? base_url('sekolah/save'):'#' ?>">
+           
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>NAMA SEKOLAH</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_nama" class="form-control" value="<?php echo @$data['sekolah_nama'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>NSS / NPSN</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_nss" class="form-control" value="<?php echo @$data['sekolah_nss'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>ALAMAT SEKOLAH</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_alamat" class="form-control" value="<?php echo @$data['sekolah_alamat'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>DESA / KELURAHAN</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_desa" class="form-control" value="<?php echo @$data['sekolah_desa'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>KECAMATAN</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_kecamatan" class="form-control" value="<?php echo @$data['sekolah_kecamatan'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>KABUPATEN / KOTA</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_kabupaten" class="form-control" value="<?php echo @$data['sekolah_kabupaten'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>PROVINSI</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_provinsi" class="form-control" value="<?php echo @$data['sekolah_provinsi'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>NAMA KEPALA SEKOLAH</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_nama_kepala" class="form-control" value="<?php echo @$data['sekolah_nama_kepala'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>NIP KEPALA SEKOLAH</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_nip_kepala" class="form-control" value="<?php echo @$data['sekolah_nip_kepala'] ?>">
+                </div>  
+              </div>
+            </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>TAHUN PELAJARAN</label>
+                </div>
+                <div class="col-md-6">
+                  <input type="text" name="sekolah_tahun_pelajaran" class="form-control" value="<?php echo @$data['sekolah_tahun_pelajaran'] ?>">
+                </div>  
+              </div>
+            </div>
+
+            <?php if ($this->session->userdata('level') < 3): ?>
+
+            <hr>
+
+            <button class="btn btn-success" type="submit">Simpan <i class="fa fa-check"></i></button>
+            <button class="btn btn-danger" type="reset">Reset <i class="fa fa-times"></i></button>
+
+            <?php endif ?>
+
+          </form>
 
         </div>
-      </div> -->
+      </div>
 
       
 <!-- jQuery 3 -->
@@ -158,43 +270,6 @@
 <script src="<?php echo base_url() ?>adminLTE/bower_components/select2/dist/js/select2.full.min.js"></script>
 
 <script src="<?php echo base_url() ?>adminLTE/bower_components/ckeditor/ckeditor.js"></script>
-
-<script type="text/javascript">
-     
-     /*
-     * BAR CHART
-     * ---------
-     */
-
-    var bar_data = {
-      data : [
-                <?php foreach ($peringkat as $key): ?>
-                ['<?php //echo $key['nama'] ?>', <?php echo $key['nilai'] ?>],
-                <?php endforeach ?>
-             ],
-      color: '#d73925'
-    }
-    $.plot('#bar-chart', [bar_data], {
-      grid  : {
-        borderWidth: 1,
-        borderColor: '#d73925',
-        tickColor  : '#d73925'
-      },
-      series: {
-        bars: {
-          show    : true,
-          barWidth: 0.5,
-          align   : 'center'
-        }
-      },
-      xaxis : {
-        mode      : 'categories',
-        tickLength: 0
-      }
-    })
-    /* END BAR CHART */
-
-</script>
 
  <script type="text/javascript">
     <!--

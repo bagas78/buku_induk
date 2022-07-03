@@ -83,8 +83,13 @@
 
                     <a href="<?php echo base_url('penilaian/view/'.$key['user_id']) ?>"><button class="btn btn-xs btn-danger"><i class="fa fa-eye"></i></button></a>
 
+                    <?php if ($this->session->userdata('level == 2')): ?>
+
                     <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></button>
-                    <button type="button" data-toggle="modal" data-target="#modal-print<?php echo $key['user_id'] ?>" class="btn btn-xs btn-success"><i class="fa fa-print"></i></button>
+
+                    <!-- <button type="button" data-toggle="modal" data-target="#modal-print<?php //echo $key['user_id'] ?>" class="btn btn-xs btn-success"><i class="fa fa-print"></i></button> -->
+
+                    <?php endif ?>
 
                     </div>
                   </td>
