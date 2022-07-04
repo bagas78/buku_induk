@@ -18,7 +18,7 @@
         <i class="icon fa fa-close"></i>
         <?php echo $this->session->flashdata('gagal'); ?>
       </div>
-    <?php endif ?>
+    <?php endif ?> 
  
     <?php if ($this->session->flashdata('success')): ?>
       <div class="alert alert-success alert-dismissible">
@@ -64,6 +64,8 @@
                     <div>
 
                     <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
+
+                    <a href="<?php echo base_url('pribadi/print/'.$key['user_id']) ?>"><button class="btn btn-xs btn-success"><i class="fa fa-print"></i></button></a>
 
                     </div>
                   </td>

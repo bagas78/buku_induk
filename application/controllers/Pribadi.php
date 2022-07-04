@@ -149,4 +149,13 @@ class Pribadi extends CI_Controller{
 		
 		redirect(base_url('pribadi'));
 	}
+	function print($id){
+
+		$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+
+    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+
+    	$this->load->view('pribadi/print');
+	    
+	}
 }

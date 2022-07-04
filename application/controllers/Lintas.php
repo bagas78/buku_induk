@@ -7,10 +7,18 @@ class Lintas extends CI_Controller{
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 			$data['lintas'] = 'class="active"';
-		    $data['title'] = 'Lintas Minat / Pendalaman';
+		    $data['title'] = 'Lintas Minat / Pendalaman'; 
 
+		    $level = $this->session->userdata('level');
 		    $id = $this->session->userdata('id');
-		    $data['data'] = $this->db->query("SELECT * FROM t_lintas WHERE lintas_hapus = 0 AND lintas_user = '$id'")->result_array();
+
+		    if ($level == 2) {
+		    	// petugas
+		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0")->result_array();
+		    } else {
+		    	// siswa
+		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0 AND a.lintas_user = '$id'")->result_array();
+		    }
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('lintas/index');
@@ -40,10 +48,10 @@ class Lintas extends CI_Controller{
 	    	///////////////////	
 
 	    	//jenis file boleh di upload
-	    	$format = ['jpg','png','jpeg','pdf','doc','docx','txt','pdf','xls','xlsx'];
+	    	$format = ['jpg','png','jpeg'];
 
 	    	if (in_array($type[$no], $format)) {
-	    		$path = 'assets/gambar/dokumen';
+	    		$path = 'assets/gambar/lintas';
 	        	move_uploaded_file($_FILES['file']['tmp_name'], $path.'/'.$new_name);
 
 	        	$status = 1;
@@ -55,17 +63,17 @@ class Lintas extends CI_Controller{
 
 	    	if ($status == 1) {
 	    		$set = array(
-	    						'dokumen_user' => $id,
-	    						'dokumen_name' => $_POST['dokumen_name'],
-	    						'dokumen_file' => $new_name,
-	    						'dokumen_deskripsi' => $_POST['dokumen_deskripsi'],
-	    						'dokumen_type' => $_FILES['file']['type'],
+	    						'lintas_user' => $id,
+	    						'lintas_semester' => $_POST['lintas_semester'],
+	    						'lintas_file' => $new_name,
+	    						'lintas_deskripsi' => $_POST['lintas_deskripsi'],
+	    						'lintas_type' => $_FILES['file']['type'],
 	    					);
 	    		$this->db->set($set);
-	    		$this->db->insert('t_dokumen');
+	    		$this->db->insert('t_lintas');
 	    	}
 
-	    	redirect(base_url('dokumen'));
+	    	redirect(base_url('lintas'));
 		}
 	}
 	function update($id){
@@ -86,10 +94,10 @@ class Lintas extends CI_Controller{
 	    	///////////////////	
 
 	    	//jenis file boleh di upload
-	    	$format = ['jpg','png','jpeg','pdf','doc','docx','txt','pdf','xls','xlsx'];
+	    	$format = ['jpg','png','jpeg'];
 
 	    	if (in_array($type[$no], $format)) {
-	    		$path = 'assets/gambar/dokumen';
+	    		$path = 'assets/gambar/lintas';
 	        	move_uploaded_file($_FILES['file']['tmp_name'], $path.'/'.$new_name);
 
 	        	$status = 1;
@@ -101,35 +109,35 @@ class Lintas extends CI_Controller{
 
 	    	if ($status == 1) {
 	    		$set = array(
-	    						'dokumen_name' => $_POST['dokumen_name'],
-	    						'dokumen_file' => $new_name,
-	    						'dokumen_deskripsi' => $_POST['dokumen_deskripsi'],
-	    						'dokumen_type' => $_FILES['file']['type'],
+	    						'lintas_semester' => $_POST['lintas_semester'],
+	    						'lintas_file' => $new_name,
+	    						'lintas_deskripsi' => $_POST['lintas_deskripsi'],
+	    						'lintas_type' => $_FILES['file']['type'],
 	    					);
-	    		$this->db->where('dokumen_id',$id);
+	    		$this->db->where('lintas_id',$id);
 	    		$this->db->set($set);
-	    		$this->db->update('t_dokumen');
+	    		$this->db->update('t_lintas');
 	    	}
 		}else{
 			$set = array(
-    						'dokumen_name' => $_POST['dokumen_name'],
-    						'dokumen_deskripsi' => $_POST['dokumen_deskripsi'],
+    						'lintas_semester' => $_POST['lintas_semester'],
+    						'lintas_deskripsi' => $_POST['lintas_deskripsi'],
     					);
-    		$this->db->where('dokumen_id',$id);
+    		$this->db->where('lintas_id',$id);
     		$this->db->set($set);
-    		$this->db->update('t_dokumen');
+    		$this->db->update('t_lintas');
 		}
 
-		redirect(base_url('dokumen'));
+		redirect(base_url('lintas'));
 	}
 	function delete($id){
         //hapus user
-        $this->db->set('dokumen_hapus',1);
-        $this->db->where('dokumen_id',$id);
-        $this->db->update('t_dokumen');
+        $this->db->set('lintas_hapus',1);
+        $this->db->where('lintas_id',$id);
+        $this->db->update('t_lintas');
 
 		$this->session->set_flashdata('success','Dokumen berhasil di hapus');
 
-		redirect(base_url('dokumen'));
+		redirect(base_url('lintas'));
 	}
 }
