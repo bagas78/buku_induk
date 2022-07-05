@@ -23,7 +23,7 @@
 <body style="padding: 1%; font-size: 12px;">
 
 	<h4 align="center"><b>LEMBAR BUKU INDUK PESERTA DIDIK</b></h4>
-	<h5 align="center">NO. INDUK PESERTA NASIONAL / NO. INDUK SISWA SEKOLAH : </h5>
+	<h5 align="center">NO. INDUK PESERTA NASIONAL / NO. INDUK SISWA SEKOLAH : <?php echo $x['user_nisn'].' / '.$x['user_nis'] ?></h5>
 
 	<br/>
 

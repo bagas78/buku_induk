@@ -23,7 +23,7 @@ class Pribadi extends CI_Controller{
 			    $this->load->view('pribadi/table');
 			    $this->load->view('v_template_admin/admin_footer');
 
-		    } else {
+		    } else { 
 		    	// siswa
 
 		    	$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
@@ -151,7 +151,9 @@ class Pribadi extends CI_Controller{
 	}
 	function print($id){
 
-		$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+		$db = $this->db->query("SELECT * FROM t_pribadi as a JOIN t_user as b ON a.pribadi_siswa = b.user_id WHERE a.pribadi_hapus = 0 AND a.pribadi_siswa = '$id'")->row_array();
+
+		$data['x'] = $db;
 
     	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
 
