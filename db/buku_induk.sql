@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2022 at 08:15 PM
+-- Generation Time: Jul 05, 2022 at 08:59 PM
 -- Server version: 10.4.18-MariaDB
 -- PHP Version: 7.4.16
 
@@ -124,9 +124,18 @@ CREATE TABLE `t_lintas` (
   `lintas_user` text NOT NULL,
   `lintas_semester` text NOT NULL,
   `lintas_file` text NOT NULL,
+  `lintas_type` text NOT NULL,
+  `lintas_deskripsi` text NOT NULL,
   `lintas_tanggal` date NOT NULL DEFAULT curdate(),
   `lintas_hapus` int(11) NOT NULL DEFAULT 0
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_lintas`
+--
+
+INSERT INTO `t_lintas` (`lintas_id`, `lintas_user`, `lintas_semester`, `lintas_file`, `lintas_type`, `lintas_deskripsi`, `lintas_tanggal`, `lintas_hapus`) VALUES
+(1, '3', '2', 'eccbc87e4b5ce2fe28308fd9f2a7baf3.png', 'image/png', 'Piagam Jakarta', '2022-07-05', 0);
 
 -- --------------------------------------------------------
 
@@ -186,7 +195,7 @@ CREATE TABLE `t_penilaian` (
 
 INSERT INTO `t_penilaian` (`penilaian_id`, `penilaian_user`, `penilaian_semester`, `penilaian_data`, `penilaian_type`, `penilaian_file`, `penilaian_tanggal`, `penilaian_hapus`) VALUES
 (3, '3', '1', '{\"semester\":\"1\",\"user\":\"3\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":\"10\",\"1_np_predikat\":\"A\",\"1_nk_angka\":\"10\",\"1_nk_predikat\":\"A\",\"1_nss_mapel\":\"SB\",\"2_np_angka\":\"20\",\"2_np_predikat\":\"B\",\"2_nk_angka\":\"20\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"30\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"30\",\"3_nk_predikat\":\"C\",\"3_nss_mapel\":\"C\",\"4_np_angka\":\"40\",\"4_np_predikat\":\"D\",\"4_nk_angka\":\"40\",\"4_nk_predikat\":\"D\",\"4_nss_mapel\":\"K\",\"5_np_angka\":\"50\",\"5_np_predikat\":\"A\",\"5_nk_angka\":\"50\",\"5_nk_predikat\":\"A\",\"5_nss_mapel\":\"SB\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"B\",\"6_nk_angka\":\"60\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"8_np_angka\":\"70\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"70\",\"8_nk_predikat\":\"C\",\"8_nss_mapel\":\"C\",\"9_np_angka\":\"80\",\"9_np_predikat\":\"D\",\"9_nk_angka\":\"80\",\"9_nk_predikat\":\"D\",\"9_nss_mapel\":\"K\",\"10_np_angka\":\"90\",\"10_np_predikat\":\"A\",\"10_nk_angka\":\"90\",\"10_nk_predikat\":\"A\",\"10_nss_mapel\":\"SB\",\"17_0_np_angka\":\"10\",\"17_0_np_predikat\":\"A\",\"17_0_nk_angka\":\"10\",\"17_0_nk_predikat\":\"A\",\"17_0_nss_mapel\":\"SB\",\"18_1_np_angka\":\"20\",\"18_1_np_predikat\":\"B\",\"18_1_nk_angka\":\"20\",\"18_1_nk_predikat\":\"B\",\"18_1_nss_mapel\":\"B\",\"20_1_np_angka\":\"30\",\"20_1_np_predikat\":\"C\",\"20_1_nk_angka\":\"30\",\"20_1_nk_predikat\":\"C\",\"20_1_nss_mapel\":\"C\",\"19_2_np_angka\":\"40\",\"19_2_np_predikat\":\"D\",\"19_2_nk_angka\":\"40\",\"19_2_nk_predikat\":\"D\",\"19_2_nss_mapel\":\"K\"}', 'text', '', '2022-06-21', 0),
-(11, '3', '2', '', 'file', 'd3b0eb901da135ff4a4a5a3a3258a232.png', '2022-06-23', 0);
+(11, '3', '2', '', 'file', '65445862c29c42c6436210648aaecbe7.jpg', '2022-06-23', 0);
 
 -- --------------------------------------------------------
 
@@ -361,7 +370,7 @@ ALTER TABLE `t_kelengkapan`
 -- AUTO_INCREMENT for table `t_lintas`
 --
 ALTER TABLE `t_lintas`
-  MODIFY `lintas_id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `lintas_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `t_pelajaran`

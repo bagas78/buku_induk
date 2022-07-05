@@ -155,7 +155,10 @@ class Pribadi extends CI_Controller{
 
     	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
 
-    	$this->load->view('pribadi/print');
+    	$this->load->view('pribadi/print',$data);
+
+    	// echo '<pre>';
+    	// print_r($data);
 	    
 	}
 }

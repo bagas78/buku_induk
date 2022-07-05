@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Rastra | Log in</title>
+  <title>BUKU INDUK | LOG IN</title>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -19,10 +19,10 @@
   <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/plugins/iCheck/square/blue.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
 </head>
-<body class="hold-transition login-page" style="background-color: #d2d6de;">
+<body class="hold-transition login-page" style="background-color: #d73925;">
 <div class="login-box">
   <div class="login-logo">
-    <div style="color: white; font-size: 130%; color: #D73925;" class="fa fa-book"> <span style="font-weight: bold;">BUKU INDUK</span></div>
+    <div style="font-size: 115%;color: #ffffff;padding: 3%;" class="fa fa-book"> <span style="font-weight: bold;">BUKU INDUK</span></div>
     <br/>
   </div>
   <!-- /.login-logo -->
