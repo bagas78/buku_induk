@@ -263,7 +263,7 @@
           <h4 class="modal-title">Upload Excel</h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url('import/add') ?>" enctype="multipart/form-data">
+          <form role="form" method="post" action="<?php echo base_url('penilaian/import') ?>" enctype="multipart/form-data">
             <div class="box-body">
               <div class="form-group">
                 <label>Pilih File</label>

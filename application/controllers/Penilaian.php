@@ -268,4 +268,157 @@ class Penilaian extends CI_Controller{
 	    $this->load->view('penilaian/view',$data);
 	    $this->load->view('v_template_admin/admin_footer',$data);
 	}
+	function import(){
+
+		$path = 'assets/';
+        require_once APPPATH . "/third_party/PHPExcel.php";
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'xlsx|xls|csv';
+        $config['remove_spaces'] = TRUE;
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploadFile')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+        }
+
+        if(empty($error)){
+          if (!empty($data['upload_data']['file_name'])) {
+            $import_xls_file = $data['upload_data']['file_name'];
+        } else {
+            $import_xls_file = 0;
+        }
+
+        $inputFileName = $path . $import_xls_file;
+         
+        try {
+
+            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFileName);
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+            $flag = true;
+            $i=0;
+
+            foreach ($allDataInSheet as $value) {
+              if($flag){
+                $flag =false;
+                continue;
+              }
+
+              if ($i > 0) {
+              		
+              	@$nis = $value['A'];	
+              	$id = $this->db->query("SELECT user_id as id  FROM t_user WHERE user_nis = '$nis'")->row_array();
+              	@$user = @$id['id'];
+
+              	if (@$user) {
+
+              		//create json data
+              		$json[$i]['semester'] = $value['C'];
+					$json[$i]['user'] = @$user;
+					$json[$i]['status'] = '1';
+					$json[$i]['type'] = 'text';
+
+              		$json[$i]['1_np_angka'] = $value['D'];
+              		$json[$i]['1_np_predikat'] = $value['E'];
+					$json[$i]['1_nk_angka'] = $value['F'];
+					$json[$i]['1_nk_predikat'] = $value['G'];
+					$json[$i]['1_nss_mapel'] = $value['H'];
+
+					$json[$i]['2_np_angka'] = $value['I'];
+              		$json[$i]['2_np_predikat'] = $value['J'];
+					$json[$i]['2_nk_angka'] = $value['K'];
+					$json[$i]['2_nk_predikat'] = $value['L'];
+					$json[$i]['2_nss_mapel'] = $value['M'];
+
+					$json[$i]['3_np_angka'] = $value['N'];
+              		$json[$i]['3_np_predikat'] = $value['O'];
+					$json[$i]['3_nk_angka'] = $value['P'];
+					$json[$i]['3_nk_predikat'] = $value['Q'];
+					$json[$i]['3_nss_mapel'] = $value['R'];
+
+					$json[$i]['4_np_angka'] = $value['S'];
+              		$json[$i]['4_np_predikat'] = $value['T'];
+					$json[$i]['4_nk_angka'] = $value['U'];
+					$json[$i]['4_nk_predikat'] = $value['V'];
+					$json[$i]['4_nss_mapel'] = $value['W'];
+
+					$json[$i]['5_np_angka'] = $value['X'];
+              		$json[$i]['5_np_predikat'] = $value['Y'];
+					$json[$i]['5_nk_angka'] = $value['Z'];
+					$json[$i]['5_nk_predikat'] = $value['AA'];
+					$json[$i]['5_nss_mapel'] = $value['AB'];
+
+					$json[$i]['6_np_angka'] = $value['AC'];
+              		$json[$i]['6_np_predikat'] = $value['AD'];
+					$json[$i]['6_nk_angka'] = $value['AE'];
+					$json[$i]['6_nk_predikat'] = $value['AF'];
+					$json[$i]['6_nss_mapel'] = $value['AG'];
+
+					$json[$i]['7_np_angka'] = $value['AH'];
+              		$json[$i]['7_np_predikat'] = $value['AI'];
+					$json[$i]['7_nk_angka'] = $value['AJ'];
+					$json[$i]['7_nk_predikat'] = $value['AK'];
+					$json[$i]['7_nss_mapel'] = $value['AL'];
+
+					$json[$i]['8_np_angka'] = $value['AM'];
+              		$json[$i]['8_np_predikat'] = $value['AN'];
+					$json[$i]['8_nk_angka'] = $value['AO'];
+					$json[$i]['8_nk_predikat'] = $value['AP'];
+					$json[$i]['8_nss_mapel'] = $value['AQ'];
+
+					$json[$i]['9_np_angka'] = $value['AR'];
+              		$json[$i]['9_np_predikat'] = $value['AS'];
+					$json[$i]['9_nk_angka'] = $value['AT'];
+					$json[$i]['9_nk_predikat'] = $value['AU'];
+					$json[$i]['9_nss_mapel'] = $value['AV'];
+					//end
+
+              		//data
+              		$insertdata[$i]['penilaian_user'] = @$user;
+              		$insertdata[$i]['penilaian_semester'] = $value['C'];
+              		$insertdata[$i]['penilaian_data'] = json_encode($json[$i]);
+              		$insertdata[$i]['penilaian_type'] = 'text';
+              		$insertdata[$i]['penilaian_file'] = '';	
+              	}
+              }
+
+              $i++;
+            
+            } 
+
+            foreach ($insertdata as $val) {
+            	
+            	$user_id = $val['penilaian_user'];
+            	$user_semester = $val['penilaian_semester'];
+
+            	//cek exist data
+            	$cek = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user_id' AND penilaian_semester = '$user_semester'")->num_rows();
+
+            	if (@!$cek) {
+            		
+            		//save database not exist
+            		$this->db->insert('t_penilaian',$val);		
+            	}
+            }
+
+            //hapus file
+            unlink($path . $import_xls_file);
+
+            $this->session->set_flashdata('success','Data berhasil di tambah');
+
+			redirect(base_url('penilaian'));   
+
+      } catch (Exception $e) {
+           die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME)
+                    . '": ' .$e->getMessage());
+        }
+      }else{
+          echo $error['error'];
+        }
+	}
 }
