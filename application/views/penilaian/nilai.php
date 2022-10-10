@@ -346,7 +346,7 @@
 
 <script type="text/javascript">
 
-  <?php if ($data['penilaian_type'] == 'file'): ?>
+  <?php if (@$data['penilaian_type'] == 'file'): ?>
       
     //hidden
     $('#file').removeAttr('hidden', true);

@@ -26,8 +26,8 @@ class Kategori extends CI_Controller{
 		   	$data['data'] = $db;
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('kategori/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('kategori/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{

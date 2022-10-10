@@ -28,8 +28,8 @@ class Penilaian extends CI_Controller{
 		    $data['semester_data'] = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('penilaian/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('penilaian/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
  
 		}
 		else{
@@ -38,7 +38,7 @@ class Penilaian extends CI_Controller{
 	} 
 	function nilai($user){ 
 
-		$semester = $_POST['semester'];
+		$semester = @$_POST['semester'];
 
 		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0")->row_array();
 
@@ -65,8 +65,11 @@ class Penilaian extends CI_Controller{
 		$data['user'] = $user;
 
 		$this->load->view('v_template_admin/admin_header',$data);
-		$this->load->view('penilaian/nilai');
-		$this->load->view('v_template_admin/admin_footer');
+		$this->load->view('penilaian/nilai',$data);
+		$this->load->view('v_template_admin/admin_footer',$data);
+
+		// echo '<pre>';
+		// print_r(json_decode($data['data']['penilaian_data']));
 		
 	}
 	function save(){
@@ -262,7 +265,7 @@ class Penilaian extends CI_Controller{
 	    $data['title'] = 'Penilaian Semester';
 
 	    $this->load->view('v_template_admin/admin_header',$data);
-	    $this->load->view('penilaian/view');
-	    $this->load->view('v_template_admin/admin_footer');
+	    $this->load->view('penilaian/view',$data);
+	    $this->load->view('v_template_admin/admin_footer',$data);
 	}
 }

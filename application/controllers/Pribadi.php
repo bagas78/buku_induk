@@ -20,8 +20,8 @@ class Pribadi extends CI_Controller{
 		    	$data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_level = 3")->result_array();
 
 		    	$this->load->view('v_template_admin/admin_header',$data);
-			    $this->load->view('pribadi/table');
-			    $this->load->view('v_template_admin/admin_footer');
+			    $this->load->view('pribadi/table',$data);
+			    $this->load->view('v_template_admin/admin_footer',$data);
 
 		    } else { 
 		    	// siswa
@@ -31,8 +31,8 @@ class Pribadi extends CI_Controller{
 		    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
 
 		    	$this->load->view('v_template_admin/admin_header',$data);
-			    $this->load->view('pribadi/index');
-			    $this->load->view('v_template_admin/admin_footer');
+			    $this->load->view('pribadi/index',$data);
+			    $this->load->view('v_template_admin/admin_footer',$data);
 		    }
 
 		}
@@ -52,8 +52,8 @@ class Pribadi extends CI_Controller{
     	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
 
     	$this->load->view('v_template_admin/admin_header',$data);
-	    $this->load->view('pribadi/index');
-	    $this->load->view('v_template_admin/admin_footer');
+	    $this->load->view('pribadi/index',$data);
+	    $this->load->view('v_template_admin/admin_footer',$data);
 	}
 	function save(){
 		$id = $_POST['id'];

@@ -52,6 +52,7 @@
                 <th>NIS</th>
                 <th>NISN</th>
                 <th>Email</th>
+                <th>Tahun Ajaran</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -64,6 +65,7 @@
                   <td><?php echo @$key['user_nis'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
                   <td><?php echo @$key['user_email'] ?></td>
+                  <td><?php echo @$key['user_tahun'] ?></td>
                   <td style="width: 50px;">
                     <div>
                     <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo @$key['user_id'] ?>"><i class="fa fa-edit"></i></button>
@@ -123,6 +125,10 @@
                               <input type="password" name="user_password" class="form-control" placeholder="Password" value="">
                               <small class="text-danger">* isi jika ingin mengganti password</small>
                             </div>
+                            <div class="form-group">
+                              <label>Tahun Ajaran</label>
+                              <input required="" type="text" name="user_tahun" class="form-control" placeholder="Tahun Ajaran" value="<?php echo @$key['user_tahun'] ?>">
+                            </div>
                           </div>
                           <!-- /.box-body -->
 
@@ -175,6 +181,10 @@
               <div class="form-group">
                 <label>Pasword</label>
                 <input required="" type="password" name="user_password" class="form-control" placeholder="Password" value="">
+              </div>
+              <div class="form-group">
+                <label>Tahun Ajaran</label>
+                <input required="" type="text" name="user_tahun" class="form-control" placeholder="Tahun Ajaran">
               </div>
             </div>
             <!-- /.box-body -->

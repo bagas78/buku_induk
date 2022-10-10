@@ -15,8 +15,8 @@ class Pelajaran extends CI_Controller{
 		    $data['kategori_data'] = $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('pelajaran/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('pelajaran/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{ 

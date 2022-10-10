@@ -11,8 +11,8 @@ class Petugas extends CI_Controller{
 		    $data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = '2'")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('petugas/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('petugas/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{

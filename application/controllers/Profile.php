@@ -12,8 +12,8 @@ class Profile extends CI_Controller{
 			$data['profile'] = 'class="active"';
 			$data['title'] = 'Profile';
 			$this->load->view('v_template_admin/admin_header',$data);
-			$this->load->view('profile/index');
-			$this->load->view('v_template_admin/admin_footer');
+			$this->load->view('profile/index',$data);
+			$this->load->view('v_template_admin/admin_footer',$data);
 		}else{
 			redirect(base_url('login')); 
 		}

@@ -13,8 +13,8 @@ class Dokumen extends CI_Controller{
 		    $data['data'] = $this->db->query("SELECT * FROM t_dokumen WHERE dokumen_hapus = 0 AND dokumen_user = '$id'")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('dokumen/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('dokumen/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{

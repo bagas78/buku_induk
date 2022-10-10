@@ -265,6 +265,12 @@
           </a>
         </li>
 
+        <li <?php echo @$import; ?>>
+          <a href="<?php echo base_url() ?>import">
+            <i class="fa fa-file-excel-o"></i> <span>Import Excel</span>
+          </a>
+        </li>
+
       </ul>
     </section>
     <!-- /.sidebar -->

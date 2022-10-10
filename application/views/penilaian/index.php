@@ -46,7 +46,10 @@
       <div class="box">
         <div class="box-header with-border">
 
-          <br/>
+          <div align="left">
+              <a href="<?php echo base_url('assets/excel/penilaian.xlsx') ?>" title="Template Excel" Download><button class="btn btn-primary"><i class="fa fa-download"></i> Download Template</button></a>
+              <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
+            </div>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -72,11 +75,19 @@
                 <tr>
                   <td><?php echo $key['user_name'] ?></td>
                   <td>
+                    
+                    <!-- semester di nilai -->
+
                     <?php $arr = array(); ?>
-                    <?php foreach ($semester_data as $sem): ?>
+                    <?php $user = $key['user_id']; ?>
+                    <?php $semester = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0 AND penilaian_user = $user")->result_array(); ?>
+                    <?php foreach ($semester as $sem): ?>
                       <?php $arr[] =+ $sem['semester']; ?>
                     <?php endforeach ?>
                     <?php echo(implode(',', $arr)); ?>
+
+                    <!-- end -->
+
                   </td>
                   <td style="width: 80px;">
                     <div>
@@ -85,7 +96,7 @@
 
                     <?php if ($this->session->userdata('level') == 2): ?>
 
-                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal"><i class="fa fa-pencil"></i></button>
+                    <button type="button" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal<?php echo $key['user_id']; ?>"><i class="fa fa-pencil"></i></button>
 
                     <!-- <button type="button" data-toggle="modal" data-target="#modal-print<?php //echo $key['user_id'] ?>" class="btn btn-xs btn-success"><i class="fa fa-print"></i></button> -->
 
@@ -95,7 +106,7 @@
                   </td>
                 </tr>
 
-                <div class="modal fade" id="modal">
+                <div class="modal fade" id="modal<?php echo $key['user_id']; ?>">
                   <div class="modal-dialog">
                     <div class="modal-content">
                       <div class="modal-header">
@@ -242,3 +253,31 @@
 
         </div>
       </div>
+
+  <div class="modal fade" id="modal-import">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload Excel</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" method="post" action="<?php echo base_url('import/add') ?>" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="form-group">
+                <label>Pilih File</label>
+                <input required="" type="file" name="uploadFile" class="form-control">
+              </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

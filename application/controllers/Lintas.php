@@ -21,8 +21,8 @@ class Lintas extends CI_Controller{
 		    }
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('lintas/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('lintas/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{

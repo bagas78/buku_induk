@@ -13,7 +13,7 @@ class Login extends CI_Controller{
 
     $cek = $this->query_builder->login('t_user',$email,$pass);
    
-        if (count($cek[0]['user_email']) > 0) { 
+        if (@$cek[0]['user_email']) { 
           
               //ciptakan sesi
               $this->session->set_userdata('name',$cek[0]['user_name']);

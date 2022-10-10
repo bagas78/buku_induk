@@ -11,8 +11,8 @@ class Siswa extends CI_Controller{
 		    $data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = '3'")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
-		    $this->load->view('siswa/index');
-		    $this->load->view('v_template_admin/admin_footer');
+		    $this->load->view('siswa/index',$data);
+		    $this->load->view('v_template_admin/admin_footer',$data);
 
 		}
 		else{
@@ -38,6 +38,7 @@ class Siswa extends CI_Controller{
 							'user_password' => md5($_POST['user_password']),
 							'user_tanggal'	=> date('Y-m-d'),
 							'user_level' => 3,
+							'user_tahun' => $_POST['user_tahun'],
 						);
 			$this->query_builder->add('t_user',$set);
 
@@ -67,6 +68,7 @@ class Siswa extends CI_Controller{
 						'user_email' => $x, 
 						'user_password' => md5($_POST['user_password']),
 						'user_tanggal'	=> date('Y-m-d'),
+						'user_tahun' => $_POST['user_tahun'],
 					);
 		$this->query_builder->update('t_user',$set,'user_id ='.$id);
 		$this->session->set_flashdata('success','Data berhasil di rubah');
