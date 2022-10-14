@@ -32,7 +32,10 @@
       <div class="box">
         <div class="box-header with-border">
 
-          <br/>
+          <div align="left">
+            <a href="<?php echo base_url('assets/excel/pribadi.xlsx') ?>" title="Template Excel" Download><button class="btn btn-primary"><i class="fa fa-download"></i> Download Template</button></a>
+            <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
+          </div>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -315,7 +318,7 @@
                             <input name="e3" type="text" class="form-control" value="<?php echo @$data['e3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewajiban</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="e4" type="text" class="form-control" value="<?php echo @$data['e4'] ?>" />
                         </div>
                         <div class="form-group">
@@ -361,7 +364,7 @@
                             <input name="f3" type="text" class="form-control" value="<?php echo @$data['f3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewajiban</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="f4" type="text" class="form-control" value="<?php echo @$data['f4'] ?>" />
                         </div>
                         <div class="form-group">
@@ -407,7 +410,7 @@
                             <input name="g3" type="text" class="form-control" value="<?php echo @$data['g3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewajiban</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="g4" type="text" class="form-control" value="<?php echo @$data['g4'] ?>" />
                         </div>
                         <div class="form-group">
@@ -610,3 +613,33 @@
 
         </div>
       </div>
+
+
+<div class="modal fade" id="modal-import">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload Excel</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" method="post" action="<?php echo base_url('pribadi/import') ?>" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="form-group">
+                <label>Pilih File</label>
+                <input required="" type="file" name="uploadFile" class="form-control">
+                <input type="hidden" name="id" value="<?php echo $user; ?>">
+              </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>

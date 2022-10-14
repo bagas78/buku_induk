@@ -3,7 +3,7 @@ class Pribadi extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
-	}    
+	}     
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 
@@ -162,5 +162,188 @@ class Pribadi extends CI_Controller{
     	// echo '<pre>';
     	// print_r($data);
 	    
+	}
+	function import(){
+
+		$path = 'assets/';
+        require_once APPPATH . "/third_party/PHPExcel.php";
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'xlsx|xls|csv';
+        $config['remove_spaces'] = TRUE;
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploadFile')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+        }
+
+        if(empty($error)){
+          if (!empty($data['upload_data']['file_name'])) {
+            $import_xls_file = $data['upload_data']['file_name'];
+        } else {
+            $import_xls_file = 0;
+        }
+
+        $inputFileName = $path . $import_xls_file;
+         
+        try {
+
+            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFileName);
+            $data = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+
+            $json = array(
+
+            			//A. KETERANGAN TENTANG PESERTA DIDIK
+            			'a1' => $data[2]['B'],
+            			'a2' => $data[3]['B'], 
+            			'a3' => $data[4]['B'], 
+            			'a4' => $data[5]['B'], 
+            			'a5' => $data[6]['B'], 
+            			'a6' => $data[7]['B'], 
+            			'a7' => $data[8]['B'], 
+            			'a8' => $data[9]['B'], 
+            			'a9' => $data[10]['B'], 
+            			'a10' => $data[11]['B'], 
+            			'a11' => $data[12]['B'], 
+            			'a12' => $data[13]['B'], 
+
+            			//B. KETERANGAN TEMPAT TINGGAL
+            			'b1' => $data[2]['E'],
+            			'b2' => $data[3]['E'],
+            			'b3' => $data[4]['E'],
+            			'b4' => $data[5]['E'],
+
+            			//C. KETERANGAN KESEHATAN
+            			'c1' => $data[16]['B'],
+            			'c2' => $data[17]['B'],
+            			'c3' => $data[18]['B'],
+            			'c4' => $data[19]['B'],
+            			'c5' => $data[20]['B'],
+
+            			//D. KETERANGAN PENDIDIKAN
+            			'd1' => $data[17]['E'],
+            			'd2' => $data[18]['E'],
+            			'd3' => $data[19]['E'],
+            			'd4' => $data[20]['E'],
+            			'd5' => $data[22]['E'],
+            			'd6' => $data[23]['E'],
+            			'd7' => $data[25]['E'],
+            			'd8' => $data[26]['E'],
+            			'd9' => $data[27]['E'],
+            			'd10' => $data[28]['E'],
+            			'd11' => $data[29]['E'],
+
+            			//E. KETERANGAN TENTANG AYAH KANDUNG
+            			'e1' => $data[32]['B'],
+            			'e2' => $data[33]['B'],
+            			'e3' => $data[34]['B'],
+            			'e4' => $data[35]['B'],
+            			'e5' => $data[36]['B'],
+            			'e6' => $data[37]['B'],
+            			'e7' => $data[38]['B'],
+            			'e8' => $data[39]['B'],
+            			'e9' => $data[40]['B'],
+
+            			//F. KETERANGAN TENTANG IBU KANDUNG
+            			'f1' => $data[32]['E'],
+            			'f2' => $data[33]['E'],
+            			'f3' => $data[34]['E'],
+            			'f4' => $data[35]['E'],
+            			'f5' => $data[36]['E'],
+            			'f6' => $data[37]['E'],
+            			'f7' => $data[38]['E'],
+            			'f8' => $data[39]['E'],
+            			'f9' => $data[40]['E'],
+
+            			//G. KETERANGAN TENTANG WALI
+            			'g1' => $data[43]['B'],
+            			'g2' => $data[44]['B'],
+            			'g3' => $data[45]['B'],
+            			'g4' => $data[46]['B'],
+            			'g5' => $data[47]['B'],
+            			'g6' => $data[48]['B'],
+            			'g7' => $data[49]['B'],
+            			'g8' => $data[50]['B'],
+
+            			//H. KEGEMARAN PESERTA DIDIK
+            			'h1' => $data[43]['E'],
+            			'h2' => $data[44]['E'],
+            			'h3' => $data[45]['E'],
+            			'h4' => $data[46]['E'],
+
+            			//I. KETERANGAN PERKEMBANGAN PESERTA DIDIK
+            			'i1' => $data[54]['B'],
+            			'i2' => $data[55]['B'],
+            			'i3' => $data[56]['B'],
+            			'i4' => $data[57]['B'],
+            			'i5' => $data[58]['B'],
+            			'i6' => $data[59]['B'],
+            			'i7' => $data[60]['B'],
+            			'i8' => $data[61]['B'],
+            			'i9' => $data[62]['B'],
+            			'i10' => $data[64]['B'],
+            			'i11' => $data[65]['B'],
+            			'i12' => $data[67]['B'],
+            			'i13' => $data[68]['B'],
+            			'i14' => $data[69]['B'],
+
+            			//J. KETERANGAN SETELAH SELESAI PENDIDIKAN
+            			'j1' => $data[53]['E'],
+            			'j2' => $data[55]['E'],
+            			'j3' => $data[56]['E'],
+            			'j4' => $data[57]['E'],
+
+            			//kosong
+            			'k1' => '',
+            			'k2' => '',
+            		);
+
+            $id = $_POST['id'];
+
+            $set = array(
+            				'pribadi_siswa' => $id,
+            				'pribadi_data' => json_encode($json),
+            			);
+
+			$cek = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_siswa = '$id'")->num_rows();
+
+			$this->db->set($set);
+
+			//simpan data
+			if ($cek > 0) {
+				//update
+				$this->db->where('pribadi_siswa',$id);
+				if ($this->db->update('t_pribadi')) {
+					$this->session->set_flashdata('success', 'Data berhasil di simpan');
+				} else {
+					$this->session->set_flashdata('gagal', 'Data gagal di simpan');
+				}
+
+			} else {
+				// insert
+				if ($this->db->insert('t_pribadi')) {
+					$this->session->set_flashdata('success', 'Data berhasil di simpan');
+				} else {
+					$this->session->set_flashdata('gagal', 'Data gagal di simpan');
+				}
+			}
+
+            //hapus file
+            unlink($path . $import_xls_file);
+
+			redirect(base_url('pribadi/view/'.$id));   
+
+      } catch (Exception $e) {
+           die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME)
+                    . '": ' .$e->getMessage());
+        }
+      }else{
+          echo $error['error'];
+        }
 	}
 }

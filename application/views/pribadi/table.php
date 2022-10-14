@@ -10,7 +10,7 @@
     </section>  
 
     <!-- Main content --> 
-    <section class="content">
+    <section class="content"> 
 
     <?php if ($this->session->flashdata('gagal')): ?>
       <div class="alert alert-danger alert-dismissible">
@@ -32,7 +32,7 @@
       <div class="box">
         <div class="box-header with-border">
 
-           <br/>
+          <br/>
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -78,3 +78,4 @@
 
         </div>
       </div>
+
