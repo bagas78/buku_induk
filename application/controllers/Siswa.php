@@ -38,7 +38,6 @@ class Siswa extends CI_Controller{
 							'user_password' => md5($_POST['user_password']),
 							'user_tanggal'	=> date('Y-m-d'),
 							'user_level' => 3,
-							'user_tahun' => $_POST['user_tahun'],
 						);
 			$this->query_builder->add('t_user',$set);
 
@@ -68,7 +67,6 @@ class Siswa extends CI_Controller{
 						'user_email' => $x, 
 						'user_password' => md5($_POST['user_password']),
 						'user_tanggal'	=> date('Y-m-d'),
-						'user_tahun' => $_POST['user_tahun'],
 					);
 		$this->query_builder->update('t_user',$set,'user_id ='.$id);
 		$this->session->set_flashdata('success','Data berhasil di rubah');

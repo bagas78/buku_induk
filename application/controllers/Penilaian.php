@@ -26,6 +26,7 @@ class Penilaian extends CI_Controller{
 		    }
 
 		    $data['semester_data'] = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0")->result_array();
+		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('penilaian/index',$data);
@@ -39,15 +40,16 @@ class Penilaian extends CI_Controller{
 	function nilai($user){ 
 
 		$semester = @$_POST['semester'];
+		$tahun = @$_POST['tahun'];
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0")->row_array();
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0 AND penilaian_tahun = '$tahun'")->row_array();
 
 		if (@$data['data']) {
 			// edit
 			$data['status'] = 1;
 		} else {
 			// new
-			$data['status'] = 1;
+			$data['status'] = 0;
 		}
 
 		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0")->result_array();
@@ -64,12 +66,13 @@ class Penilaian extends CI_Controller{
 		$data['semester'] = $semester;
 		$data['user'] = $user;
 
+		$th =  $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
+		$data['tahun_data'] = $th['tahun_text'];
+		$data['tahun_id'] = $th['tahun_id'];
+
 		$this->load->view('v_template_admin/admin_header',$data);
 		$this->load->view('penilaian/nilai',$data);
 		$this->load->view('v_template_admin/admin_footer',$data);
-
-		// echo '<pre>';
-		// print_r(json_decode($data['data']['penilaian_data']));
 		
 	}
 	function save(){
@@ -79,12 +82,14 @@ class Penilaian extends CI_Controller{
 		$status = $_POST['status'];
 		$user = $_POST['user'];
 		$semester = $_POST['semester'];
+		$tahun = $_POST['tahun'];
 
 		if ($type == 'text') {
 
 			// text
 			$set = array(
 							'penilaian_user' => $user, 
+							'penilaian_tahun' => $tahun, 
 							'penilaian_semester' => $semester, 
 							'penilaian_data' => json_encode($_POST),
 							'penilaian_type' => $type, 
@@ -154,10 +159,11 @@ class Penilaian extends CI_Controller{
 				if ($this->upload->do_upload('file')) {
 
 					$set = array(
-										'penilaian_user' => $_POST['user'], 
-										'penilaian_semester' => $_POST['semester'], 
+										'penilaian_user' => $user,
+										'penilaian_tahun' => $tahun, 
+										'penilaian_semester' => $semester, 
 										'penilaian_file' => $new_name, 
-										'penilaian_type' => $_POST['type'], 
+										'penilaian_type' => $type, 
 									);
 
 					if ($status == 1) {
@@ -241,7 +247,24 @@ class Penilaian extends CI_Controller{
 		redirect(base_url('penilaian'));
 
 	}
-	function view($user = '',$semester = 1){
+	function view_table($id){
+		header('Cache-Control: no cache');
+
+		$data['penilaian'] = 'class="active"';
+		$data['title'] = 'Penilaian Semester';
+
+		$tahun = $_POST['tahun'];
+
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian as a JOIN t_tahun as b ON a.penilaian_tahun = b.tahun_id WHERE a.penilaian_user = '$id' AND a.penilaian_tahun = '$tahun'")->result_array();
+		$data['id_user'] = $id;
+		$data['id_tahun'] = $tahun;
+
+		$this->load->view('v_template_admin/admin_header',$data);
+		$this->load->view('penilaian/view_table',$data);
+		$this->load->view('v_template_admin/admin_footer',$data);
+
+	}
+	function view($user = '',$semester = 1,$tahun){
 
 		if (@$_POST['semester']) {
 			$sem = $_POST['semester'];
@@ -250,16 +273,18 @@ class Penilaian extends CI_Controller{
 		}
 		
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$sem'")->row_array();
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$sem' AND penilaian_tahun = '$tahun'")->row_array();
 
 		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0 ORDER BY kategori_alpha ASC")->result_array();
 
 		$data['pelajaran_data'] =  $this->db->query("SELECT * FROM t_pelajaran WHERE pelajaran_hapus = 0")->result_array();
 
 		$data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_id = '$user'")->row_array();
+		$th = $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
 
 		$data['semester'] = $sem;
 		$data['user'] = $user;
+		$data['tahun_data'] = $th['tahun_text'];
 
 		$data['penilaian'] = 'class="active"';
 	    $data['title'] = 'Penilaian Semester';
@@ -269,6 +294,8 @@ class Penilaian extends CI_Controller{
 	    $this->load->view('v_template_admin/admin_footer',$data);
 	}
 	function import(){
+
+		$tahun = @$_POST['penilaian_tahun'];
 
 		$path = 'assets/';
         require_once APPPATH . "/third_party/PHPExcel.php";
@@ -380,6 +407,7 @@ class Penilaian extends CI_Controller{
 
               		//data
               		$insertdata[$i]['penilaian_user'] = @$user;
+              		$insertdata[$i]['penilaian_tahun'] = $tahun;
               		$insertdata[$i]['penilaian_semester'] = $value['C'];
               		$insertdata[$i]['penilaian_data'] = json_encode($json[$i]);
               		$insertdata[$i]['penilaian_type'] = 'text';
@@ -397,7 +425,7 @@ class Penilaian extends CI_Controller{
             	$user_semester = $val['penilaian_semester'];
 
             	//cek exist data
-            	$cek = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user_id' AND penilaian_semester = '$user_semester'")->num_rows();
+            	$cek = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user_id' AND penilaian_semester = '$user_semester' AND penilaian_tahun = '$tahun'")->num_rows();
 
             	if (@!$cek) {
             		

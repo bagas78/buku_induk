@@ -53,8 +53,6 @@
 
     <div class="print-body">
 
-      <img class="file" hidden="" style="width: 100%;" src="<?php echo base_url('assets/gambar/penilaian/'.@$data['penilaian_file']) ?>">
-
       <table class="table table-bordered table-responssive table-striped">
         <tr>
           <td>Nama Peserta Didik</td>
@@ -69,14 +67,20 @@
           <td><?php echo @$user_data['user_nis'] ?></td>
         </tr>
         <tr>
+          <td>Tahun Pelajaran</td>
+          <td><?php echo @$tahun_data ?></td>
+        </tr>
+        <tr>
           <td>Semester</td>
           <td><?php echo @$semester ?></td>
         </tr>
       </table>
 
+      <img class="file" hidden="" style="width: 100%;" src="<?php echo base_url('assets/gambar/penilaian/'.@$data['penilaian_file']) ?>">
+
       <br/>
 
-      <table class="table table-bordered table-responssive">
+      <table id="table" class="table table-bordered table-responssive">
         
         <tr>
           <td rowspan="3" style="vertical-align: middle;">NO</td>
@@ -206,12 +210,12 @@
       
     //hidden
     $('.file').removeAttr('hidden', true);
-    $('.table').attr('hidden', true);
+    $('#table').attr('hidden', true);
   
   <?php else: ?>
 
     //hidden
-    $('.table').removeAttr('hidden', true);
+    $('#table').removeAttr('hidden', true);
     $('.file').attr('hidden', true);
 
   <?php endif ?>

@@ -64,7 +64,7 @@
             <thead>
               <tr>
                 <th>Nama Siswa</th>
-                <th>Semester di nilai</th>
+                <th>NIS</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -74,25 +74,11 @@
                                 
                 <tr>
                   <td><?php echo $key['user_name'] ?></td>
-                  <td>
-                    
-                    <!-- semester di nilai -->
-
-                    <?php $arr = array(); ?>
-                    <?php $user = $key['user_id']; ?>
-                    <?php $semester = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0 AND penilaian_user = $user")->result_array(); ?>
-                    <?php foreach ($semester as $sem): ?>
-                      <?php $arr[] =+ $sem['semester']; ?>
-                    <?php endforeach ?>
-                    <?php echo(implode(',', $arr)); ?>
-
-                    <!-- end -->
-
-                  </td>
+                  <td><?php echo $key['user_nis'] ?></td>
                   <td style="width: 80px;">
                     <div>
 
-                    <a href="<?php echo base_url('penilaian/view/'.$key['user_id']) ?>"><button class="btn btn-xs btn-danger"><i class="fa fa-eye"></i></button></a>
+                    <button type="button" class="btn btn-xs btn-success" data-toggle="modal" data-target="#modal-view<?php echo $key['user_id']; ?>"><i class="fa fa-file-text"></i></button>
 
                     <?php if ($this->session->userdata('level') == 2): ?>
 
@@ -112,7 +98,7 @@
                       <div class="modal-header">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span aria-hidden="true">&times;</span></button>
-                        <h4 class="modal-title">Pilih Semester</h4>
+                        <h4 class="modal-title">Penilaian Siswa</h4>
                       </div>
                       <div class="modal-body">
                         <form role="form" method="post" action="<?php echo base_url('penilaian/nilai/'.$key['user_id']) ?>" enctype="multipart/form-data">
@@ -124,6 +110,48 @@
                                 <?php for ($i=1; $i < 9; $i++): ?>
                                   <option value="<?php echo $i ?>"><?php echo $i ?></option>
                                 <?php endfor ?>
+                              </select>
+                            </div>
+                            <div class="form-group">
+                              <label>Tahun Pelajaran</label>
+                              <select required="" class="form-control" name="tahun">
+                                <option require="" value="" hidden>-- Pilih --</option>
+                                <?php foreach ($tahun_data as $t): ?>
+                                  <option value="<?php echo $t['tahun_id'] ?>"><?php echo $t['tahun_text'] ?></option>
+                                <?php endforeach ?>
+                              </select>
+                            </div>
+                          </div>
+                          <!-- /.box-body -->
+
+                          <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                             <button type="reset" class="btn btn-danger">Reset</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="modal fade" id="modal-view<?php echo $key['user_id']; ?>">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Lihat Nilai Siswa</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role="form" method="post" action="<?php echo base_url('penilaian/view_table/'.$key['user_id']) ?>" enctype="multipart/form-data">
+                          <div class="box-body">
+                            <div class="form-group">
+                              <label>Tahun Pelajaran</label>
+                              <select required="" class="form-control" name="tahun">
+                                <option require="" value="" hidden>-- Pilih --</option>
+                                <?php foreach ($tahun_data as $t): ?>
+                                  <option value="<?php echo $t['tahun_id'] ?>"><?php echo $t['tahun_text'] ?></option>
+                                <?php endforeach ?>
                               </select>
                             </div>
                           </div>
@@ -268,6 +296,15 @@
               <div class="form-group">
                 <label>Pilih File</label>
                 <input required="" type="file" name="uploadFile" class="form-control">
+              </div>
+              <div class="form-group">
+                <label>Tahun Pelajaran</label>
+                <select required="" class="form-control" name="penilaian_tahun">
+                  <option require="" value="" hidden>-- Pilih --</option>
+                  <?php foreach ($tahun_data as $t): ?>
+                    <option value="<?php echo $t['tahun_id'] ?>"><?php echo $t['tahun_text'] ?></option>
+                  <?php endforeach ?>
+                </select>
               </div>
             </div>
             <!-- /.box-body -->

@@ -3,7 +3,7 @@ class Pribadi extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
-	}     
+	}      
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 
@@ -345,5 +345,23 @@ class Pribadi extends CI_Controller{
       }else{
           echo $error['error'];
         }
+	}
+	function status($id){
+
+		$set = array(
+						'user_id' => $id,
+						'user_status' => $_POST['user_status'],
+						'user_alasan' => $_POST['user_alasan'],
+					);
+
+		$this->db->set($set);
+		$this->db->where('user_id',$id);
+		if ($this->db->update('t_user')) {
+			$this->session->set_flashdata('success', 'Data berhasil di simpan');
+		} else {
+			$this->session->set_flashdata('gagal', 'Data gagal di simpan');
+		}
+
+		redirect(base_url('pribadi'));  
 	}
 }

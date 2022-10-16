@@ -18,7 +18,7 @@
         <i class="icon fa fa-close"></i>
         <?php echo $this->session->flashdata('gagal'); ?>
       </div>
-    <?php endif ?> 
+    <?php endif ?>  
  
     <?php if ($this->session->flashdata('success')): ?>
       <div class="alert alert-success alert-dismissible">
@@ -49,6 +49,8 @@
                 <th>Nama</th>
                 <th>NIS</th>
                 <th>NISN</th>
+                <th>Status</th>
+                <th>Alasan</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -60,8 +62,12 @@
                   <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nis'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
-                  <td style="width: 50px;">
+                  <td><?php echo @$key['user_status'] ?></td>
+                  <td><?php echo @$key['user_alasan'] ?></td>
+                  <td style="width: 80px;">
                     <div>
+
+                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
 
                     <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
 
@@ -71,6 +77,47 @@
                   </td>
                 </tr>
 
+                <div class="modal fade" id="modal-status<?php echo @$key['user_id'] ?>">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span aria-hidden="true">&times;</span></button>
+                        <h4 class="modal-title">Ubah Status</h4>
+                      </div>
+                      <div class="modal-body">
+                        <form role="form" method="post" action="<?php echo base_url('pribadi/status/'.@$key['user_id']) ?>" enctype="multipart/form-data">
+                          <div class="box-body">
+                            <div class="form-group">
+                              <label>Status</label>
+                              <select onchange="status(this.value,'<?php echo $key['user_id'] ?>')" id="status<?php echo $key['user_id'] ?>" name="user_status" required="" class="form-control">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="aktif">Aktif</option>
+                                <option value="keluar">Keluar</option>
+                                <option value="mengundurkan">Mengundurkan Diri</option>
+                                <option value="meninggal">Meninggal</option>
+                              </select>
+                              <script type="text/javascript">
+                                $('#status<?php echo $key['user_id'] ?>').val('<?php echo $key['user_status'] ?>').change();
+                              </script>
+                            </div>
+                            <div class="form-group">
+                              <label>Alasan</label>
+                              <textarea <?=($key['user_status'] == 'aktif')?'readonly=""':''?> id="alasan<?php echo $key['user_id'] ?>" required="" class="form-control" name="user_alasan"><?php echo $key['user_alasan'] ?></textarea>
+                            </div>
+                          </div>
+                          <!-- /.box-body -->
+
+                          <div class="box-footer">
+                            <button type="submit" class="btn btn-primary">Submit</button>
+                            <button type="reset" class="reset btn btn-danger">Reset</button>
+                          </div>
+                        </form>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               <?php endforeach ?>
 
               </tfoot>
@@ -79,3 +126,15 @@
         </div>
       </div>
 
+<script type="text/javascript">
+  function status(val,id){
+
+    if (val == 'aktif') {
+      $('#alasan'+id).attr('readonly', '');
+      $('#alasan'+id).val('-');
+    }else{
+      $('#alasan'+id).removeAttr('readonly', '');
+      $('#alasan'+id).val('');
+    }
+  }
+</script>

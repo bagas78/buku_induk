@@ -74,6 +74,10 @@
               <td>Semester</td>
               <td><?php echo @$semester ?></td>
             </tr>
+            <tr>
+              <td>Tahun Pelajaran</td>
+              <td><?php echo @$tahun_data ?></td>
+            </tr>
           </table>
 
           <br/>
@@ -84,6 +88,7 @@
             <input type="hidden" name="semester" value="<?php echo @$semester ?>">
             <input type="hidden" name="user" value="<?php echo @$user ?>">
             <input type="hidden" name="status" value="<?php echo @$status ?>">
+            <input type="hidden" name="tahun" value="<?php echo @$tahun_id ?>">
 
             <div class="col-md-4 row">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">

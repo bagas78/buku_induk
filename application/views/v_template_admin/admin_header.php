@@ -196,6 +196,16 @@
             </a>
           </li>
 
+          <?php if ($this->session->userdata('level') == 2): ?>
+
+            <li <?php echo @$tahun; ?>>
+              <a href="<?php echo base_url() ?>tahun">
+                <i class="fa fa-calendar"></i> <span>Tahun Pelajaran</span>
+              </a>
+            </li>
+
+          <?php endif ?>
+
           <?php if ($this->session->userdata('level') == 1): ?>
             
             <li <?php echo @$petugas; ?>>
@@ -212,9 +222,9 @@
 
           <?php endif ?>
 
-          <?php if ($this->session->userdata('level') == 2): ?>
+          <?php if ($this->session->userdata('level') == 1): ?>
 
-            <li class="treeview <?php echo @$pelajaran_active ?>">
+            <!-- <li class="treeview <?php echo @$pelajaran_active ?>">
               <a href="#">
                 <i class="fa fa-bookmark"></i>
                 <span>Mata Pelajaran</span>
@@ -223,7 +233,7 @@
                 <li class="<?php echo @$kategori ?>"><a href="<?php echo base_url() ?>kategori"><i class="fa fa-circle-o"></i> Kategori</a></li>
                 <li class="<?php echo @$pelajaran ?>"><a href="<?php echo base_url() ?>pelajaran"><i class="fa fa-circle-o"></i> Pelajaran</a></li>
               </ul>
-            </li>
+            </li> -->
 
           <?php endif ?>
 
@@ -265,11 +275,11 @@
           </a>
         </li>
 
-        <li <?php echo @$import; ?>>
+        <!-- <li <?php echo @$import; ?>>
           <a href="<?php echo base_url() ?>import">
             <i class="fa fa-file-excel-o"></i> <span>Import Excel</span>
           </a>
-        </li>
+        </li> -->
 
       </ul>
     </section>
