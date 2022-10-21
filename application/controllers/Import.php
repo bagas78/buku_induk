@@ -15,7 +15,7 @@ class Import extends CI_Controller{
 		    $this->load->view('import/index',$data);
 		    $this->load->view('v_template_admin/admin_footer',$data);
 
-		}
+		} 
 		else{
 			redirect(base_url('login'));
 		} 
