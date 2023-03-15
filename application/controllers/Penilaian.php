@@ -11,7 +11,7 @@ class Penilaian extends CI_Controller{
 
 			$data['penilaian'] = 'class="active"';
 		    $data['title'] = 'Penilaian Semester';
-
+ 
 		    if ($level == 2) {
 		    	// petugas
 		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3")->result_array();
@@ -330,6 +330,8 @@ class Penilaian extends CI_Controller{
             $flag = true;
             $i=0;
 
+            $nis_success = array();
+            $nis_gagal = array();
             foreach ($allDataInSheet as $value) {
               if($flag){
                 $flag =false;
@@ -342,102 +344,127 @@ class Penilaian extends CI_Controller{
               	$id = $this->db->query("SELECT user_id as id  FROM t_user WHERE user_nis = '$nis'")->row_array();
               	@$user = @$id['id'];
 
-              	if (@$user) {
+              	if (@$nis != '') {
+              		//nis tidak kosong
 
-              		//create json data
-              		$json[$i]['semester'] = $value['C'];
-					$json[$i]['user'] = @$user;
-					$json[$i]['status'] = '1';
-					$json[$i]['type'] = 'text';
+              		if (@$user) {
 
-              		$json[$i]['1_np_angka'] = $value['D'];
-              		$json[$i]['1_np_predikat'] = $value['E'];
-					$json[$i]['1_nk_angka'] = $value['F'];
-					$json[$i]['1_nk_predikat'] = $value['G'];
-					$json[$i]['1_nss_mapel'] = $value['H'];
+	              		//create json data
+	              		$json[$i]['semester'] = $value['C'];
+						$json[$i]['user'] = @$user;
+						$json[$i]['status'] = '1';
+						$json[$i]['type'] = 'text';
 
-					$json[$i]['2_np_angka'] = $value['I'];
-              		$json[$i]['2_np_predikat'] = $value['J'];
-					$json[$i]['2_nk_angka'] = $value['K'];
-					$json[$i]['2_nk_predikat'] = $value['L'];
-					$json[$i]['2_nss_mapel'] = $value['M'];
+	              		$json[$i]['1_np_angka'] = $value['D'];
+	              		$json[$i]['1_np_predikat'] = $value['E'];
+						$json[$i]['1_nk_angka'] = $value['F'];
+						$json[$i]['1_nk_predikat'] = $value['G'];
+						$json[$i]['1_nss_mapel'] = $value['H'];
 
-					$json[$i]['3_np_angka'] = $value['N'];
-              		$json[$i]['3_np_predikat'] = $value['O'];
-					$json[$i]['3_nk_angka'] = $value['P'];
-					$json[$i]['3_nk_predikat'] = $value['Q'];
-					$json[$i]['3_nss_mapel'] = $value['R'];
+						$json[$i]['2_np_angka'] = $value['I'];
+	              		$json[$i]['2_np_predikat'] = $value['J'];
+						$json[$i]['2_nk_angka'] = $value['K'];
+						$json[$i]['2_nk_predikat'] = $value['L'];
+						$json[$i]['2_nss_mapel'] = $value['M'];
 
-					$json[$i]['4_np_angka'] = $value['S'];
-              		$json[$i]['4_np_predikat'] = $value['T'];
-					$json[$i]['4_nk_angka'] = $value['U'];
-					$json[$i]['4_nk_predikat'] = $value['V'];
-					$json[$i]['4_nss_mapel'] = $value['W'];
+						$json[$i]['3_np_angka'] = $value['N'];
+	              		$json[$i]['3_np_predikat'] = $value['O'];
+						$json[$i]['3_nk_angka'] = $value['P'];
+						$json[$i]['3_nk_predikat'] = $value['Q'];
+						$json[$i]['3_nss_mapel'] = $value['R'];
 
-					$json[$i]['5_np_angka'] = $value['X'];
-              		$json[$i]['5_np_predikat'] = $value['Y'];
-					$json[$i]['5_nk_angka'] = $value['Z'];
-					$json[$i]['5_nk_predikat'] = $value['AA'];
-					$json[$i]['5_nss_mapel'] = $value['AB'];
+						$json[$i]['4_np_angka'] = $value['S'];
+	              		$json[$i]['4_np_predikat'] = $value['T'];
+						$json[$i]['4_nk_angka'] = $value['U'];
+						$json[$i]['4_nk_predikat'] = $value['V'];
+						$json[$i]['4_nss_mapel'] = $value['W'];
 
-					$json[$i]['6_np_angka'] = $value['AC'];
-              		$json[$i]['6_np_predikat'] = $value['AD'];
-					$json[$i]['6_nk_angka'] = $value['AE'];
-					$json[$i]['6_nk_predikat'] = $value['AF'];
-					$json[$i]['6_nss_mapel'] = $value['AG'];
+						$json[$i]['5_np_angka'] = $value['X'];
+	              		$json[$i]['5_np_predikat'] = $value['Y'];
+						$json[$i]['5_nk_angka'] = $value['Z'];
+						$json[$i]['5_nk_predikat'] = $value['AA'];
+						$json[$i]['5_nss_mapel'] = $value['AB'];
 
-					$json[$i]['7_np_angka'] = $value['AH'];
-              		$json[$i]['7_np_predikat'] = $value['AI'];
-					$json[$i]['7_nk_angka'] = $value['AJ'];
-					$json[$i]['7_nk_predikat'] = $value['AK'];
-					$json[$i]['7_nss_mapel'] = $value['AL'];
+						$json[$i]['6_np_angka'] = $value['AC'];
+	              		$json[$i]['6_np_predikat'] = $value['AD'];
+						$json[$i]['6_nk_angka'] = $value['AE'];
+						$json[$i]['6_nk_predikat'] = $value['AF'];
+						$json[$i]['6_nss_mapel'] = $value['AG'];
 
-					$json[$i]['8_np_angka'] = $value['AM'];
-              		$json[$i]['8_np_predikat'] = $value['AN'];
-					$json[$i]['8_nk_angka'] = $value['AO'];
-					$json[$i]['8_nk_predikat'] = $value['AP'];
-					$json[$i]['8_nss_mapel'] = $value['AQ'];
+						$json[$i]['7_np_angka'] = $value['AH'];
+	              		$json[$i]['7_np_predikat'] = $value['AI'];
+						$json[$i]['7_nk_angka'] = $value['AJ'];
+						$json[$i]['7_nk_predikat'] = $value['AK'];
+						$json[$i]['7_nss_mapel'] = $value['AL'];
 
-					$json[$i]['9_np_angka'] = $value['AR'];
-              		$json[$i]['9_np_predikat'] = $value['AS'];
-					$json[$i]['9_nk_angka'] = $value['AT'];
-					$json[$i]['9_nk_predikat'] = $value['AU'];
-					$json[$i]['9_nss_mapel'] = $value['AV'];
-					//end
+						$json[$i]['8_np_angka'] = $value['AM'];
+	              		$json[$i]['8_np_predikat'] = $value['AN'];
+						$json[$i]['8_nk_angka'] = $value['AO'];
+						$json[$i]['8_nk_predikat'] = $value['AP'];
+						$json[$i]['8_nss_mapel'] = $value['AQ'];
 
-              		//data
-              		$insertdata[$i]['penilaian_user'] = @$user;
-              		$insertdata[$i]['penilaian_tahun'] = $tahun;
-              		$insertdata[$i]['penilaian_semester'] = $value['C'];
-              		$insertdata[$i]['penilaian_data'] = json_encode($json[$i]);
-              		$insertdata[$i]['penilaian_type'] = 'text';
-              		$insertdata[$i]['penilaian_file'] = '';	
+						$json[$i]['9_np_angka'] = $value['AR'];
+	              		$json[$i]['9_np_predikat'] = $value['AS'];
+						$json[$i]['9_nk_angka'] = $value['AT'];
+						$json[$i]['9_nk_predikat'] = $value['AU'];
+						$json[$i]['9_nss_mapel'] = $value['AV'];
+						//end
+
+	              		//data
+	              		$insertdata[$i]['penilaian_user'] = @$user;
+	              		$insertdata[$i]['penilaian_tahun'] = $tahun;
+	              		$insertdata[$i]['penilaian_semester'] = $value['C'];
+	              		$insertdata[$i]['penilaian_data'] = json_encode($json[$i]);
+	              		$insertdata[$i]['penilaian_type'] = 'text';
+	              		$insertdata[$i]['penilaian_file'] = '';	
+
+	              		$nis_success[] = $nis;	
+	              	
+	              	}else{
+
+	              		$nis_gagal[] = $nis;
+	              		
+	              	}
               	}
+
               }
 
               $i++;
             
             } 
 
-            foreach ($insertdata as $val) {
+            //alert
+            $success = implode(',',$nis_success);
+            $gagal = implode(',',$nis_gagal);
+
+            if (@$success) {
+
+            	//save ke database
+	            foreach ($insertdata as $val) {
+	            	
+	            	$user_id = $val['penilaian_user'];
+	            	$user_semester = $val['penilaian_semester'];
+
+	            	//cek exist data
+	            	$cek = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user_id' AND penilaian_semester = '$user_semester' AND penilaian_tahun = '$tahun'")->num_rows();
+
+	            	if (@!$cek) {
+	            		
+	            		//save database not exist
+	            		$this->db->insert('t_penilaian',$val);
+	            	}
+	            }
             	
-            	$user_id = $val['penilaian_user'];
-            	$user_semester = $val['penilaian_semester'];
-
-            	//cek exist data
-            	$cek = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user_id' AND penilaian_semester = '$user_semester' AND penilaian_tahun = '$tahun'")->num_rows();
-
-            	if (@!$cek) {
-            		
-            		//save database not exist
-            		$this->db->insert('t_penilaian',$val);		
-            	}
+            	$this->session->set_flashdata('success','NISN "'.@$success.'" berhasil di simpan');
             }
 
-            //hapus file
-            unlink($path . $import_xls_file);
+            if (@$gagal) {
+            	
+            	$this->session->set_flashdata('gagal', 'NISN "'.@$gagal.'" tidak di temukan');
+            }
 
-            $this->session->set_flashdata('success','Data berhasil di tambah');
+            //hapus file xls di assets
+            unlink($path . $import_xls_file);
 
 			redirect(base_url('penilaian'));   
 
