@@ -10,7 +10,7 @@
   <h1>
     <?php echo $title; ?>
     <small>Control panel</small>
-  </h1> 
+  </h1>  
   <ol class="breadcrumb">
     <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
     <li class="active">Dashboard</li>
@@ -68,7 +68,7 @@
         </tr>
         <tr>
           <td>Tahun Pelajaran</td>
-          <td><?php echo @$tahun_data ?></td>
+          <td><?php echo @$tahun_data['tahun_text'] ?></td>
         </tr>
         <tr>
           <td>Semester</td>
@@ -192,14 +192,7 @@
 
       <hr/>
       
-      <form method="POST" action="<?php echo base_url('penilaian/view/'.$user) ?>">
-         <button type="button" class="btn btn-success" onclick="(preview())">Print <i class="fa fa-print"></i></button>
-
-        <div style="width: max-content; float: right;">
-          <input min="1" max="8" class="btn next" type="number" name="semester" value="<?php echo $semester ?>">
-          <button type="submit" class="btn btn-primary">Next <i class="fa fa-angle-double-right"></i></button>
-        </div>
-      </form>
+      <button type="button" class="btn btn-success" onclick="(preview())">Print <i class="fa fa-print"></i></button>
 
     </div>
   </div>

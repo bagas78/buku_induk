@@ -3,6 +3,7 @@ class Penilaian extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
+		$this->load->model('m_penilaian');
 	}  
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
@@ -11,22 +12,12 @@ class Penilaian extends CI_Controller{
 
 			$data['penilaian'] = 'class="active"';
 		    $data['title'] = 'Penilaian Semester';
- 
-		    if ($level == 2) {
-		    	// petugas
-		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3")->result_array();
-
-		    } else {
-		    	// siswa
-
-		    	$siswa = $this->session->userdata('id');
-
-		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_kelengkapan as b ON a.user_id = b.kelengkapan_user WHERE a.user_hapus = 0 AND a.user_level = 3 AND a.user_id = '$siswa'")->result_array();
-
-		    }
-
-		    $data['semester_data'] = $this->db->query("SELECT penilaian_semester AS semester FROM t_penilaian WHERE penilaian_hapus = 0")->result_array();
+		   
 		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
+		    $data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = 3")->result_array();
+
+		    if (@$_POST['nama']) {$data['post_nama'] = @$_POST['nama'];}
+		    if (@$_POST['tahun']) {$data['post_tahun'] = @$_POST['tahun'];}
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('penilaian/index',$data);
@@ -37,12 +28,34 @@ class Penilaian extends CI_Controller{
 			redirect(base_url('login'));
 		} 
 	} 
-	function nilai($user){ 
+	function get_data($nama = '', $tahun = '', $user = ''){
 
-		$semester = @$_POST['semester'];
-		$tahun = @$_POST['tahun'];
+		switch (true) {
+			case $nama != '' && $tahun != '':
+				$where = array('user_id' => $nama,'tahun_id' => $tahun,'penilaian_hapus' => 0);
+				break;
+			
+			default:
+				$where = array('penilaian_hapus' => 0);
+				break;
+		}
 
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$semester' AND penilaian_hapus = 0 AND penilaian_tahun = '$tahun'")->row_array();
+	    $data = $this->m_penilaian->get_datatables($where);
+		$total = $this->m_penilaian->count_all($where);
+		$filter = $this->m_penilaian->count_filtered($where);
+
+		$output = array(
+			"draw" => $_GET['draw'],
+			"recordsTotal" => $total,
+			"recordsFiltered" => $filter,
+			"data" => $data,
+		);
+		//output dalam format JSON
+		echo json_encode($output);
+	}
+	function nilai($id){ 
+
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_id = '$id'")->row_array();
 
 		if (@$data['data']) {
 			// edit
@@ -59,13 +72,14 @@ class Penilaian extends CI_Controller{
 		$data['penilaian'] = 'class="active"';
 		$data['title'] = 'Penilaian Semester';
 
+		$user = $data['data']['penilaian_user'];
 		$db_user = $this->db->query("SELECT * FROM t_user WHERE user_id = '$user'")->row_array();
 
 		$data['nama'] = @$db_user['user_name'];
-
-		$data['semester'] = $semester;
+		$data['semester'] = $data['data']['penilaian_semester'];
 		$data['user'] = $user;
 
+		$tahun = $data['data']['penilaian_tahun'];
 		$th =  $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
 		$data['tahun_data'] = $th['tahun_text'];
 		$data['tahun_id'] = $th['tahun_id'];
@@ -264,27 +278,21 @@ class Penilaian extends CI_Controller{
 		$this->load->view('v_template_admin/admin_footer',$data);
 
 	}
-	function view($user = '',$semester = 1,$tahun){
-
-		if (@$_POST['semester']) {
-			$sem = $_POST['semester'];
-		} else {
-			$sem = $semester;
-		}
-		
-
-		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$user' AND penilaian_semester = '$sem' AND penilaian_tahun = '$tahun'")->row_array();
+	function view($id){
+		 
+		$data['data'] = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_id = '$id'")->row_array();
 
 		$data['kategori_data'] =  $this->db->query("SELECT * FROM t_kategori WHERE kategori_hapus = 0 ORDER BY kategori_alpha ASC")->result_array();
 
 		$data['pelajaran_data'] =  $this->db->query("SELECT * FROM t_pelajaran WHERE pelajaran_hapus = 0")->result_array();
 
+		$user = $data['data']['penilaian_user'];
 		$data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_id = '$user'")->row_array();
-		$th = $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
 
-		$data['semester'] = $sem;
-		$data['user'] = $user;
-		$data['tahun_data'] = $th['tahun_text'];
+		$tahun = $data['data']['penilaian_tahun'];
+		$data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
+
+		$data['semester'] = $data['data']['penilaian_semester'];
 
 		$data['penilaian'] = 'class="active"';
 	    $data['title'] = 'Penilaian Semester';
