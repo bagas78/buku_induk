@@ -46,8 +46,8 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>Nama</th>
                 <th>NIS</th>
+                <th>Nama</th>
                 <th>NISN</th>
                 <th>Status</th>
                 <th>Alasan</th>
@@ -59,8 +59,8 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
-                  <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nis'] ?></td>
+                  <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
                   <td><?php echo @$key['user_status'] ?></td>
                   <td><?php echo @$key['user_alasan'] ?></td>
@@ -68,12 +68,12 @@
                     <div>
 
                     <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
+                    
+                    <a href="<?php echo base_url('pribadi/penilaian/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-warning"><i class="fa fa-file-text"></i></button></a>
 
                     <a href="<?php echo base_url('pribadi/print/'.$key['user_id']) ?>"><button class="btn btn-xs btn-success"><i class="fa fa-print"></i></button></a>
 
                     <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
-
-                    <a href="<?php echo base_url('pribadi/penilaian/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-warning"><i class="fa fa-file-text"></i></button></a>
 
                     </div>
                   </td>

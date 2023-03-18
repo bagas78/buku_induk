@@ -18,7 +18,7 @@ class Pribadi extends CI_Controller{
 		    if ($level == 2) {
 		    	// petugas
 		    	
-		    	$data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_level = 3")->result_array();
+		    	$data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_level = 3 AND user_hapus = 0")->result_array();
 
 		    	$this->load->view('v_template_admin/admin_header',$data);
 			    $this->load->view('pribadi/table',$data);
