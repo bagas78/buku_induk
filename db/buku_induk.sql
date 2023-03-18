@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.1.0
+-- version 5.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2023 at 02:21 AM
--- Server version: 10.4.18-MariaDB
--- PHP Version: 7.4.16
+-- Generation Time: Mar 18, 2023 at 12:04 PM
+-- Server version: 10.4.11-MariaDB
+-- PHP Version: 7.4.1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -309,14 +310,13 @@ INSERT INTO `t_tahun` (`tahun_id`, `tahun_text`, `tahun_tanggal`, `tahun_hapus`)
 CREATE TABLE `t_user` (
   `user_id` int(11) NOT NULL,
   `user_name` varchar(50) DEFAULT NULL,
-  `user_email` text DEFAULT NULL,
-  `user_password` text DEFAULT NULL,
-  `user_kelas` text DEFAULT NULL,
-  `user_tanggal` date DEFAULT NULL,
-  `user_level` int(11) DEFAULT NULL,
-  `user_foto` text DEFAULT NULL,
   `user_nis` text DEFAULT NULL,
   `user_nisn` text DEFAULT NULL,
+  `user_email` text DEFAULT NULL,
+  `user_password` text DEFAULT NULL,
+  `user_tanggal` date DEFAULT curdate(),
+  `user_level` int(11) DEFAULT NULL,
+  `user_foto` text DEFAULT NULL,
   `user_status` set('aktif','keluar','mengundurkan','meninggal') DEFAULT 'aktif',
   `user_alasan` text DEFAULT '-',
   `user_hapus` int(11) DEFAULT 0
@@ -326,12 +326,14 @@ CREATE TABLE `t_user` (
 -- Dumping data for table `t_user`
 --
 
-INSERT INTO `t_user` (`user_id`, `user_name`, `user_email`, `user_password`, `user_kelas`, `user_tanggal`, `user_level`, `user_foto`, `user_nis`, `user_nisn`, `user_status`, `user_alasan`, `user_hapus`) VALUES
-(1, 'Admin', 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', NULL, '2019-12-27', 1, 'lurah.png', NULL, NULL, NULL, NULL, 0),
-(2, 'Kakashi Sensei', 'petugas@gmail.com', 'afb91ef692fd08c445e8cb1bab2ccf9c', NULL, '2022-06-11', 2, 'main-qimg-c1973646f5d407b3a17cffb33f8d2305-lq.jpg', NULL, NULL, NULL, NULL, 0),
-(3, 'Naruto Uzumaki', 'naruto@gmail.com', 'cf9ee5bcb36b4936dd7064ee9b2f139e', NULL, '2022-10-15', 3, 'naruto-1.png', '181901001', '128116417', 'aktif', '-', 0),
-(4, 'Sasuke Uciha', 'sasuke@gmail.com', '93207db25ad357906be2fd0c3f65f3dc', NULL, '2022-10-15', 3, 'download.jpg', '181901002', '128116418', 'keluar', 'Kabur ke tempat orochimaru', 0),
-(5, 'Sakura Haruno', 'sakura@gmail.com', '149afd631693c895f81e508eb5aaef37', NULL, '2022-10-10', 3, 'sakura-sakura-haruno-8426495-640-481.jpg', '181901003', '128116419', 'aktif', '-', 0);
+INSERT INTO `t_user` (`user_id`, `user_name`, `user_nis`, `user_nisn`, `user_email`, `user_password`, `user_tanggal`, `user_level`, `user_foto`, `user_status`, `user_alasan`, `user_hapus`) VALUES
+(1, 'Admin', NULL, NULL, 'admin@admin.com', '21232f297a57a5a743894a0e4a801fc3', '2019-12-27', 1, 'lurah.png', NULL, NULL, 0),
+(2, 'Kakashi Sensei', NULL, NULL, 'petugas@gmail.com', 'afb91ef692fd08c445e8cb1bab2ccf9c', '2022-06-11', 2, 'main-qimg-c1973646f5d407b3a17cffb33f8d2305-lq.jpg', NULL, NULL, 0),
+(3, 'Naruto Uzumaki', '181901001', '128116417', 'naruto@gmail.com', 'cf9ee5bcb36b4936dd7064ee9b2f139e', '2022-10-15', 3, 'naruto-1.png', 'aktif', '-', 0),
+(4, 'Sasuke Uciha', '181901002', '128116418', 'sasuke@gmail.com', '93207db25ad357906be2fd0c3f65f3dc', '2022-10-15', 3, 'download.jpg', 'keluar', 'Kabur ke tempat orochimaru', 0),
+(5, 'Sakura Haruno', '181901003', '128116419', 'sakura@gmail.com', '149afd631693c895f81e508eb5aaef37', '2022-10-10', 3, 'sakura-sakura-haruno-8426495-640-481.jpg', 'aktif', '-', 0),
+(9, 'Bagas Pramono', '12345', '123', 'bagas@gmail.com', '827ccb0eea8a706c4c34a16891f84e7b', '2023-03-18', 3, NULL, 'aktif', '-', 0),
+(10, 'Diah Anggreeni', '123456', '1234', 'diah@gmail.com', 'e10adc3949ba59abbe56e057f20f883e', '2023-03-18', 3, NULL, 'aktif', '-', 0);
 
 --
 -- Indexes for dumped tables
@@ -459,7 +461,7 @@ ALTER TABLE `t_pelajaran`
 -- AUTO_INCREMENT for table `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
-  MODIFY `penilaian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=53;
+  MODIFY `penilaian_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `t_pribadi`
@@ -478,6 +480,12 @@ ALTER TABLE `t_sekolah`
 --
 ALTER TABLE `t_tahun`
   MODIFY `tahun_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `t_user`
+--
+ALTER TABLE `t_user`
+  MODIFY `user_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
