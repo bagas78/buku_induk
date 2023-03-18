@@ -34,6 +34,14 @@ class Penilaian extends CI_Controller{
 			case $nama != '' && $tahun != '':
 				$where = array('user_id' => $nama,'tahun_id' => $tahun,'penilaian_hapus' => 0, 'user_hapus' => 0);
 				break;
+				
+			case $nama != '':
+				$where = array('user_id' => $nama,'penilaian_hapus' => 0, 'user_hapus' => 0);
+				break;
+				
+			case $tahun != '':
+				$where = array('tahun_id' => $tahun,'penilaian_hapus' => 0, 'user_hapus' => 0);
+				break;
 			
 			default:
 				$where = array('penilaian_hapus' => 0, 'user_hapus' => 0);

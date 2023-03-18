@@ -10,7 +10,15 @@ class Dokumen extends CI_Controller{
 		    $data['title'] = 'Upload Dokumen';
 
 		    $id = $this->session->userdata('id');
-		    $data['data'] = $this->db->query("SELECT * FROM t_dokumen WHERE dokumen_hapus = 0 AND dokumen_user = '$id'")->result_array();
+		    $level = $this->session->userdata('level');
+		    
+		    if($level == 3){
+		        //siswa
+		        $data['data'] = $this->db->query("SELECT * FROM t_dokumen as a JOIN t_user as b ON a.dokumen_user = b.user_id WHERE a.dokumen_hapus = 0 AND a.dokumen_user = '$id'")->result_array();
+		    }else{
+		        //petugas
+		        $data['data'] = $this->db->query("SELECT * FROM t_dokumen as a JOIN t_user as b ON a.dokumen_user = b.user_id WHERE a.dokumen_hapus = 0")->result_array();
+		    }
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('dokumen/index',$data);

@@ -1,3 +1,5 @@
+<?php $level = $this->session->userdata('level') ?>
+
 <section class="content-header">
       <h1>
         <?php echo $title; ?>
@@ -32,7 +34,7 @@
       <div class="box">
         <div class="box-header with-border">
 
-            <div align="left">
+            <div <?=($this->session->userdata('level') == 3)? '':'hidden'?> align="left">
               <button class="btn btn-danger" data-toggle="modal" data-target="#modal-album"><i class="fa fa-plus"></i> Upload Dokumen</button>
             </div>
 
@@ -48,6 +50,7 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th <?=($level == 3)? 'hidden':''?>>Siswa</th>
                 <th>Dokumen</th>
                 <th>Type</th>
                 <th>Action</th>
@@ -58,14 +61,18 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
+                  <td <?=($level == 3)? 'hidden':''?>><?php echo $key['user_name'] ?></td>
                   <td><?php echo $key['dokumen_name'] ?></td>
                   <td><?php echo $key['dokumen_type'] ?></td>
                   <td style="width: 80px;">
                     <div>
-                    <a href="<?php echo base_url('assets/gambar/dokumen/'.$key['dokumen_file']) ?>" download><button class="btn btn-xs btn-success" type="button"><i class="fa fa-download"></i></button></a>
-                    <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['dokumen_id'] ?>"><i class="fa fa-edit"></i></button>
-                    <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo $key['dokumen_id'] ?>"><i class="fa fa-trash"></i></button>
-
+                        <a href="<?php echo base_url('assets/gambar/dokumen/'.$key['dokumen_file']) ?>" download><button class="btn btn-xs btn-success" type="button"><i class="fa fa-download"></i></button></a>
+                    
+                        <?php if($this->session->userdata('level') == 3): ?>
+                            <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['dokumen_id'] ?>"><i class="fa fa-edit"></i></button>
+                            <button class="btn btn-xs btn-danger" data-toggle="modal" data-target="#modalHapus<?php echo $key['dokumen_id'] ?>"><i class="fa fa-trash"></i></button>
+                        <?php endif ?>
+                    
                     </div>
                   </td>
                 </tr>

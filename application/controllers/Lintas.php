@@ -14,10 +14,10 @@ class Lintas extends CI_Controller{
 
 		    if ($level == 2) {
 		    	// petugas
-		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0 AND  b.user_hapus = 0")->result_array();
+		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0 AND b.user_hapus = 0")->result_array();
 		    } else {
 		    	// siswa
-		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0 AND a.lintas_user = '$id' AND  b.user_hapus = 0")->result_array();
+		    	$data['data'] = $this->db->query("SELECT * FROM t_lintas as a JOIN t_user as b ON a.lintas_user = b.user_id WHERE a.lintas_hapus = 0 AND a.lintas_user = '$id' AND b.user_hapus = 0")->result_array();
 		    }
 
 		    $this->load->view('v_template_admin/admin_header',$data);

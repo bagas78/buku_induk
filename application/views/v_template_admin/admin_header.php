@@ -259,7 +259,7 @@
 
           <?php endif ?>
           
-          <?php if ($this->session->userdata('level') == 3): ?>
+          <?php if ($this->session->userdata('level') >= 2): ?>
 
             <li <?php echo @$dokumen; ?>>
               <a href="<?php echo base_url() ?>dokumen">

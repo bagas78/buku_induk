@@ -1,4 +1,4 @@
-
+<?php $level = $this->session->userdata('level'); ?>
     <!-- Main content --> 
     <section class="content">
 
@@ -22,7 +22,7 @@
       <div class="box"> 
         <div class="box-header with-border">
  
-            <div align="left">
+            <div <?=($level != 3)?'':'hidden'?> align="left">
               <a href="<?php echo base_url('assets/excel/penilaian.xlsx') ?>" title="Template Excel" Download><button class="btn btn-warning"><i class="fa fa-download"></i> Download Template</button></a>
               <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
             </div>
@@ -129,7 +129,13 @@
     $(document).ready(function() {
 
       var table;
-      var nama = $('#nama').val();
+      
+      <?php if($level == 3):?>
+        var nama = '<?=$this->session->userdata('id')?>';
+      <?php else:?>
+        var nama = $('#nama').val();
+      <?php endif?>
+      
       var tahun = $('#tahun').val();
 
         //datatables

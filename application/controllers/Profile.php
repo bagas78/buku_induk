@@ -7,10 +7,10 @@ class Profile extends CI_Controller{
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 			$id = $this->session->userdata('id');
-			$data['data'] = $this->db->query("SELECT * FROM t_user AS a JOIN t_detail_user AS b ON a.user_id = b.detail_id_user WHERE a.user_id = '$id'")->result_array();
+			$data['data'] = $this->db->query("SELECT * FROM t_user AS a LEFT JOIN t_detail_user AS b ON a.user_id = b.detail_id_user WHERE a.user_id = '$id'")->result_array();
 
 			$data['profile'] = 'class="active"';
-			$data['title'] = 'Profile';
+			$data['title'] = 'Profile'; 
 			$this->load->view('v_template_admin/admin_header',$data);
 			$this->load->view('profile/index',$data);
 			$this->load->view('v_template_admin/admin_footer',$data);
@@ -60,6 +60,8 @@ class Profile extends CI_Controller{
 					$this->db->where('user_id',$id);
 					$this->db->update('t_user');
 
+					$cek_detail = $this->db->query("SELECT * FROM t_detail_user WHERE detail_id_user = '$id'")->num_rows();
+
 					//t_detail_user
 					$set1 = array(
 									'detail_jabatan' => $data['position'], 
@@ -67,9 +69,18 @@ class Profile extends CI_Controller{
 									'detail_alamat' => $data['address'],
 									'detail_biodata' => $data['biodata']
 								);
-					$this->db->set($set1);
-					$this->db->where('detail_id',$id);
-					$this->db->update('t_detail_user');
+
+					if ($cek_detail == 0) {
+						
+						$this->db->set($set1);
+						$this->db->insert('t_detail_user');
+
+					}else{
+
+						$this->db->set($set1);
+						$this->db->where('detail_id',$id);
+						$this->db->update('t_detail_user');
+					}
 
 
 			    	$this->session->set_flashdata('success','Data berhasil di perbaharui');
@@ -91,16 +102,28 @@ class Profile extends CI_Controller{
 			$this->db->where('user_id',$id);
 			$this->db->update('t_user');
 
+			$cek_detail = $this->db->query("SELECT * FROM t_detail_user WHERE detail_id_user = '$id'")->num_rows();
+
 			//t_detail_user
 			$set1 = array(
 							'detail_jabatan' => $data['position'], 
 							'detail_pendidikan' => $data['education'],
 							'detail_alamat' => $data['address'],
-							'detail_biodata' => $data['biodata']
+							'detail_biodata' => $data['biodata'],
+							'detail_id_user' => $id,
 						);
-			$this->db->set($set1);
-			$this->db->where('detail_id',$id);
-			$this->db->update('t_detail_user');
+
+			if ($cek_detail == 0) {
+				
+				$this->db->set($set1);
+				$this->db->insert('t_detail_user');
+
+			}else{
+
+				$this->db->set($set1);
+				$this->db->where('detail_id',$id);
+				$this->db->update('t_detail_user');
+			}
 
 
 			$this->session->set_flashdata('success','Data berhasil di perbaharui');

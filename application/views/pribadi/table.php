@@ -64,14 +64,14 @@
                   <td><?php echo @$key['user_status'] ?></td>
                   <td style="width: 110px;">
                     <div>
-
-                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
                     
                     <a href="<?php echo base_url('pribadi/penilaian/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-warning"><i class="fa fa-file-text"></i></button></a>
+                    
+                    <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
 
                     <a href="<?php echo base_url('pribadi/print/'.$key['user_id']) ?>"><button class="btn btn-xs btn-success"><i class="fa fa-print"></i></button></a>
-
-                    <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
+                    
+                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
 
                     </div>
                   </td>

@@ -1,3 +1,5 @@
+<?php $level = $this->session->userdata('level'); ?>
+
 <section class="content-header">
       <h1>
         <?php echo $title; ?>
@@ -32,7 +34,7 @@
       <div class="box">
         <div class="box-header with-border">
 
-          <div align="left">
+          <div <?=($level != 3)?'':'hidden'?> align="left">
             <a href="<?php echo base_url('assets/excel/pribadi.xlsx') ?>" title="Template Excel" Download><button class="btn btn-primary"><i class="fa fa-download"></i> Download Template</button></a>
             <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
           </div>
