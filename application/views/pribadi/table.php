@@ -50,7 +50,6 @@
                 <th>Nama</th>
                 <th>NISN</th>
                 <th>Status</th>
-                <th>Alasan</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -63,7 +62,6 @@
                   <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
                   <td><?php echo @$key['user_status'] ?></td>
-                  <td><?php echo @$key['user_alasan'] ?></td>
                   <td style="width: 110px;">
                     <div>
 
