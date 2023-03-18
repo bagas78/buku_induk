@@ -28,7 +28,7 @@ class Penilaian extends CI_Controller{
 			redirect(base_url('login'));
 		} 
 	} 
-	function get_data($nama = '', $tahun = '', $user = ''){
+	function get_data($nama = '', $tahun = ''){
 
 		switch (true) {
 			case $nama != '' && $tahun != '':

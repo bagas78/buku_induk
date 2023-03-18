@@ -34,6 +34,10 @@
 
             <div align="left">
               <button class="btn btn-danger" data-toggle="modal" data-target="#modal-album"><i class="fa fa-plus"></i> Tambah Data</button>
+
+              <a href="<?php echo base_url('assets/excel/siswa.xlsx') ?>" title="Template Excel" Download><button class="btn btn-warning"><i class="fa fa-download"></i> Download Template</button></a>
+              <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
+
             </div>
 
           <div class="box-tools pull-right">
@@ -176,6 +180,38 @@
                 <label>Pasword</label>
                 <input required="" type="password" name="user_password" class="form-control" placeholder="Password" value="">
               </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div class="modal fade" id="modal-import">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload File</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" method="post" action="<?php echo base_url('siswa/import') ?>" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="form-group">
+                <label>File Excel ( xls | xlsx )</label>
+                <input required="" type="file" name="uploadFile" class="form-control" placeholder="Nama Lengkap">
+              </div>
+
+              <small style="background: black;color: white;padding: 1%;">NOTE : untuk password default sama dengan NIS</small>
+
             </div>
             <!-- /.box-body -->
 

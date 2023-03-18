@@ -72,4 +72,111 @@ class Siswa extends CI_Controller{
 		$this->session->set_flashdata('success','Data berhasil di rubah');
 		redirect(base_url('siswa'));
 	}
+	function import(){
+		
+		$path = 'assets/';
+        require_once APPPATH . "/third_party/PHPExcel.php";
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'xlsx|xls|csv';
+        $config['remove_spaces'] = TRUE;
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploadFile')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+        }
+
+        if(empty($error)){
+          if (!empty($data['upload_data']['file_name'])) {
+            $import_xls_file = $data['upload_data']['file_name'];
+        } else {
+            $import_xls_file = 0;
+        }
+
+        $inputFileName = $path . $import_xls_file;
+         
+        try {
+
+            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFileName);
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+            $flag = true;
+
+            $nis_success = array();
+            $nis_gagal = array();
+            foreach ($allDataInSheet as $value) {
+              if($flag){
+                $flag =false;
+                continue;
+              }
+              	
+	          	@$name = $value['A']; 
+	          	@$nis = $value['B'];
+				@$nisn = $value['C'];
+				@$email = $value['D'];
+				@$password = md5($nis);		
+
+				if ($nis != '') {
+
+					$cek = $this->db->query("SELECT * FROM t_user WHERE user_nis = '$nis' AND user_nisn = '$nisn'")->num_rows();
+
+	              	if (@$cek == 0) {
+	         			
+	          			//save ke database
+	              		$set = array(
+	              						'user_name' => $name,
+	              						'user_nis' => $nis,
+	              						'user_nisn' => $nisn,
+	              						'user_email' => $email,
+	              						'user_password' => $password,
+	              						'user_level' => 3,
+	              					);
+
+		            	$this->db->set($set);
+		            	$this->db->insert('t_user');
+
+	              		//nis tidak ada
+	              		$nis_success[] = $nis;
+
+	          		}else{
+
+	              		//nis ada
+	              		$nis_gagal[] = $nis;
+	              	}
+	          		
+	          	}
+
+	          } 
+
+            //alert
+            $success = implode(',',$nis_success);
+            $gagal = implode(',',$nis_gagal);
+
+            if (@$success) {
+            	
+            	$this->session->set_flashdata('success','NISN "'.@$success.'" berhasil di simpan');
+            }
+
+            if (@$gagal) {
+            	
+            	$this->session->set_flashdata('gagal', 'NISN "'.@$gagal.'" sudah ada');
+            }
+
+            //hapus file xls di assets
+            unlink($path . $import_xls_file);
+
+			redirect(base_url('siswa'));   
+
+      } catch (Exception $e) {
+           die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME)
+                    . '": ' .$e->getMessage());
+        }
+      }else{
+          echo $error['error'];
+        }
+	}
 }

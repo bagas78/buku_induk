@@ -3,6 +3,7 @@ class Pribadi extends CI_Controller{
 
 	function __construct(){
 		parent::__construct();
+		$this->load->model('m_penilaian');
 	}      
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
@@ -363,5 +364,46 @@ class Pribadi extends CI_Controller{
 		}
 
 		redirect(base_url('pribadi'));  
+	}
+	function penilaian($user){
+
+		$data['pribadi'] = 'class="active"';
+		$data['title'] = 'Data Pribadi';
+
+		$data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
+
+		$data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = 3")->result_array();
+
+		$data['post_tahun'] = @$_POST['tahun'];
+		$data['user_id'] = $user;
+
+    	$this->load->view('v_template_admin/admin_header',$data);
+	    $this->load->view('pribadi/penilaian',$data);
+	    $this->load->view('v_template_admin/admin_footer',$data);
+	}
+	function penilaian_data($nama = '', $tahun = ''){
+
+		switch (true) {
+			case $nama != '' && $tahun != '':
+				$where = array('user_id' => $nama,'tahun_id' => $tahun,'penilaian_hapus' => 0);
+				break;
+			
+			default:
+				$where = array('user_id' => $nama, 'penilaian_hapus' => 0);
+				break;
+		}
+
+	    $data = $this->m_penilaian->get_datatables($where);
+		$total = $this->m_penilaian->count_all($where);
+		$filter = $this->m_penilaian->count_filtered($where);
+
+		$output = array(
+			"draw" => $_GET['draw'],
+			"recordsTotal" => $total,
+			"recordsFiltered" => $filter,
+			"data" => $data,
+		);
+		//output dalam format JSON
+		echo json_encode($output);
 	}
 }
