@@ -32,11 +32,11 @@ class Penilaian extends CI_Controller{
 
 		switch (true) {
 			case $nama != '' && $tahun != '':
-				$where = array('user_id' => $nama,'tahun_id' => $tahun,'penilaian_hapus' => 0);
+				$where = array('user_id' => $nama,'tahun_id' => $tahun,'penilaian_hapus' => 0, 'user_hapus' => 0);
 				break;
 			
 			default:
-				$where = array('penilaian_hapus' => 0);
+				$where = array('penilaian_hapus' => 0, 'user_hapus' => 0);
 				break;
 		}
 
@@ -349,7 +349,7 @@ class Penilaian extends CI_Controller{
               if ($i > 0) {
               		
               	@$nis = $value['A'];	
-              	$id = $this->db->query("SELECT user_id as id  FROM t_user WHERE user_nis = '$nis'")->row_array();
+              	$id = $this->db->query("SELECT user_id as id  FROM t_user WHERE user_nis = '$nis' AND user_hapus = 0")->row_array();
               	@$user = @$id['id'];
 
               	if (@$nis != '') {

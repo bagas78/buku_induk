@@ -122,7 +122,7 @@ class Siswa extends CI_Controller{
 
 				if ($nis != '') {
 
-					$cek = $this->db->query("SELECT * FROM t_user WHERE user_nis = '$nis' AND user_nisn = '$nisn'")->num_rows();
+					$cek = $this->db->query("SELECT * FROM t_user WHERE user_nis = '$nis' AND user_nisn = '$nisn' AND user_hapus = 0")->num_rows();
 
 	              	if (@$cek == 0) {
 	         			
