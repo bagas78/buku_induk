@@ -50,6 +50,7 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th <?=($level == 3)? 'hidden':''?>>NIS</th>
                 <th <?=($level == 3)? 'hidden':''?>>Siswa</th>
                 <th>Dokumen</th>
                 <th>Type</th>
@@ -61,6 +62,7 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
+                  <td <?=($level == 3)? 'hidden':''?>><?php echo $key['user_nis'] ?></td>
                   <td <?=($level == 3)? 'hidden':''?>><?php echo $key['user_name'] ?></td>
                   <td><?php echo $key['dokumen_name'] ?></td>
                   <td><?php echo $key['dokumen_type'] ?></td>

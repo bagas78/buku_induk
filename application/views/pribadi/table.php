@@ -50,6 +50,8 @@
                 <th>Nama</th>
                 <th>NISN</th>
                 <th>Status</th>
+                <th>Data Pribadi</th>
+                <th width="1">Penilaian</th>
                 <th>Action</th>
               </tr>
               </thead>
@@ -62,6 +64,17 @@
                   <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
                   <td><?php echo @$key['user_status'] ?></td>
+                  <td>
+                    
+                    <?php
+                      $id = @$key['user_id'];
+                      $get = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_siswa = '$id'")->num_rows();
+
+                      if (@$get > 0) {echo '<span class="bg-success">Sudah</span>';}else{echo '<span class="bg-danger">Belum</span>';} 
+                    ?>
+
+                  </td>
+                  <td><button onclick="penilaian(<?php echo @$key['user_id'] ?>)" class="btn btn-primary btn-xs">Lihat <i class="fa fa-angle-double-right"></i></button></td>
                   <td style="width: 110px;">
                     <div>
                     
@@ -126,6 +139,30 @@
         </div>
       </div>
 
+<div class="modal fade" id="modal-penilaian">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title"><b>SEMESTER DI NILAI</b></h4>
+      </div>
+      <div class="modal-body">
+        
+        <?php foreach ($tahun_data as $th): ?>
+        
+          <h5 style="background: green;color: white; padding: 1%;">TAHUN <?=$th['tahun_text']?></h5>
+          <table class="x table table-bordered table-hover penilaian_<?=$th['tahun_id']?>">  
+
+          </table>
+
+        <?php endforeach ?>
+
+      </div>
+    </div>
+  </div>
+</div>
+
 <script type="text/javascript">
   function status(val,id){
 
@@ -136,5 +173,27 @@
       $('#alasan'+id).removeAttr('readonly', '');
       $('#alasan'+id).val('');
     }
+  }
+
+  function penilaian(id){
+    //empty
+    $('.x').empty();
+
+    //modal pop up
+    $('#modal-penilaian').modal('toggle');
+
+    $.get('<?=base_url('pribadi/penilaian_get')?>/'+id, function(data) {
+      
+      var arr = JSON.parse(data);
+      
+      $.each(arr, function(index, val) {
+
+          var html = '<tr style="background: azure;"><td>- SEMESTER '+val['penilaian_semester']+'</td></tr>';
+
+          $('.penilaian_'+val['penilaian_tahun']).append(html);
+
+      });
+
+    });
   }
 </script>

@@ -13,6 +13,8 @@ class Pribadi extends CI_Controller{
  
 			$data['pribadi'] = 'class="active"';
 		    $data['title'] = 'Data Pribadi';
+
+		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
 		    
 
 		    if ($level == 2) {
@@ -154,14 +156,18 @@ class Pribadi extends CI_Controller{
 
 		$db = $this->db->query("SELECT * FROM t_pribadi as a JOIN t_user as b ON a.pribadi_siswa = b.user_id WHERE a.pribadi_hapus = 0 AND a.pribadi_siswa = '$id'")->row_array();
 
-		$data['x'] = $db;
+		if (@$db) {
 
-    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+			$data['x'] = $db;
 
-    	$this->load->view('pribadi/print',$data);
+	    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
 
-    	// echo '<pre>';
-    	// print_r($data);
+	    	$this->load->view('pribadi/print',$data);	
+		}else{
+
+			$this->session->set_flashdata('gagal', 'Data pribadi belum di isi');
+			redirect(base_url('pribadi'));			
+		}
 	    
 	}
 	function import(){
@@ -405,5 +411,10 @@ class Pribadi extends CI_Controller{
 		);
 		//output dalam format JSON
 		echo json_encode($output);
+	}
+	function penilaian_get($id){
+
+		$data = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_user = '$id'")->result_array();
+		echo json_encode($data);
 	}
 }

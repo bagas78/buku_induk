@@ -65,6 +65,7 @@
           <table id="example" class="table table-bordered table-hover" style="width: 100%;">
             <thead>
             <tr>
+              <th>NIS</th>
               <th>Nama</th>
               <th>Semester</th>
               <th>Tahun</th>
@@ -151,7 +152,8 @@
                 "url": '<?= base_url('penilaian/get_data/'); ?>'+nama+'/'+tahun,
                 "type": "GET"
             },
-            "columns": [                               
+            "columns": [    
+                        { "data": "user_nis"},                           
                         { "data": "user_name"},
                         { "data": "penilaian_semester"},
                         { "data": "tahun_text"},

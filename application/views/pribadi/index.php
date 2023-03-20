@@ -46,7 +46,7 @@
               <i class="fa fa-times"></i></button>
           </div>
         </div>
-        <div class="box-body">
+        <div class="box-body"> 
          
           <div class="container" style="width: 100%;">
             <div class="stepwizard">
@@ -645,3 +645,33 @@
       </div>
     </div>
   </div>
+
+  <script type="text/javascript">
+      var level = '<?= $this->session->userdata('level'); ?>';
+
+      if (level == 3) {
+
+        $('.btn-danger').remove();
+        $('input[type="file"]').remove();
+
+        $('input').css({
+            'pointer-events': 'none',
+            'border': 'none',
+        });
+
+        $('select').css({
+            'pointer-events': 'none',
+            'border': 'none',
+        });
+
+        for (var i = 1; i <= 4; i++) {
+            
+             $('input[name="j'+i+'"]').css({
+                'pointer-events': '',
+                'border': '',
+            });
+        }
+       
+      }
+
+  </script>

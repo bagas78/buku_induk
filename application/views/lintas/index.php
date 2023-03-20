@@ -52,6 +52,7 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
+                <th>NIS</th>
                 <th>Nama Siswa</th>
                 <th>Semester</th>
                 <th>Deskripsi</th>
@@ -68,6 +69,7 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
+                  <td><?php echo $key['user_nis'] ?></td>
                   <td><?php echo $key['user_name'] ?></td>
                   <td><?php echo $key['lintas_semester'] ?></td>
                   <td><?php echo $key['lintas_deskripsi'] ?></td>

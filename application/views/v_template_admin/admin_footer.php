@@ -163,7 +163,11 @@ $(function () {
                     $item.addClass('btn-success');
                     allWells.hide();
                     $target.show();
-                    $target.find('input:eq(0)').focus();
+
+                    if (level != 3) {
+
+                        $target.find('input:eq(0)').focus();
+                    }
                 }
             });
 

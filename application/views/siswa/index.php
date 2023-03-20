@@ -52,8 +52,8 @@
           <table id="example1" class="table table-bordered table-hover">
             <thead>
               <tr>
-                <th>Nama</th>
                 <th>NIS</th>
+                <th>Nama</th>
                 <th>NISN</th>
                 <th>Email</th>
                 <th>Action</th>
@@ -64,8 +64,8 @@
               <?php foreach ($data as $key): ?>
                                 
                 <tr>
-                  <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nis'] ?></td>
+                  <td><?php echo @$key['user_name'] ?></td>
                   <td><?php echo @$key['user_nisn'] ?></td>
                   <td><?php echo @$key['user_email'] ?></td>
                   <td style="width: 50px;">

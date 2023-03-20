@@ -4,7 +4,8 @@ class Sekolah extends CI_Controller{
 	function __construct(){
 		parent::__construct();
 	}
-	function save(){ 
+	function save(){ 		
+		//update informasi
 		$set = array(
 							'sekolah_nama' => @$_POST['sekolah_nama'],
 							'sekolah_nss' => @$_POST['sekolah_nss'],
@@ -30,6 +31,44 @@ class Sekolah extends CI_Controller{
 			$x = $this->db->insert('t_sekolah');
 		}	
 
+		//upload logo
+		$logo = @$_FILES['logo'];
+
+		if (@$logo) {
+
+			//type file
+	        $typefile = explode('/', $logo['type']);
+
+	        //replace Karakter name foto
+	        $filename = $logo['name'];
+
+	        //replace name
+	        $type = explode(".", $filename);
+	        $no = count($type) - 1;
+	        $new_name = md5(time()).'.'.$type[$no];
+			
+			//config upload
+		  	$config = array(
+		  	'upload_path' 		=> './assets/gambar/logo',
+		  	'allowed_types' 	=> "gif|jpg|png|jpeg",
+		  	'overwrite' 		=> TRUE,
+		  	'file_name'			=> $new_name,
+		  	// 'max_size' 		=> "2048000",
+		  	// 'max_height' 		=> "10000",
+		  	// 'max_width' 		=> "20000"
+		  	);
+
+			//upload logo
+			$this->load->library('upload', $config);
+			
+			if ($this->upload->do_upload('logo')) {
+				
+				$this->db->set('sekolah_logo',$new_name);
+				$this->db->update('t_sekolah');
+			}	
+		}
+
+		//alert
 		if ($x) {
 
 			$this->session->set_flashdata('success','Data berhasil di simpan');

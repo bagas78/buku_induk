@@ -92,8 +92,10 @@
         </div>
         <div class="box-body">
          
-        <form style="background: aliceblue; padding: 2%; border-radius: 20px;" method="POST" action="<?= ($this->session->userdata('level') < 3)? base_url('sekolah/save'):'#' ?>">
-           
+        <form method="POST" action="<?= ($this->session->userdata('level') < 3)? base_url('sekolah/save'):'#' ?>" enctype="multipart/form-data">
+
+          <div style="background: aliceblue; padding: 2%; border-radius: 20px;">
+          
             <div class="form-group">
               <div class="row">
                 <div class="col-md-3">
@@ -194,8 +196,24 @@
                 </div>  
               </div>
             </div>
+            <div class="form-group">
+              <div class="row">
+                <div class="col-md-3">
+                  <label>LOGO SEKOLAH</label>
+                </div>
+                <div class="col-md-6">
+                  <input id="logo" type="file" name="logo" class="form-control">
+
+                  <!-- logo -->
+                  <a href="<?=base_url('assets/gambar/logo/'.@$data['sekolah_logo'])?>" target="_BLANK"><img style="margin-top: 10px; background: white;" src="<?=base_url('assets/gambar/logo/'.@$data['sekolah_logo'])?>" width="150" class="img-thumbnail"></a>
+
+                </div>  
+              </div>
+            </div>
 
             <?php if ($this->session->userdata('level') < 3): ?>
+
+          </div>
 
             <hr>
 
@@ -272,7 +290,21 @@
 <script src="<?php echo base_url() ?>adminLTE/bower_components/ckeditor/ckeditor.js"></script>
 
  <script type="text/javascript">
-    <!--
+
+  //nonaktifkan edit siswa
+  var level = '<?=$this->session->userdata('level')?>';
+
+  if (level == 3) {
+
+    $('#logo').remove();
+
+    $('input').css({
+      'pointer-events': 'none',
+      'background': 'transparent',
+      'border': 'none',
+    });
+  }
+
     function showTime() {
         var a_p = "";
         var today = new Date();
