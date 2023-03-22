@@ -123,9 +123,9 @@
                 <td class="no"></td>
                 <td><?php echo $pel['pelajaran_nama'] ?></td>
                 <td><?php echo $pel['pelajaran_kkm'] ?></td>
-                <td id="<?php echo $pel['pelajaran_id'] ?>_np_angka"></td>
+                <td class="rata_np" id="<?php echo $pel['pelajaran_id'] ?>_np_angka"></td>
                 <td id="<?php echo $pel['pelajaran_id'] ?>_np_predikat"></td>
-                <td id="<?php echo $pel['pelajaran_id'] ?>_nk_angka"></td>
+                <td class="rata_nk" id="<?php echo $pel['pelajaran_id'] ?>_nk_angka"></td>
                 <td id="<?php echo $pel['pelajaran_id'] ?>_nk_predikat"></td>
                 <td id="<?php echo $pel['pelajaran_id'] ?>_nss_mapel"></td>
               </tr>
@@ -141,10 +141,11 @@
 
             <?php foreach ($arr as $key => $value): ?>
               
-              <tr style="font-weight: bold; background: #faebd778;">
+              <tr class="<?php echo $kat['kategori_alpha'].''.($key+1) ?>" style="font-weight: bold; background: #faebd778;">
                 <td><?php echo $kat['kategori_alpha'].''.($key+1) ?></td>
                 <td colspan="7"><?php echo $value ?></td>
               </tr>
+              
 
               <?php $no = 1 ?>
               <?php foreach ($pelajaran_data as $pel): ?>
@@ -176,14 +177,10 @@
       <tr>
         <td colspan="8" style="font-weight: bold; background: aliceblue;">JUMLAH NILAI</td>
       </tr>
-      <tr>
-        <td colspan="2">RATA-RATA</td>
-        <td></td>
-        <td id="np_rata"></td>
-        <td></td>
-        <td id="nk_rata"></td>
-        <td></td>
-        <td></td>
+      <tr style="background: slategray; color: white; font-weight: bold;">
+        <td colspan="3">RATA-RATA</td>
+        <td colspan="2" id="tot_np_rata"></td>
+        <td colspan="3" id="tot_nk_rata"></td>
       </tr>
 
     </table>
@@ -212,14 +209,6 @@
     $('.file').attr('hidden', true);
 
   <?php endif ?>
-
-  //no urut
-  $('.no').each(function(index, el) {
-    
-    var i = index + 1;
-    $(this).html(index + 1);
-
-  });
 
   <?php $parse = json_decode($data['penilaian_data'], true) ?>
 
@@ -273,23 +262,104 @@
     //nss_mapel
     $('#<?php echo $pel_id.'_'.$pel_kategori_sub ?>_nss_mapel').html('<?php echo @$parse[$pel_id.'_'.$pel_kategori_sub.'_nss_mapel'] ?>');
 
-    //rata - rata
-    <?php $np_rata += @$parse[$pel_id.'_np_angka']; ?>
-    <?php $np_rata_sub += @$parse[$pel_id.'_'.$pel_kategori_sub.'_np_angka']; ?>
-
-    <?php $nk_rata += @$parse[$pel_id.'_nk_angka']; ?>
-    <?php $nk_rata_sub += @$parse[$pel_id.'_'.$pel_kategori_sub.'_nk_angka']; ?>
-
     <?php $i++; ?>
 
   <?php endforeach ?>
 
-  $('#np_rata').html('<?php echo round(($np_rata + $np_rata_sub) / $i) ?>');
-  $('#nk_rata').html('<?php echo round(($nk_rata + $nk_rata_sub) / $i) ?>');
+  //peminatan
+  var html = '';
+
+  <?php $i = 1; ?>
+  <?php foreach($peminatan_data as $p): ?>
+
+    <?php $arr = json_decode($p['peminatan_data'], true); ?>
+    
+    //Dasar Bidang Keahlian
+
+    html += '<tr>';
+    html += '<td class="no"></td>';
+    html += '<td><?=$arr['c1']?></td></td>';
+    html += '<td><?=$arr['c1_np_kkm']?></td></td>';
+    html += '<td class="rata_np"><?=$arr['c1_np_angka']?></td>';
+    html += '<td><?=$arr['c1_np_predikat']?></td>';
+    html += '<td class="rata_nk"><?=$arr['c1_np_angka']?></td>';
+    html += '<td><?=$arr['c1_np_predikat']?></td>';
+    html += '<td><?=$arr['c1_nss_mapel']?></td>';
+    html += '</tr>';
+
+    $('.C1').closest('tr').after(html);
+    html = '';
+    
+    //Dasar Program Keahlian
+
+    html += '<tr>';
+    html += '<td class="no"></td>';
+    html += '<td><?=$arr['c2']?></td></td>';
+    html += '<td><?=$arr['c2_np_kkm']?></td></td>';
+    html += '<td class="rata_np"><?=$arr['c2_np_angka']?></td>';
+    html += '<td><?=$arr['c2_np_predikat']?></td>';
+    html += '<td class="rata_nk"><?=$arr['c2_np_angka']?></td>';
+    html += '<td><?=$arr['c2_np_predikat']?></td>';
+    html += '<td><?=$arr['c2_nss_mapel']?></td>';
+    html += '</tr>';
+
+    $('.C2').closest('tr').after(html);
+    html = '';
+    
+    //Paket Keahlian
+
+    html += '<tr>';
+    html += '<td class="no"></td>';
+    html += '<td><?=$arr['c3']?></td></td>';
+    html += '<td><?=$arr['c3_np_kkm']?></td></td>';
+    html += '<td class="rata_np"><?=$arr['c3_np_angka']?></td>';
+    html += '<td><?=$arr['c3_np_predikat']?></td>';
+    html += '<td class="rata_nk"><?=$arr['c3_np_angka']?></td>';
+    html += '<td><?=$arr['c3_np_predikat']?></td>';
+    html += '<td><?=$arr['c3_nss_mapel']?></td>';
+    html += '</tr>';
+
+    $('.C3').closest('tr').after(html);
+    html = '';
+
+  <?php $i++ ?>
+  <?php endforeach ?>
 
   //print
   function preview(){
     $('.print-body').printThis();
   }
+
+  //no urut
+  $('.no').each(function(index, el) {
+    
+    var i = index + 1;
+    $(this).html(index + 1);
+
+  });
+
+  //rata - rata np
+  var rata_np = 0;
+  var rata_jum_np = 0;
+  $.each($('.rata_np'), function(index, val) {
+     
+     rata_np += parseInt($(this).text());
+     rata_jum_np += 1;
+
+  });
+
+  $('#tot_np_rata').text(rata_np / rata_jum_np);
+
+  //rata - rata nk
+  var rata_nk = 0;
+  var rata_jum_nk = 0;
+  $.each($('.rata_nk'), function(index, val) {
+     
+     rata_nk += parseInt($(this).text());
+     rata_jum_nk += 1;
+
+  });
+
+  $('#tot_nk_rata').text(rata_nk / rata_jum_nk);
 
 </script>

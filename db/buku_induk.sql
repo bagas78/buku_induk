@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 18, 2023 at 12:04 PM
+-- Generation Time: Mar 22, 2023 at 09:22 AM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -42,11 +42,12 @@ CREATE TABLE `t_detail_user` (
 --
 
 INSERT INTO `t_detail_user` (`detail_id`, `detail_id_user`, `detail_jabatan`, `detail_pendidikan`, `detail_alamat`, `detail_biodata`) VALUES
-(1, 1, 'BOS', 'Pendidikan  Biologi', 'Kunir, wonodadi, Blitar', 'ini biodata ku'),
+(1, 1, 'BOS SEJATI', 'Pendidikan  Biologi', 'Kunir, wonodadi, Blitar', 'ini biodata ku'),
 (2, 2, '', '', '', ''),
 (3, 3, '', '', '', ''),
 (5, 4, '', '', '', ''),
-(6, 5, NULL, NULL, NULL, NULL);
+(6, 5, NULL, NULL, NULL, NULL),
+(8, 9, 'Murid Teladan', '', '', '');
 
 -- --------------------------------------------------------
 
@@ -118,7 +119,7 @@ CREATE TABLE `t_kategori` (
 INSERT INTO `t_kategori` (`kategori_id`, `kategori_nama`, `kategori_alpha`, `kategori_sub`, `kategori_hapus`) VALUES
 (3, 'Muatan Nasional', 'A', '', 0),
 (4, 'Muatan Kewilayahan', 'B', '', 0),
-(5, 'Kelompok C (Permintaan)', 'C', '[\"Dasar Bidang Keahlian \",\"Dasar Program Keahlian \",\"Paket Keahlian \"]', 0);
+(5, 'Kelompok C (Peminatan)', 'C', '[\"Dasar Bidang Keahlian \",\"Dasar Program Keahlian \",\"Paket Keahlian \"]', 0);
 
 -- --------------------------------------------------------
 
@@ -203,13 +204,37 @@ INSERT INTO `t_pelajaran` (`pelajaran_id`, `pelajaran_nama`, `pelajaran_kategori
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `t_peminatan`
+--
+
+CREATE TABLE `t_peminatan` (
+  `peminatan_id` int(11) NOT NULL,
+  `peminatan_user` text DEFAULT NULL,
+  `peminatan_tahun` text DEFAULT NULL,
+  `peminatan_semester` text DEFAULT NULL,
+  `peminatan_data` text DEFAULT NULL,
+  `peminatan_tanggal` date DEFAULT curdate()
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_peminatan`
+--
+
+INSERT INTO `t_peminatan` (`peminatan_id`, `peminatan_user`, `peminatan_tahun`, `peminatan_semester`, `peminatan_data`, `peminatan_tanggal`) VALUES
+(15, '4', '1', '1', '{\"c1\":\"Simulasi dan  komunikasi digital\",\"c1_np_kkm\":70,\"c1_np_angka\":60,\"c1_np_predikat\":\"A\",\"c1_nk_kkm\":70,\"c1_nk_angka\":80,\"c1_nk_predikat\":\"A\",\"c1_nss_mapel\":\"SB\",\"c2\":\"Gambar teknik otomotif\",\"c2_np_kkm\":70,\"c2_np_angka\":60,\"c2_np_predikat\":\"A\",\"c2_nk_kkm\":70,\"c2_nk_angka\":80,\"c2_nk_predikat\":\"A\",\"c2_nss_mapel\":\"SB\",\"c3\":\"Bahasa jawa\",\"c3_np_kkm\":70,\"c3_np_angka\":60,\"c3_np_predikat\":\"A\",\"c3_nk_kkm\":70,\"c3_nk_angka\":80,\"c3_nk_predikat\":\"A\",\"c3_nss_mapel\":\"SB\"}', '2023-03-22'),
+(16, '4', '1', '1', '{\"c1\":\"Fisika\",\"c1_np_kkm\":70,\"c1_np_angka\":60,\"c1_np_predikat\":\"A\",\"c1_nk_kkm\":70,\"c1_nk_angka\":80,\"c1_nk_predikat\":\"A\",\"c1_nss_mapel\":\"SB\",\"c2\":\"Teknik dasar otomotif\",\"c2_np_kkm\":70,\"c2_np_angka\":60,\"c2_np_predikat\":\"A\",\"c2_nk_kkm\":70,\"c2_nk_angka\":80,\"c2_nk_predikat\":\"A\",\"c2_nss_mapel\":\"SB\",\"c3\":\"Bimbingan dan konseling\",\"c3_np_kkm\":70,\"c3_np_angka\":60,\"c3_np_predikat\":\"A\",\"c3_nk_kkm\":70,\"c3_nk_angka\":80,\"c3_nk_predikat\":\"A\",\"c3_nss_mapel\":\"SB\"}', '2023-03-22'),
+(17, '4', '1', '1', '{\"c1\":\"Kimia\",\"c1_np_kkm\":70,\"c1_np_angka\":60,\"c1_np_predikat\":\"A\",\"c1_nk_kkm\":70,\"c1_nk_angka\":80,\"c1_nk_predikat\":\"A\",\"c1_nss_mapel\":\"SB\",\"c2\":\"Pekerjaan dasar otomotif\",\"c2_np_kkm\":70,\"c2_np_angka\":60,\"c2_np_predikat\":\"A\",\"c2_nk_kkm\":70,\"c2_nk_angka\":80,\"c2_nk_predikat\":\"A\",\"c2_nss_mapel\":\"SB\",\"c3\":\"PGRI\",\"c3_np_kkm\":70,\"c3_np_angka\":60,\"c3_np_predikat\":\"A\",\"c3_nk_kkm\":70,\"c3_nk_angka\":80,\"c3_nk_predikat\":\"A\",\"c3_nss_mapel\":\"SB\"}', '2023-03-22');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `t_penilaian`
 --
 
 CREATE TABLE `t_penilaian` (
   `penilaian_id` int(11) NOT NULL,
-  `penilaian_tahun` text NOT NULL DEFAULT '',
   `penilaian_user` text NOT NULL,
+  `penilaian_tahun` text NOT NULL DEFAULT '',
   `penilaian_semester` text NOT NULL,
   `penilaian_data` text NOT NULL,
   `penilaian_type` set('text','file') NOT NULL DEFAULT '',
@@ -222,13 +247,13 @@ CREATE TABLE `t_penilaian` (
 -- Dumping data for table `t_penilaian`
 --
 
-INSERT INTO `t_penilaian` (`penilaian_id`, `penilaian_tahun`, `penilaian_user`, `penilaian_semester`, `penilaian_data`, `penilaian_type`, `penilaian_file`, `penilaian_tanggal`, `penilaian_hapus`) VALUES
-(3, '1', '3', '1', '{\"semester\":\"1\",\"user\":\"3\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":\"10\",\"1_np_predikat\":\"A\",\"1_nk_angka\":\"10\",\"1_nk_predikat\":\"A\",\"1_nss_mapel\":\"SB\",\"2_np_angka\":\"20\",\"2_np_predikat\":\"B\",\"2_nk_angka\":\"20\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"30\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"30\",\"3_nk_predikat\":\"C\",\"3_nss_mapel\":\"C\",\"4_np_angka\":\"40\",\"4_np_predikat\":\"D\",\"4_nk_angka\":\"40\",\"4_nk_predikat\":\"D\",\"4_nss_mapel\":\"K\",\"5_np_angka\":\"50\",\"5_np_predikat\":\"A\",\"5_nk_angka\":\"50\",\"5_nk_predikat\":\"A\",\"5_nss_mapel\":\"SB\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"B\",\"6_nk_angka\":\"60\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"8_np_angka\":\"70\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"70\",\"8_nk_predikat\":\"C\",\"8_nss_mapel\":\"C\",\"9_np_angka\":\"80\",\"9_np_predikat\":\"D\",\"9_nk_angka\":\"80\",\"9_nk_predikat\":\"D\",\"9_nss_mapel\":\"K\",\"10_np_angka\":\"90\",\"10_np_predikat\":\"A\",\"10_nk_angka\":\"90\",\"10_nk_predikat\":\"A\",\"10_nss_mapel\":\"SB\",\"17_0_np_angka\":\"10\",\"17_0_np_predikat\":\"A\",\"17_0_nk_angka\":\"10\",\"17_0_nk_predikat\":\"A\",\"17_0_nss_mapel\":\"SB\",\"18_1_np_angka\":\"20\",\"18_1_np_predikat\":\"B\",\"18_1_nk_angka\":\"20\",\"18_1_nk_predikat\":\"B\",\"18_1_nss_mapel\":\"B\",\"20_1_np_angka\":\"30\",\"20_1_np_predikat\":\"C\",\"20_1_nk_angka\":\"30\",\"20_1_nk_predikat\":\"C\",\"20_1_nss_mapel\":\"C\",\"19_2_np_angka\":\"40\",\"19_2_np_predikat\":\"D\",\"19_2_nk_angka\":\"40\",\"19_2_nk_predikat\":\"D\",\"19_2_nss_mapel\":\"K\"}', 'text', '', '2022-06-21', 0),
-(11, '1', '3', '2', '', 'file', '65445862c29c42c6436210648aaecbe7.jpg', '2022-06-23', 0),
-(32, '3', '5', '1', '{\"semester\":\"1\",\"user\":\"5\",\"status\":\"1\",\"tahun\":\"3\",\"type\":\"text\",\"1_np_angka\":\"60\",\"1_np_predikat\":\"C\",\"1_nk_angka\":\"90\",\"1_nk_predikat\":\"B\",\"1_nss_mapel\":\"B\",\"2_np_angka\":\"60\",\"2_np_predikat\":\"C\",\"2_nk_angka\":\"90\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"60\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"90\",\"3_nk_predikat\":\"B\",\"3_nss_mapel\":\"B\",\"4_np_angka\":\"60\",\"4_np_predikat\":\"C\",\"4_nk_angka\":\"90\",\"4_nk_predikat\":\"B\",\"4_nss_mapel\":\"B\",\"5_np_angka\":\"60\",\"5_np_predikat\":\"C\",\"5_nk_angka\":\"90\",\"5_nk_predikat\":\"B\",\"5_nss_mapel\":\"B\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"C\",\"6_nk_angka\":\"90\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"7_np_angka\":\"60\",\"7_np_predikat\":\"C\",\"7_nk_angka\":\"90\",\"7_nk_predikat\":\"B\",\"7_nss_mapel\":\"B\",\"8_np_angka\":\"60\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"90\",\"8_nk_predikat\":\"B\",\"8_nss_mapel\":\"B\",\"9_np_angka\":\"60\",\"9_np_predikat\":\"C\",\"9_nk_angka\":\"90\",\"9_nk_predikat\":\"B\",\"9_nss_mapel\":\"B\"}', 'text', '', '2022-10-10', 0),
-(33, '1', '4', '1', '{\"semester\":1,\"user\":\"4\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":70,\"1_np_predikat\":\"B\",\"1_nk_angka\":100,\"1_nk_predikat\":\"C\",\"1_nss_mapel\":\"SB\",\"2_np_angka\":70,\"2_np_predikat\":\"B\",\"2_nk_angka\":100,\"2_nk_predikat\":\"C\",\"2_nss_mapel\":\"SB\",\"3_np_angka\":70,\"3_np_predikat\":\"B\",\"3_nk_angka\":100,\"3_nk_predikat\":\"C\",\"3_nss_mapel\":\"SB\",\"4_np_angka\":70,\"4_np_predikat\":\"B\",\"4_nk_angka\":100,\"4_nk_predikat\":\"C\",\"4_nss_mapel\":\"SB\",\"5_np_angka\":70,\"5_np_predikat\":\"B\",\"5_nk_angka\":100,\"5_nk_predikat\":\"C\",\"5_nss_mapel\":\"SB\",\"6_np_angka\":70,\"6_np_predikat\":\"B\",\"6_nk_angka\":100,\"6_nk_predikat\":\"C\",\"6_nss_mapel\":\"SB\",\"7_np_angka\":70,\"7_np_predikat\":\"B\",\"7_nk_angka\":100,\"7_nk_predikat\":\"C\",\"7_nss_mapel\":\"SB\",\"8_np_angka\":70,\"8_np_predikat\":\"B\",\"8_nk_angka\":100,\"8_nk_predikat\":\"C\",\"8_nss_mapel\":\"SB\",\"9_np_angka\":70,\"9_np_predikat\":\"B\",\"9_nk_angka\":100,\"9_nk_predikat\":\"C\",\"9_nss_mapel\":\"SB\"}', 'text', '', '2022-10-10', 0),
+INSERT INTO `t_penilaian` (`penilaian_id`, `penilaian_user`, `penilaian_tahun`, `penilaian_semester`, `penilaian_data`, `penilaian_type`, `penilaian_file`, `penilaian_tanggal`, `penilaian_hapus`) VALUES
+(3, '3', '1', '1', '{\"semester\":\"1\",\"user\":\"3\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":\"10\",\"1_np_predikat\":\"A\",\"1_nk_angka\":\"10\",\"1_nk_predikat\":\"A\",\"1_nss_mapel\":\"SB\",\"2_np_angka\":\"20\",\"2_np_predikat\":\"B\",\"2_nk_angka\":\"20\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"30\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"30\",\"3_nk_predikat\":\"C\",\"3_nss_mapel\":\"C\",\"4_np_angka\":\"40\",\"4_np_predikat\":\"D\",\"4_nk_angka\":\"40\",\"4_nk_predikat\":\"D\",\"4_nss_mapel\":\"K\",\"5_np_angka\":\"50\",\"5_np_predikat\":\"A\",\"5_nk_angka\":\"50\",\"5_nk_predikat\":\"A\",\"5_nss_mapel\":\"SB\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"B\",\"6_nk_angka\":\"60\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"8_np_angka\":\"70\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"70\",\"8_nk_predikat\":\"C\",\"8_nss_mapel\":\"C\",\"9_np_angka\":\"80\",\"9_np_predikat\":\"D\",\"9_nk_angka\":\"80\",\"9_nk_predikat\":\"D\",\"9_nss_mapel\":\"K\",\"10_np_angka\":\"90\",\"10_np_predikat\":\"A\",\"10_nk_angka\":\"90\",\"10_nk_predikat\":\"A\",\"10_nss_mapel\":\"SB\",\"17_0_np_angka\":\"10\",\"17_0_np_predikat\":\"A\",\"17_0_nk_angka\":\"10\",\"17_0_nk_predikat\":\"A\",\"17_0_nss_mapel\":\"SB\",\"18_1_np_angka\":\"20\",\"18_1_np_predikat\":\"B\",\"18_1_nk_angka\":\"20\",\"18_1_nk_predikat\":\"B\",\"18_1_nss_mapel\":\"B\",\"20_1_np_angka\":\"30\",\"20_1_np_predikat\":\"C\",\"20_1_nk_angka\":\"30\",\"20_1_nk_predikat\":\"C\",\"20_1_nss_mapel\":\"C\",\"19_2_np_angka\":\"40\",\"19_2_np_predikat\":\"D\",\"19_2_nk_angka\":\"40\",\"19_2_nk_predikat\":\"D\",\"19_2_nss_mapel\":\"K\"}', 'text', '', '2022-06-21', 0),
+(11, '3', '1', '2', '', 'file', '65445862c29c42c6436210648aaecbe7.jpg', '2022-06-23', 0),
+(32, '5', '3', '1', '{\"semester\":\"1\",\"user\":\"5\",\"status\":\"1\",\"tahun\":\"3\",\"type\":\"text\",\"1_np_angka\":\"60\",\"1_np_predikat\":\"C\",\"1_nk_angka\":\"90\",\"1_nk_predikat\":\"B\",\"1_nss_mapel\":\"B\",\"2_np_angka\":\"60\",\"2_np_predikat\":\"C\",\"2_nk_angka\":\"90\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"60\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"90\",\"3_nk_predikat\":\"B\",\"3_nss_mapel\":\"B\",\"4_np_angka\":\"60\",\"4_np_predikat\":\"C\",\"4_nk_angka\":\"90\",\"4_nk_predikat\":\"B\",\"4_nss_mapel\":\"B\",\"5_np_angka\":\"60\",\"5_np_predikat\":\"C\",\"5_nk_angka\":\"90\",\"5_nk_predikat\":\"B\",\"5_nss_mapel\":\"B\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"C\",\"6_nk_angka\":\"90\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"7_np_angka\":\"60\",\"7_np_predikat\":\"C\",\"7_nk_angka\":\"90\",\"7_nk_predikat\":\"B\",\"7_nss_mapel\":\"B\",\"8_np_angka\":\"60\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"90\",\"8_nk_predikat\":\"B\",\"8_nss_mapel\":\"B\",\"9_np_angka\":\"60\",\"9_np_predikat\":\"C\",\"9_nk_angka\":\"90\",\"9_nk_predikat\":\"B\",\"9_nss_mapel\":\"B\"}', 'text', '', '2022-10-10', 0),
+(33, '4', '1', '1', '{\"semester\":1,\"user\":\"4\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":70,\"1_np_predikat\":\"B\",\"1_nk_angka\":100,\"1_nk_predikat\":\"C\",\"1_nss_mapel\":\"SB\",\"2_np_angka\":70,\"2_np_predikat\":\"B\",\"2_nk_angka\":100,\"2_nk_predikat\":\"C\",\"2_nss_mapel\":\"SB\",\"3_np_angka\":70,\"3_np_predikat\":\"B\",\"3_nk_angka\":100,\"3_nk_predikat\":\"C\",\"3_nss_mapel\":\"SB\",\"4_np_angka\":70,\"4_np_predikat\":\"B\",\"4_nk_angka\":100,\"4_nk_predikat\":\"C\",\"4_nss_mapel\":\"SB\",\"5_np_angka\":70,\"5_np_predikat\":\"B\",\"5_nk_angka\":100,\"5_nk_predikat\":\"C\",\"5_nss_mapel\":\"SB\",\"6_np_angka\":70,\"6_np_predikat\":\"B\",\"6_nk_angka\":100,\"6_nk_predikat\":\"C\",\"6_nss_mapel\":\"SB\",\"7_np_angka\":70,\"7_np_predikat\":\"B\",\"7_nk_angka\":100,\"7_nk_predikat\":\"C\",\"7_nss_mapel\":\"SB\",\"8_np_angka\":70,\"8_np_predikat\":\"B\",\"8_nk_angka\":100,\"8_nk_predikat\":\"C\",\"8_nss_mapel\":\"SB\",\"9_np_angka\":70,\"9_np_predikat\":\"B\",\"9_nk_angka\":100,\"9_nk_predikat\":\"C\",\"9_nss_mapel\":\"SB\"}', 'text', '', '2022-10-10', 0),
 (40, '3', '3', '1', '{\"semester\":1,\"user\":\"3\",\"status\":\"1\",\"type\":\"text\",\"1_np_angka\":50,\"1_np_predikat\":\"D\",\"1_nk_angka\":80,\"1_nk_predikat\":\"A\",\"1_nss_mapel\":\"C\",\"2_np_angka\":50,\"2_np_predikat\":\"D\",\"2_nk_angka\":80,\"2_nk_predikat\":\"A\",\"2_nss_mapel\":\"C\",\"3_np_angka\":50,\"3_np_predikat\":\"D\",\"3_nk_angka\":80,\"3_nk_predikat\":\"A\",\"3_nss_mapel\":\"C\",\"4_np_angka\":50,\"4_np_predikat\":\"D\",\"4_nk_angka\":80,\"4_nk_predikat\":\"A\",\"4_nss_mapel\":\"C\",\"5_np_angka\":50,\"5_np_predikat\":\"D\",\"5_nk_angka\":80,\"5_nk_predikat\":\"A\",\"5_nss_mapel\":\"C\",\"6_np_angka\":50,\"6_np_predikat\":\"D\",\"6_nk_angka\":80,\"6_nk_predikat\":\"A\",\"6_nss_mapel\":\"C\",\"7_np_angka\":50,\"7_np_predikat\":\"D\",\"7_nk_angka\":80,\"7_nk_predikat\":\"A\",\"7_nss_mapel\":\"C\",\"8_np_angka\":50,\"8_np_predikat\":\"D\",\"8_nk_angka\":80,\"8_nk_predikat\":\"A\",\"8_nss_mapel\":\"C\",\"9_np_angka\":50,\"9_np_predikat\":\"D\",\"9_nk_angka\":80,\"9_nk_predikat\":\"A\",\"9_nss_mapel\":\"C\"}', 'text', '', '2022-10-15', 0),
-(41, '3', '5', '1', '{\"semester\":\"1\",\"user\":\"5\",\"status\":\"1\",\"tahun\":\"3\",\"type\":\"text\",\"1_np_angka\":\"60\",\"1_np_predikat\":\"C\",\"1_nk_angka\":\"90\",\"1_nk_predikat\":\"B\",\"1_nss_mapel\":\"B\",\"2_np_angka\":\"60\",\"2_np_predikat\":\"C\",\"2_nk_angka\":\"90\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"60\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"90\",\"3_nk_predikat\":\"B\",\"3_nss_mapel\":\"B\",\"4_np_angka\":\"60\",\"4_np_predikat\":\"C\",\"4_nk_angka\":\"90\",\"4_nk_predikat\":\"B\",\"4_nss_mapel\":\"B\",\"5_np_angka\":\"60\",\"5_np_predikat\":\"C\",\"5_nk_angka\":\"90\",\"5_nk_predikat\":\"B\",\"5_nss_mapel\":\"B\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"C\",\"6_nk_angka\":\"90\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"7_np_angka\":\"60\",\"7_np_predikat\":\"C\",\"7_nk_angka\":\"90\",\"7_nk_predikat\":\"B\",\"7_nss_mapel\":\"B\",\"8_np_angka\":\"60\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"90\",\"8_nk_predikat\":\"B\",\"8_nss_mapel\":\"B\",\"9_np_angka\":\"60\",\"9_np_predikat\":\"C\",\"9_nk_angka\":\"90\",\"9_nk_predikat\":\"B\",\"9_nss_mapel\":\"B\"}', 'text', '', '2022-10-15', 0);
+(41, '5', '3', '1', '{\"semester\":\"1\",\"user\":\"5\",\"status\":\"1\",\"tahun\":\"3\",\"type\":\"text\",\"1_np_angka\":\"60\",\"1_np_predikat\":\"C\",\"1_nk_angka\":\"90\",\"1_nk_predikat\":\"B\",\"1_nss_mapel\":\"B\",\"2_np_angka\":\"60\",\"2_np_predikat\":\"C\",\"2_nk_angka\":\"90\",\"2_nk_predikat\":\"B\",\"2_nss_mapel\":\"B\",\"3_np_angka\":\"60\",\"3_np_predikat\":\"C\",\"3_nk_angka\":\"90\",\"3_nk_predikat\":\"B\",\"3_nss_mapel\":\"B\",\"4_np_angka\":\"60\",\"4_np_predikat\":\"C\",\"4_nk_angka\":\"90\",\"4_nk_predikat\":\"B\",\"4_nss_mapel\":\"B\",\"5_np_angka\":\"60\",\"5_np_predikat\":\"C\",\"5_nk_angka\":\"90\",\"5_nk_predikat\":\"B\",\"5_nss_mapel\":\"B\",\"6_np_angka\":\"60\",\"6_np_predikat\":\"C\",\"6_nk_angka\":\"90\",\"6_nk_predikat\":\"B\",\"6_nss_mapel\":\"B\",\"7_np_angka\":\"60\",\"7_np_predikat\":\"C\",\"7_nk_angka\":\"90\",\"7_nk_predikat\":\"B\",\"7_nss_mapel\":\"B\",\"8_np_angka\":\"60\",\"8_np_predikat\":\"C\",\"8_nk_angka\":\"90\",\"8_nk_predikat\":\"B\",\"8_nss_mapel\":\"B\",\"9_np_angka\":\"60\",\"9_np_predikat\":\"C\",\"9_nk_angka\":\"90\",\"9_nk_predikat\":\"B\",\"9_nss_mapel\":\"B\"}', 'text', '', '2022-10-15', 0);
 
 -- --------------------------------------------------------
 
@@ -269,15 +294,16 @@ CREATE TABLE `t_sekolah` (
   `sekolah_provinsi` text NOT NULL,
   `sekolah_nama_kepala` text NOT NULL,
   `sekolah_nip_kepala` text NOT NULL,
-  `sekolah_tahun_pelajaran` text NOT NULL
+  `sekolah_tahun_pelajaran` text NOT NULL,
+  `sekolah_logo` text NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
 -- Dumping data for table `t_sekolah`
 --
 
-INSERT INTO `t_sekolah` (`sekolah_id`, `sekolah_nama`, `sekolah_nss`, `sekolah_alamat`, `sekolah_desa`, `sekolah_kecamatan`, `sekolah_kabupaten`, `sekolah_provinsi`, `sekolah_nama_kepala`, `sekolah_nip_kepala`, `sekolah_tahun_pelajaran`) VALUES
-(2, 'SEKOLAH HARAPAN BAPAK', '1010150619/20233178', 'Jl. Raya Pondok Bali ', 'Karang Mulya', 'Legonkulon', 'Subang', 'Jawa Barat', 'Irman Sutandi, S.Pd', '19610825 198410 1 001', '2022/2023');
+INSERT INTO `t_sekolah` (`sekolah_id`, `sekolah_nama`, `sekolah_nss`, `sekolah_alamat`, `sekolah_desa`, `sekolah_kecamatan`, `sekolah_kabupaten`, `sekolah_provinsi`, `sekolah_nama_kepala`, `sekolah_nip_kepala`, `sekolah_tahun_pelajaran`, `sekolah_logo`) VALUES
+(2, 'SEKOLAH HARAPAN BAPAK', '1010150619/20233178', 'Jl. Raya Pondok Bali ', 'Karang Mulya', 'Legonkulon', 'Subang', 'Jawa Barat', 'Irman Sutandi, S.Pd', '19610825 198410 1 001', '2022/2023', '231e89e2d236e0da945943ebfa67e3c4.png');
 
 -- --------------------------------------------------------
 
@@ -382,6 +408,12 @@ ALTER TABLE `t_pelajaran`
   ADD PRIMARY KEY (`pelajaran_id`);
 
 --
+-- Indexes for table `t_peminatan`
+--
+ALTER TABLE `t_peminatan`
+  ADD PRIMARY KEY (`peminatan_id`);
+
+--
 -- Indexes for table `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
@@ -419,7 +451,7 @@ ALTER TABLE `t_user`
 -- AUTO_INCREMENT for table `t_detail_user`
 --
 ALTER TABLE `t_detail_user`
-  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `detail_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT for table `t_dokumen`
@@ -456,6 +488,12 @@ ALTER TABLE `t_lintas`
 --
 ALTER TABLE `t_pelajaran`
   MODIFY `pelajaran_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- AUTO_INCREMENT for table `t_peminatan`
+--
+ALTER TABLE `t_peminatan`
+  MODIFY `peminatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `t_penilaian`

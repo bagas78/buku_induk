@@ -300,7 +300,14 @@ class Penilaian extends CI_Controller{
 		$tahun = $data['data']['penilaian_tahun'];
 		$data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_id = '$tahun'")->row_array();
 
-		$data['semester'] = $data['data']['penilaian_semester'];
+		//peminatan
+		$user = $data['data']['penilaian_user'];
+		$tahun = $data['data']['penilaian_tahun'];
+		$semester = $data['data']['penilaian_semester'];
+
+		$data['peminatan_data'] = $this->db->query("SELECT * FROM t_peminatan WHERE peminatan_user = '$user' AND peminatan_tahun = '$tahun' AND peminatan_semester = '$semester'")->result_array();
+
+		$data['semester'] = $semester;
 
 		$data['penilaian'] = 'class="active"';
 	    $data['title'] = 'Penilaian Semester';
@@ -308,6 +315,9 @@ class Penilaian extends CI_Controller{
 	    $this->load->view('v_template_admin/admin_header',$data);
 	    $this->load->view('penilaian/view',$data);
 	    $this->load->view('v_template_admin/admin_footer',$data);
+
+	    // echo '<pre>';
+	    // print_r($data['peminatan_data']);
 	}
 	function import(){
 
@@ -469,6 +479,156 @@ class Penilaian extends CI_Controller{
 	            		//save database not exist
 	            		$this->db->insert('t_penilaian',$val);
 	            	}
+	            }
+            	
+            	$this->session->set_flashdata('success','NISN "'.@$success.'" berhasil di simpan');
+            }
+
+            if (@$gagal) {
+            	
+            	$this->session->set_flashdata('gagal', 'NISN "'.@$gagal.'" tidak di temukan');
+            }
+
+            //hapus file xls di assets
+            unlink($path . $import_xls_file);
+
+			redirect(base_url('penilaian'));   
+
+      } catch (Exception $e) {
+           die('Error loading file "' . pathinfo($inputFileName, PATHINFO_BASENAME)
+                    . '": ' .$e->getMessage());
+        }
+      }else{
+          echo $error['error'];
+        }
+	}
+	function peminatan(){
+
+		$tahun = @$_POST['penilaian_tahun'];
+
+		$path = 'assets/';
+        require_once APPPATH . "/third_party/PHPExcel.php";
+        $config['upload_path'] = $path;
+        $config['allowed_types'] = 'xlsx|xls|csv';
+        $config['remove_spaces'] = TRUE;
+        
+        $this->load->library('upload', $config);
+        $this->upload->initialize($config);
+
+        if (!$this->upload->do_upload('uploadFile')) {
+            $error = array('error' => $this->upload->display_errors());
+        } else {
+            $data = array('upload_data' => $this->upload->data());
+        }
+
+        if(empty($error)){
+          if (!empty($data['upload_data']['file_name'])) {
+            $import_xls_file = $data['upload_data']['file_name'];
+        } else {
+            $import_xls_file = 0;
+        }
+
+        $inputFileName = $path . $import_xls_file;
+         
+        try {
+
+            $inputFileType = PHPExcel_IOFactory::identify($inputFileName);
+            $objReader = PHPExcel_IOFactory::createReader($inputFileType);
+            $objPHPExcel = $objReader->load($inputFileName);
+            $allDataInSheet = $objPHPExcel->getActiveSheet()->toArray(null, true, true, true);
+            $flag = true;
+            $i=0;
+
+            $nis_success = array();
+            $nis_gagal = array();
+            foreach ($allDataInSheet as $value) {
+              if($flag){
+                $flag =false;
+                continue;
+              }
+              
+              if ($i > 0) {
+
+              	@$nis = $value['A'];	
+              	$id = $this->db->query("SELECT user_id as id, user_nis as nis FROM t_user WHERE user_nis = '$nis' AND user_hapus = 0")->row_array();
+              	@$user = @$id['id'];
+
+              	if (@$nis != '') {
+
+              		if (@$id) {
+
+			////////////// C1. bidang keahlian //////////////////
+	              		$json[$i]['c1'] = $value['D'];
+	              		//NP
+	              		$json[$i]['c1_np_kkm'] = $value['E'];
+						$json[$i]['c1_np_angka'] = $value['F'];
+						$json[$i]['c1_np_predikat'] = $value['G'];
+						//NK
+						$json[$i]['c1_nk_kkm'] = $value['H'];
+						$json[$i]['c1_nk_angka'] = $value['I'];
+	              		$json[$i]['c1_nk_predikat'] = $value['J'];
+	              		//NSS
+						$json[$i]['c1_nss_mapel'] = $value['K'];
+
+			///////////// c2. dasar program keahlian /////////////
+						$json[$i]['c2'] = $value['L'];
+						//NP
+	              		$json[$i]['c2_np_kkm'] = $value['M'];
+						$json[$i]['c2_np_angka'] = $value['N'];
+						$json[$i]['c2_np_predikat'] = $value['O'];
+						//NK
+						$json[$i]['c2_nk_kkm'] = $value['P'];
+						$json[$i]['c2_nk_angka'] = $value['Q'];
+	              		$json[$i]['c2_nk_predikat'] = $value['R'];
+	              		//NSS
+						$json[$i]['c2_nss_mapel'] = $value['S'];
+
+
+			///////////// c3. paket keahlian ////////////////////
+	              		$json[$i]['c3'] = $value['T'];
+	              		//NP
+	              		$json[$i]['c3_np_kkm'] = $value['U'];
+						$json[$i]['c3_np_angka'] = $value['V'];
+						$json[$i]['c3_np_predikat'] = $value['W'];
+						//NK
+						$json[$i]['c3_nk_kkm'] = $value['X'];
+						$json[$i]['c3_nk_angka'] = $value['Y'];
+	              		$json[$i]['c3_nk_predikat'] = $value['Z'];
+	              		//NSS
+						$json[$i]['c3_nss_mapel'] = $value['AA'];
+
+	              		//data
+	              		$insertdata[$i]['peminatan_user'] = @$user;
+	              		$insertdata[$i]['peminatan_tahun'] = $tahun;
+	              		$insertdata[$i]['peminatan_semester'] = $value['C'];
+	              		$insertdata[$i]['peminatan_data'] = json_encode($json[$i]);
+
+	              		$nis_success[] = $nis;	
+	              	
+	              	}else{
+
+	              		$nis_gagal[] = $nis;
+	              		
+	              	}
+              	}
+
+              }
+
+              $i++;
+            
+            } 
+
+            //alert
+            $success = implode(',',$nis_success);
+            $gagal = implode(',',$nis_gagal);
+
+            if (@$success) {
+
+            	//save ke database
+	            foreach ($insertdata as $val) {
+
+	            	//save database not exist
+	            	$this->db->insert('t_peminatan',$val);
 	            }
             	
             	$this->session->set_flashdata('success','NISN "'.@$success.'" berhasil di simpan');

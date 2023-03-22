@@ -23,8 +23,9 @@
         <div class="box-header with-border">
  
             <div <?=($level != 3)?'':'hidden'?> align="left">
-              <a href="<?php echo base_url('assets/excel/penilaian.xlsx') ?>" title="Template Excel" Download><button class="btn btn-warning"><i class="fa fa-download"></i> Download Template</button></a>
-              <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
+              <button data-toggle="modal" data-target="#modal-template" class="btn btn-info"><i class="fa fa-chevron-down"></i> Download Template</button>
+              <button class="btn btn-success" onclick="modal('penilaian')"><i class="fa fa-upload"></i> Import Penilaian</button>
+              <button class="btn btn-success" onclick="modal('peminatan')"><i class="fa fa-upload"></i> Import Peminatan</button>
             </div>
 
             <form action="" method="POST">
@@ -83,16 +84,35 @@
       </div>
       <!-- /.box -->
 
+  <div class="modal fade" id="modal-template">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">DOWNLOAD TEMPLATE</h4>
+        </div>
+        <div class="modal-body" style="background: aliceblue;">
+          
+          <a href="<?php echo base_url('assets/excel/penilaian.xlsx') ?>" title="Template Excel" Download><button class="btn bg-navy"><i class="fa fa-download"></i> Download Template Penilaian</button></a>
+
+          <a style="float: right;" href="<?php echo base_url('assets/excel/peminatan.xlsx') ?>" title="Template Excel" Download><button class="btn bg-navy"><i class="fa fa-download"></i> Download Template Peminatan</button></a>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
   <div class="modal fade" id="modal-import">
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Tambah Data</h4>
+          <h4 class="modal-title" id="title"></h4>
         </div>
         <div class="modal-body">
-          <form role="form" method="post" action="<?php echo base_url('penilaian/import') ?>" enctype="multipart/form-data">
+          <form id="url" role="form" method="post" enctype="multipart/form-data">
             <div class="box-body">
               <div class="form-group">
                 <label>File Excel ( xls | xlsx )</label>
@@ -110,7 +130,7 @@
             </div>
             <!-- /.box-body -->
 
-            <div class="box-footer">
+            <div class="box-footer" style="background: aliceblue;">
               <button type="submit" class="btn btn-primary">Submit</button>
                <button type="reset" class="btn btn-danger">Reset</button>
             </div>
@@ -169,5 +189,24 @@
         });
 
     });
+
+function modal(jenis){
+
+  //popup modal
+  $('#modal-import').modal('toggle');
+
+  if (jenis == 'penilaian') {
+
+    $('#title').text('Import Penilaian');
+    $('#url').attr('action', '<?php echo base_url('penilaian/import') ?>');
+
+  }else{
+
+    $('#title').text('Import Peminatan');
+    $('#url').attr('action', '<?php echo base_url('penilaian/peminatan') ?>');
+
+  }
+
+}
 
 </script>

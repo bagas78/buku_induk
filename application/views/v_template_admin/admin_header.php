@@ -111,7 +111,7 @@
     <!-- Logo -->
     <a class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><i class="fa fa-pagelines"></i></span>
+      <span class="logo-mini"><i class="fa fa-book"></i></span>
       <!-- logo for regular state and mobile devices -->
       <span class="logo-lg"><i class="fa fa-book"></i> <b>BUKU INDUK</b></span>
     </a>
