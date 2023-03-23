@@ -710,19 +710,27 @@ class Penilaian extends CI_Controller{
 	    	$new_name = md5($id).'.'.$type[$no];
 	    	///////////////////	
 
-	    	//jenis file boleh di upload
-	    	$format = ['jpg','png','jpeg'];
+    		//config uplod foto
+			 $config = array(
+			 'upload_path' 		=> './assets/gambar/penilaian',
+			 'allowed_types' 	=> "jpg|png|jpeg",
+			 'overwrite' 		=> TRUE,
+			 'max_size' 		=> "2000",
+			 'file_name'		=> $new_name,
+			 );
 
-	    	if (in_array($type[$no], $format)) {
-	    		$path = 'assets/gambar/penilaian';
-	        	move_uploaded_file($_FILES['file']['tmp_name'], $path.'/'.$new_name);
+	         //Load upload library
+	         $this->load->library('upload',$config);
 
-	        	$status = 1;
-	        	$this->session->set_flashdata('success', 'File berhasil di simpan');
-	    	}else{
-	    		$status = 0;
-	    		$this->session->set_flashdata('gagal', 'Format file tidak di dukung');
-	    	}
+			if ($this->upload->do_upload('file')) {
+                
+                $status = 1;
+        	    $this->session->set_flashdata('success', 'File berhasil di simpan');
+        	}else{
+
+        	    $status = 0;
+        	    $this->session->set_flashdata('gagal', 'File gagal di upload');
+        	}
 
 	    	if ($status == 1) {
 	    		$set = array(

@@ -175,6 +175,9 @@
                 <input required="" type="file" name="file" class="form-control" placeholder="Nama Lengkap">
               </div>
 
+              <small style="background: black;color: white;padding: 1%;">Maksimal ukuran 2MB</small>
+              <div class="clearfix"></div><br/>
+
               <span id="img-upload"></span>
 
             </div>
