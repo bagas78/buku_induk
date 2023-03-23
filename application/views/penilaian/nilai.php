@@ -90,7 +90,7 @@
             <input type="hidden" name="status" value="<?php echo @$status ?>">
             <input type="hidden" name="tahun" value="<?php echo @$tahun_id ?>">
 
-            <div class="col-md-4 row">
+            <!-- <div class="col-md-4 row">
               <div class="btn-group btn-group-toggle" data-toggle="buttons">
                 <label id="label-text" onclick="set('text')" class="btn btn-default active">
                 <input id="input-text" class="switch" type="radio" name="type" value="text" autocomplete="off" checked=""> 
@@ -101,7 +101,7 @@
                   File
                 </label> 
               </div>
-            </div>
+            </div> -->
 
             <div class="clearfix"></div><br/>
 

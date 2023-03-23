@@ -23,9 +23,9 @@
         <div class="box-header with-border">
  
             <div <?=($level != 3)?'':'hidden'?> align="left">
-              <button data-toggle="modal" data-target="#modal-template" class="btn btn-info"><i class="fa fa-chevron-down"></i> Download Template</button>
-              <button class="btn btn-success" onclick="modal('penilaian')"><i class="fa fa-upload"></i> Import Penilaian</button>
-              <button class="btn btn-success" onclick="modal('peminatan')"><i class="fa fa-upload"></i> Import Peminatan</button>
+              <button title="Download template penilaian & peminatan" data-toggle="modal" data-target="#modal-template" class="btn btn-info"><i class="fa fa-chevron-down"></i> Download Template</button>
+              <button title="Import excel penilaian" class="btn btn-success" onclick="modal('penilaian')"><i class="fa fa-upload"></i> Import Penilaian</button>
+              <button title="Import excel peminatan" class="btn btn-success" onclick="modal('peminatan')"><i class="fa fa-upload"></i> Import Peminatan</button>
             </div>
 
             <form action="" method="POST">
@@ -71,7 +71,7 @@
               <th>Semester</th>
               <th>Tahun</th>
               <th>Peminatan</th>
-              <th width="30">Action</th>
+              <th width="60">Action</th>
             </tr>
             </thead>
             <tbody>
@@ -141,6 +141,54 @@
     </div>
   </div>
 
+  <!--modal hapus-->
+  <div class="modal fade" id="modal-delete">
+    <div class="modal-dialog" align="center">
+      <div class="modal-content" style="max-width: 300px;">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span></button>
+            <h4>Confirmed ?</h4>
+          </div>
+        <div class="modal-body" align="center">
+           <a id="modal-delete-url"><button class="btn btn-success" style="width: 49%;">Yes</button></a>
+           <button class="btn btn-danger" data-dismiss="modal" style="width: 49%;">No</button>
+        </div>
+      </div>
+    </div>
+   </div> 
+
+  <!--modal upload-->
+  <div class="modal fade" id="modal-upload">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload File Raport</h4>
+        </div>
+        <div class="modal-body">
+          <form id="url-upload" role="form" method="post" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="form-group">
+                <label>Scan ( jpg | jpeg | png )</label>
+                <input required="" type="file" name="file" class="form-control" placeholder="Nama Lengkap">
+              </div>
+
+              <span id="img-upload"></span>
+
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer" style="background: aliceblue;">
+              <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
 <script type="text/javascript">
 
     //post to serverside
@@ -181,14 +229,15 @@
                         { "data": "penilaian_id",
                         "render": 
                         function( data ) {
-                            return "<span class='peminatan_id'>"+data+"</span><span class='peminatan'></span>";
+                            return "<span hidden class='peminatan_id'>"+data+"</span><span class='peminatan'></span>";
                           }
                         },
                         { "data": "penilaian_id",
                         "render": 
                         function( data, type, row, meta ) {
                             return "<a href='<?php echo base_url('penilaian/view/')?>"+data+"'><button class='btn btn-xs btn-success' title='Lihat Hasil Penilaian'><i class='fa fa-file-text'></i></button></a> "+
-                            "<a <?=($this->session->userdata('level') == 3)?'hidden':''?> href='<?php echo base_url('penilaian/nilai/')?>"+data+"'><button class='btn btn-xs btn-primary'><i class='fa fa-pencil' title='Edit Penilaian'></i></button></a> ";
+                            "<a <?=($this->session->userdata('level') == 3)?'hidden':''?> href='<?php echo base_url('penilaian/nilai/')?>"+data+"'><button class='btn btn-xs btn-primary'><i class='fa fa-pencil' title='Edit Penilaian'></i></button></a> "+
+                            "<button title='Upload File Raport' onclick='modal_upload("+data+")' class='btn btn-xs btn-info'><i class='fa fa-upload' title='Upload File Raport'></i></button>";
                           }
                         },
                        
@@ -216,26 +265,67 @@ function modal(jenis){
 
 }
 
-//button hapus peminatan
-function auto(){
+$('#example').on( 'init.dt', function () { 
 
   $.each($('.peminatan'), function(index, val) {
-     var id = $(this).text();
-     var btn = '<button onclick="del_peminatan('+id+')" class="btn btn-danger btn-xs">Hapus <i class="fa fa-times"></i></button>'
-     $(this).html(btn);
+     var id = $(this).closest('tr').find('.peminatan_id').text();
+     var cek = $(this).closest('tr').find('.peminatan').html();
+     var target = $(this);
+
+     $.get('<?=base_url('penilaian/peminatan_get/')?>'+id, function(data) {
+       
+        if (data == 1) {
+
+           var btn = '<button title="Hapus Data Peminatan" onclick="del_peminatan('+id+')" class="btn-hps btn btn-danger btn-xs">Hapus <i class="fa fa-times"></i></button>';
+
+           if (cek == '') {
+
+              target.html(btn);
+           }
+        }else{
+
+          target.text('Kosong');
+        }
+
+     });
 
   });
 
+});
+
 //delete peminatan
 function del_peminatan(id){
-  alert(id);
+  
+  $('#modal-delete-url').attr('href', '<?php echo base_url() ?>penilaian/peminatan_delete/'+id);
+  $('#modal-delete').modal('toggle');
 }
 
-  setTimeout(function() {
-      auto();
-  }, 100);
-}
+//upload scan
+function modal_upload(id){
 
-auto();
+  var target = $('#img-upload');
+  target.empty();
+
+  $.get('<?=base_url('penilaian/get_upload/')?>'+id, function(data) {
+
+    var val = jQuery.parseJSON(data);
+    var file = val.penilaian_file;
+    var url = '<?=base_url('assets/gambar/penilaian/')?>'+file;
+
+    if (file != '') {
+
+      var img = '';
+      img += '<a href="'+url+'" target="_BLANK"><img title="Klik untuk memperbesar" class="img img-thumbnail" src="'+url+'" width="150"></a>';
+      img += '<br/><a href="<?=base_url('penilaian/delete/')?>'+id+'/'+file+'"><button title="Hapus File Raport" type="button" style="margin-top: 5px" class="btn btn-danger btn-xs">Hapus file <i class="fa fa-times"></i></button></a>';
+
+      target.html(img);
+
+    }
+
+  });
+  
+  $('#url-upload').attr('action', '<?php echo base_url() ?>penilaian/upload_raport/'+id);
+  $('#modal-upload').modal('toggle');
+}
 
 </script>

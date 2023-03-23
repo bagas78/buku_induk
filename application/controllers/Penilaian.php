@@ -13,7 +13,7 @@ class Penilaian extends CI_Controller{
 			$data['penilaian'] = 'class="active"';
 		    $data['title'] = 'Penilaian Semester';
 		   
-		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
+		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0 ORDER BY tahun_text ASC")->result_array();
 		    $data['user_data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = 3")->result_array();
 
 		    if (@$_POST['nama']) {$data['post_nama'] = @$_POST['nama'];}
@@ -212,18 +212,22 @@ class Penilaian extends CI_Controller{
 
 		redirect(base_url('penilaian'));
 	}
-	function delete(){
-		$file = $_POST['name'];
+	function delete($id, $name){
 
-		if (unlink('./assets/gambar/penilaian/'.$file)) {
-			// sukses
-			$response = 1;
+		if (unlink('./assets/gambar/penilaian/'.$name)) {
+
+			//update database
+			$this->db->where('penilaian_id', $id);
+			$this->db->set('penilaian_file','');
+			$this->db->update('t_penilaian');
+
+			$this->session->set_flashdata('success','File berhasil di hapus');
 		} else {
-			// gagal
-			$response = 1;
+
+			$this->session->set_flashdata('gagal','File gagal di hapus');
 		}
 
-		echo json_encode($response);
+		redirect(base_url('penilaian'));		
 		
 	}
 	function print($id){
@@ -651,5 +655,91 @@ class Penilaian extends CI_Controller{
       }else{
           echo $error['error'];
         }
+	}
+	function peminatan_get($id){
+
+		$get = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_id = '$id'")->row_array();
+		$user = $get['penilaian_user'];
+		$tahun = $get['penilaian_tahun'];
+		$semester = $get['penilaian_semester'];
+
+		$cek = $this->db->query("SELECT * FROM t_peminatan WHERE peminatan_user = '$user' AND peminatan_tahun = '$tahun' AND peminatan_semester = '$semester'")->num_rows();
+
+		if (@$cek > 0) {
+			
+			$response = 1;
+		}else{
+
+			$response = 0;
+		}
+
+		echo json_encode($response);
+	}
+	function peminatan_delete($id){
+
+		$get = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_id = '$id'")->row_array();
+		$user = $get['penilaian_user'];
+		$tahun = $get['penilaian_tahun'];
+		$semester = $get['penilaian_semester'];
+
+		$this->db->where(['peminatan_user' => $user, 'peminatan_tahun' => $tahun, 'peminatan_semester' => $semester]);
+		
+		if ($this->db->delete('t_peminatan')) {
+			
+			$this->session->set_flashdata('success','Data berhasil di hapus');
+		} else {
+			
+			$this->session->set_flashdata('gagal','Data gagal di hapus');
+		}
+
+		redirect(base_url('penilaian'));
+	}
+	function upload_raport($id){
+
+		if (@$_FILES['file']['name']) {
+				
+			//type file
+			$typefile = explode('/', $_FILES['file']['type']);
+
+			//replace Karakter name foto
+			$filename = $_FILES['file']['name'];
+
+			//replace name foto
+			$type = explode(".", $filename);
+	    	$no = count($type) - 1;
+	    	$new_name = md5($id).'.'.$type[$no];
+	    	///////////////////	
+
+	    	//jenis file boleh di upload
+	    	$format = ['jpg','png','jpeg'];
+
+	    	if (in_array($type[$no], $format)) {
+	    		$path = 'assets/gambar/penilaian';
+	        	move_uploaded_file($_FILES['file']['tmp_name'], $path.'/'.$new_name);
+
+	        	$status = 1;
+	        	$this->session->set_flashdata('success', 'File berhasil di simpan');
+	    	}else{
+	    		$status = 0;
+	    		$this->session->set_flashdata('gagal', 'Format file tidak di dukung');
+	    	}
+
+	    	if ($status == 1) {
+	    		$set = array(
+	    						'penilaian_file' => $new_name,
+	    					);
+	    		$this->db->set($set);
+	    		$this->db->where('penilaian_id', $id);
+	    		$this->db->update('t_penilaian');
+	    	}
+
+	    	redirect(base_url('penilaian'));
+		}
+	}
+	function get_upload($id){
+
+		$get = $this->db->query("SELECT * FROM t_penilaian WHERE penilaian_id = '$id'")->row_array();
+
+		echo json_encode($get);
 	}
 }

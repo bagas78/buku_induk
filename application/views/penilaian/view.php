@@ -276,51 +276,63 @@
     
     //Dasar Bidang Keahlian
 
-    html += '<tr>';
-    html += '<td class="no"></td>';
-    html += '<td><?=$arr['c1']?></td></td>';
-    html += '<td><?=$arr['c1_np_kkm']?></td></td>';
-    html += '<td class="rata_np"><?=$arr['c1_np_angka']?></td>';
-    html += '<td><?=$arr['c1_np_predikat']?></td>';
-    html += '<td class="rata_nk"><?=$arr['c1_np_angka']?></td>';
-    html += '<td><?=$arr['c1_np_predikat']?></td>';
-    html += '<td><?=$arr['c1_nss_mapel']?></td>';
-    html += '</tr>';
+    if ('<?=$arr['c1']?>' != '') {
 
-    $('.C1').closest('tr').after(html);
-    html = '';
+      html += '<tr>';
+      html += '<td class="no"></td>';
+      html += '<td><?=$arr['c1']?></td></td>';
+      html += '<td><?=$arr['c1_np_kkm']?></td></td>';
+      html += '<td class="rata_np"><?=$arr['c1_np_angka']?></td>';
+      html += '<td><?=$arr['c1_np_predikat']?></td>';
+      html += '<td class="rata_nk"><?=$arr['c1_np_angka']?></td>';
+      html += '<td><?=$arr['c1_np_predikat']?></td>';
+      html += '<td><?=$arr['c1_nss_mapel']?></td>';
+      html += '</tr>';
+
+      $('.C1').closest('tr').after(html);
+      html = '';
+
+    }
     
     //Dasar Program Keahlian
 
-    html += '<tr>';
-    html += '<td class="no"></td>';
-    html += '<td><?=$arr['c2']?></td></td>';
-    html += '<td><?=$arr['c2_np_kkm']?></td></td>';
-    html += '<td class="rata_np"><?=$arr['c2_np_angka']?></td>';
-    html += '<td><?=$arr['c2_np_predikat']?></td>';
-    html += '<td class="rata_nk"><?=$arr['c2_np_angka']?></td>';
-    html += '<td><?=$arr['c2_np_predikat']?></td>';
-    html += '<td><?=$arr['c2_nss_mapel']?></td>';
-    html += '</tr>';
+    if ('<?=$arr['c2']?>' != '') {
 
-    $('.C2').closest('tr').after(html);
-    html = '';
+      html += '<tr>';
+      html += '<td class="no"></td>';
+      html += '<td><?=$arr['c2']?></td></td>';
+      html += '<td><?=$arr['c2_np_kkm']?></td></td>';
+      html += '<td class="rata_np"><?=$arr['c2_np_angka']?></td>';
+      html += '<td><?=$arr['c2_np_predikat']?></td>';
+      html += '<td class="rata_nk"><?=$arr['c2_np_angka']?></td>';
+      html += '<td><?=$arr['c2_np_predikat']?></td>';
+      html += '<td><?=$arr['c2_nss_mapel']?></td>';
+      html += '</tr>';
+
+      $('.C2').closest('tr').after(html);
+      html = '';
+      
+    }
     
     //Paket Keahlian
 
-    html += '<tr>';
-    html += '<td class="no"></td>';
-    html += '<td><?=$arr['c3']?></td></td>';
-    html += '<td><?=$arr['c3_np_kkm']?></td></td>';
-    html += '<td class="rata_np"><?=$arr['c3_np_angka']?></td>';
-    html += '<td><?=$arr['c3_np_predikat']?></td>';
-    html += '<td class="rata_nk"><?=$arr['c3_np_angka']?></td>';
-    html += '<td><?=$arr['c3_np_predikat']?></td>';
-    html += '<td><?=$arr['c3_nss_mapel']?></td>';
-    html += '</tr>';
+    if ('<?=$arr['c3']?>' != '') {
 
-    $('.C3').closest('tr').after(html);
-    html = '';
+      html += '<tr>';
+      html += '<td class="no"></td>';
+      html += '<td><?=$arr['c3']?></td></td>';
+      html += '<td><?=$arr['c3_np_kkm']?></td></td>';
+      html += '<td class="rata_np"><?=$arr['c3_np_angka']?></td>';
+      html += '<td><?=$arr['c3_np_predikat']?></td>';
+      html += '<td class="rata_nk"><?=$arr['c3_np_angka']?></td>';
+      html += '<td><?=$arr['c3_np_predikat']?></td>';
+      html += '<td><?=$arr['c3_nss_mapel']?></td>';
+      html += '</tr>';
+
+      $('.C3').closest('tr').after(html);
+      html = '';
+
+    }
 
   <?php $i++ ?>
   <?php endforeach ?>
@@ -343,23 +355,36 @@
   var rata_jum_np = 0;
   $.each($('.rata_np'), function(index, val) {
      
-     rata_np += parseInt($(this).text());
-     rata_jum_np += 1;
+     var val = parseInt($(this).text());
+
+     if (!isNaN(val)) {
+
+      console.log(val);
+
+      rata_np += val;
+      rata_jum_np += 1;
+
+     }
 
   });
 
-  $('#tot_np_rata').text(rata_np / rata_jum_np);
+  $('#tot_np_rata').text( Math.round(rata_np / rata_jum_np));
 
   //rata - rata nk
   var rata_nk = 0;
   var rata_jum_nk = 0;
   $.each($('.rata_nk'), function(index, val) {
      
-     rata_nk += parseInt($(this).text());
-     rata_jum_nk += 1;
+     var val = parseInt($(this).text());
+
+     if (!isNaN(val)) {
+
+        rata_nk += val;
+        rata_jum_nk += 1;
+     }
 
   });
 
-  $('#tot_nk_rata').text(rata_nk / rata_jum_nk);
+  $('#tot_nk_rata').text( Math.round(rata_nk / rata_jum_nk)); 
 
 </script>

@@ -9,7 +9,7 @@ class Tahun extends CI_Controller{
 			$data['tahun'] = 'class="active"';
 		    $data['title'] = 'Tahun Pelajaran';
 
-		    $data['data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
+		    $data['data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0 ORDER BY tahun_text ASC")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('tahun/index',$data);
