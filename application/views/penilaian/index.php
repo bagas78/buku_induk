@@ -70,6 +70,7 @@
               <th>Nama</th>
               <th>Semester</th>
               <th>Tahun</th>
+              <th>Peminatan</th>
               <th width="30">Action</th>
             </tr>
             </thead>
@@ -179,9 +180,15 @@
                         { "data": "tahun_text"},
                         { "data": "penilaian_id",
                         "render": 
+                        function( data ) {
+                            return "<span class='peminatan_id'>"+data+"</span><span class='peminatan'></span>";
+                          }
+                        },
+                        { "data": "penilaian_id",
+                        "render": 
                         function( data, type, row, meta ) {
-                            return "<a href='<?php echo base_url('penilaian/view/')?>"+data+"'><button class='btn btn-xs btn-success'><i class='fa fa-file-text'></i></button></a> "+
-                            "<a <?=($this->session->userdata('level') == 3)?'hidden':''?> href='<?php echo base_url('penilaian/nilai/')?>"+data+"'><button class='btn btn-xs btn-primary'><i class='fa fa-pencil'></i></button></a> ";
+                            return "<a href='<?php echo base_url('penilaian/view/')?>"+data+"'><button class='btn btn-xs btn-success' title='Lihat Hasil Penilaian'><i class='fa fa-file-text'></i></button></a> "+
+                            "<a <?=($this->session->userdata('level') == 3)?'hidden':''?> href='<?php echo base_url('penilaian/nilai/')?>"+data+"'><button class='btn btn-xs btn-primary'><i class='fa fa-pencil' title='Edit Penilaian'></i></button></a> ";
                           }
                         },
                        
@@ -208,5 +215,27 @@ function modal(jenis){
   }
 
 }
+
+//button hapus peminatan
+function auto(){
+
+  $.each($('.peminatan'), function(index, val) {
+     var id = $(this).text();
+     var btn = '<button onclick="del_peminatan('+id+')" class="btn btn-danger btn-xs">Hapus <i class="fa fa-times"></i></button>'
+     $(this).html(btn);
+
+  });
+
+//delete peminatan
+function del_peminatan(id){
+  alert(id);
+}
+
+  setTimeout(function() {
+      auto();
+  }, 100);
+}
+
+auto();
 
 </script>
