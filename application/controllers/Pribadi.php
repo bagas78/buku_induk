@@ -14,7 +14,7 @@ class Pribadi extends CI_Controller{
 			$data['pribadi'] = 'class="active"';
 		    $data['title'] = 'Data Pribadi';
 
-		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0")->result_array();
+		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0 ORDER BY tahun_text ASC")->result_array();
 		    
 
 		    if ($level == 2) {
