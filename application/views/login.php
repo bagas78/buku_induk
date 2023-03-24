@@ -1,3 +1,4 @@
+<?php $get_ = $this->db->query("SELECT * FROM t_sekolah")->row_array(); $logo_ = $get_['sekolah_logo']; ?>
 
 <!DOCTYPE html>
 <html>
@@ -6,6 +7,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>BUKU INDUK | LOG IN</title>
   <!-- Tell the browser to be responsive to screen width -->
+  <link rel="shortcut icon" href="<?=base_url('assets/gambar/logo/'.$logo_)?>"/>
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
   <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css">
@@ -18,11 +20,29 @@
   <!-- iCheck -->
   <link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/plugins/iCheck/square/blue.css">
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700,300italic,400italic,600italic">
+
+  <style type="text/css">
+    .logo{
+
+      font: normal normal normal 14px/1 FontAwesome;
+      font-weight: bold;
+      font-size: 100%;      
+      padding: 3%;
+      color: #d73925;
+      background-color: #ffffff9e;
+
+    }
+  </style>
+
 </head>
-<body class="hold-transition login-page" style="background-color: #d73925;">
+<body class="hold-transition login-page" style="background: url('<?=base_url('assets/gambar/tile.jpg')?>'); background-repeat: repeat;">
 <div class="login-box">
   <div class="login-logo">
-    <div style="font-size: 115%;color: #ffffff;padding: 3%;" class="fa fa-book"> <span style="font-weight: bold;">BUKU INDUK</span></div>
+
+    <img src="<?=base_url('assets/gambar/logo/'.$logo_)?>" width="80">
+    <span class="logo">BUKU INDUK</span>
+
+    <!-- <div style="font-size: 115%;color: #ffffff;padding: 3%;" class="fa fa-book"> <span style="font-weight: bold;">BUKU INDUK</span></div> -->
     <br/>
   </div>
   <!-- /.login-logo -->

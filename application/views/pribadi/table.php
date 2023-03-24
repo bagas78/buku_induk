@@ -74,17 +74,17 @@
                     ?>
 
                   </td>
-                  <td><button onclick="penilaian(<?php echo @$key['user_id'] ?>)" class="btn btn-primary btn-xs">Lihat <i class="fa fa-angle-double-right"></i></button></td>
+                  <td><button title="Lihat Semester Yang Sudah Dinilai" onclick="penilaian(<?php echo @$key['user_id'] ?>)" class="btn btn-primary btn-xs">Lihat <i class="fa fa-angle-double-right"></i></button></td>
                   <td style="width: 110px;">
                     <div>
                     
-                    <a href="<?php echo base_url('pribadi/penilaian/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-warning"><i class="fa fa-file-text"></i></button></a>
+                    <a href="<?php echo base_url('pribadi/penilaian/'.$key['user_id']) ?>"><button title="Lihat Penilaian" type="button" class="btn btn-xs btn-warning"><i class="fa fa-file-text"></i></button></a>
                     
-                    <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
+                    <a href="<?php echo base_url('pribadi/view/'.$key['user_id']) ?>"><button title="Lihat Data Pribadi" type="button" class="btn btn-xs btn-primary"><i class="fa fa-eye"></i></button></a>
 
-                    <a href="<?php echo base_url('pribadi/print/'.$key['user_id']) ?>"><button class="btn btn-xs btn-success"><i class="fa fa-print"></i></button></a>
+                    <a href="<?php echo base_url('pribadi/print/'.$key['user_id']) ?>"><button title="Print Data Pribadi" class="btn btn-xs btn-success"><i class="fa fa-print"></i></button></a>
                     
-                    <button class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
+                    <button title="Ubah Status Siswa" class="btn btn-xs btn-info" data-toggle="modal" data-target="#modal-status<?php echo $key['user_id'] ?>"><i class="fa fa-edit"></i></button>
 
                     </div>
                   </td>
@@ -105,10 +105,12 @@
                               <label>Status</label>
                               <select onchange="status(this.value,'<?php echo $key['user_id'] ?>')" id="status<?php echo $key['user_id'] ?>" name="user_status" required="" class="form-control">
                                 <option value="" hidden>-- Pilih --</option>
-                                <option value="aktif">Aktif</option>
-                                <option value="keluar">Keluar</option>
-                                <option value="mengundurkan">Mengundurkan Diri</option>
-                                <option value="meninggal">Meninggal</option>
+                                <option value="AKTIF">AKTIF</option>
+                                <option value="KELUAR">KELUAR</option>
+                                <option value="MENGUNDURKAN DIRI">MENGUNDURKAN DIRI</option>
+                                <option value="MENINGGAL">MENINGGAL</option>
+                                <option value="TINGGAL KELAS">TINGGAL KELAS</option>
+                                <option value="LULUS">LULUS</option>
                               </select>
                               <script type="text/javascript">
                                 $('#status<?php echo $key['user_id'] ?>').val('<?php echo $key['user_status'] ?>').change();
@@ -116,7 +118,7 @@
                             </div>
                             <div class="form-group">
                               <label>Alasan</label>
-                              <textarea <?=($key['user_status'] == 'aktif')?'readonly=""':''?> id="alasan<?php echo $key['user_id'] ?>" required="" class="form-control" name="user_alasan"><?php echo $key['user_alasan'] ?></textarea>
+                              <textarea <?=($key['user_status'] == 'AKTIF')?'readonly=""':''?> id="alasan<?php echo $key['user_id'] ?>" required="" class="form-control" name="user_alasan"><?php echo $key['user_alasan'] ?></textarea>
                             </div>
                           </div>
                           <!-- /.box-body -->
@@ -166,7 +168,7 @@
 <script type="text/javascript">
   function status(val,id){
 
-    if (val == 'aktif') {
+    if (val == 'AKTIF') {
       $('#alasan'+id).attr('readonly', '');
       $('#alasan'+id).val('-');
     }else{

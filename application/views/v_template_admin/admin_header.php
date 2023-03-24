@@ -1,10 +1,12 @@
+<?php $get_ = $this->db->query("SELECT * FROM t_sekolah")->row_array(); $logo_ = $get_['sekolah_logo']; ?>
+
 <!DOCTYPE html>
 <html>
 <head>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Buku Induk | <?php echo $title ?></title>
-  <link rel="shortcut icon" href="<?php echo base_url() ?>assets/gambar/icon.png" />
+  <link rel="shortcut icon" href="<?=base_url('assets/gambar/logo/'.$logo_)?>"/>
   <!-- Tell the browser to be responsive to screen width -->
   <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
   <!-- Bootstrap 3.3.7 -->
@@ -111,9 +113,12 @@
     <!-- Logo -->
     <a class="logo">
       <!-- mini logo for sidebar mini 50x50 pixels -->
-      <span class="logo-mini"><i class="fa fa-book"></i></span>
+      <span style="margin-top: -5px;" class="logo-mini"><img src="<?=base_url('assets/gambar/logo/'.$logo_)?>" width="40"></span>
       <!-- logo for regular state and mobile devices -->
-      <span class="logo-lg"><i class="fa fa-book"></i> <b>BUKU INDUK</b></span>
+      <span class="logo-lg">
+        <img style="margin-top: -5px;" src="<?=base_url('assets/gambar/logo/'.$logo_)?>" width="40"> 
+        <b>BUKU INDUK</b>
+      </span>
     </a>
     <!-- Header Navbar: style can be found in header.less -->
     <nav class="navbar navbar-static-top">
@@ -263,7 +268,7 @@
 
             <li <?php echo @$dokumen; ?>>
               <a href="<?php echo base_url() ?>dokumen">
-                <i class="fa fa-upload"></i> <span>Upload Dokumen</span>
+                <i class="fa fa-upload"></i> <span>Dokumen Tambahan</span>
               </a>
             </li>
 

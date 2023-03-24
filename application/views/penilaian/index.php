@@ -165,28 +165,38 @@
         <div class="modal-header">
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span></button>
-          <h4 class="modal-title">Upload File Raport</h4>
+          <h4 class="modal-title">File Raport</h4>
         </div>
         <div class="modal-body">
           <form id="url-upload" role="form" method="post" enctype="multipart/form-data">
             <div class="box-body">
-              <div class="form-group">
-                <label>Scan ( jpg | jpeg | png )</label>
-                <input required="" type="file" name="file" class="form-control" placeholder="Nama Lengkap">
-              </div>
 
-              <small style="background: black;color: white;padding: 1%;">Maksimal ukuran 2MB</small>
-              <div class="clearfix"></div><br/>
+              <?php if ($level != 3): ?>
+                
+                 <div class="form-group">
+                  <label>Scan ( jpg | jpeg | png )</label>
+                  <input required="" type="file" name="file" class="form-control" placeholder="Nama Lengkap">
+                </div>
+
+                <small style="background: black;color: white;padding: 1%;">Maksimal ukuran 2MB</small>
+                <div class="clearfix"></div><br/>
+
+              <?php endif ?>
 
               <span id="img-upload"></span>
 
             </div>
             <!-- /.box-body -->
 
-            <div class="box-footer" style="background: aliceblue;">
-              <button type="submit" class="btn btn-primary">Submit</button>
-               <button type="reset" class="btn btn-danger">Reset</button>
-            </div>
+            <?php if ($level != 3): ?>
+
+              <div class="box-footer" style="background: aliceblue;" hidden>
+                <button type="submit" class="btn btn-primary">Submit</button>
+                 <button type="reset" class="btn btn-danger">Reset</button>
+              </div>
+
+            <?php endif ?>
+
           </form>
         </div>
       </div>
@@ -319,7 +329,16 @@ function modal_upload(id){
 
       var img = '';
       img += '<a href="'+url+'" target="_BLANK"><img title="Klik untuk memperbesar" class="img img-thumbnail" src="'+url+'" width="150"></a>';
-      img += '<br/><a href="<?=base_url('penilaian/delete/')?>'+id+'/'+file+'"><button title="Hapus File Raport" type="button" style="margin-top: 5px" class="btn btn-danger btn-xs">Hapus file <i class="fa fa-times"></i></button></a>';
+
+      <?php if($level != 3): ?>
+
+        img += '<br/><a href="<?=base_url('penilaian/delete/')?>'+id+'/'+file+'"><button title="Hapus File Raport" type="button" style="margin-top: 5px" class="btn btn-danger btn-xs">Hapus file <i class="fa fa-times"></i></button></a>';
+      
+      <?php else: ?>
+
+        img += '<br/><a href="'+url+'" download><button title="Hapus File Raport" type="button" style="margin-top: 5px" class="btn btn-success btn-xs">Download file <i class="fa fa-download"></i></button></a>';
+
+      <?php endif ?>
 
       target.html(img);
 

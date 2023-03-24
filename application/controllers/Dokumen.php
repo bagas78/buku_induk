@@ -7,7 +7,7 @@ class Dokumen extends CI_Controller{
 	function index(){
 		if ( $this->session->userdata('login') == 1) {
 			$data['dokumen'] = 'class="active"';
-		    $data['title'] = 'Upload Dokumen';
+		    $data['title'] = 'Dokumen Tambahan';
 
 		    $id = $this->session->userdata('id');
 		    $level = $this->session->userdata('level');
