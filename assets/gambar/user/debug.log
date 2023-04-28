@@ -1,0 +1,10 @@
+[0404/035040.603:ERROR:connection.cc(1947)] Cookie sqlite error 8, errno 0: attempt to write a readonly database, sql: DELETE FROM cookies WHERE creation_utc=?
+[0404/035040.604:ERROR:connection.cc(1947)] Cookie sqlite error 8, errno 0: attempt to write a readonly database, sql: DELETE FROM cookies WHERE creation_utc=?
+[0404/035040.605:ERROR:connection.cc(1947)] Cookie sqlite error 8, errno 0: attempt to write a readonly database, sql: INSERT INTO cookies (creation_utc, host_key, name, value, encrypted_value, path, expires_utc, secure, httponly, firstpartyonly, last_access_utc, has_expires, persistent, priority) VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?)
+[0404/035047.559:INFO:CONSOLE(2)] "jQuery.Deferred exception: Cannot read property 'getEditor' of undefined", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035047.567:INFO:CONSOLE(2)] "Uncaught Error: Graph container element not found", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035047.567:INFO:CONSOLE(2)] "Uncaught TypeError: Cannot read property 'getEditor' of undefined", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035205.091:INFO:CONSOLE(2)] "jQuery.Deferred exception: Cannot read property 'getEditor' of undefined", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035205.100:INFO:CONSOLE(2)] "Uncaught Error: Graph container element not found", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035205.100:INFO:CONSOLE(2)] "Uncaught TypeError: Cannot read property 'getEditor' of undefined", source: http://127.0.0.1:50472/adminLTE/bower_components/jquery/dist/jquery.min.js (2)
+[0404/035230.976:ERROR:connection.cc(1947)] Cookie sqlite error 8, errno 0: attempt to write a readonly database, sql: UPDATE cookies SET last_access_utc=? WHERE creation_utc=?

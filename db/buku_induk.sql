@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 24, 2023 at 02:05 PM
+-- Generation Time: Apr 28, 2023 at 09:06 PM
 -- Server version: 10.4.11-MariaDB
 -- PHP Version: 7.4.1
 
@@ -97,6 +97,32 @@ INSERT INTO `t_import` (`import_id`, `import_nama`, `import_umur`, `import_tingg
 (6, 'laila', '24', '150', '41', 1),
 (7, 'bagas', '25', '172', '80', 0),
 (8, 'laila', '24', '150', '41', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `t_jurusan`
+--
+
+CREATE TABLE `t_jurusan` (
+  `jurusan_id` int(11) NOT NULL,
+  `jurusan_nama` text DEFAULT NULL,
+  `jurusan_tanggal` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_jurusan`
+--
+
+INSERT INTO `t_jurusan` (`jurusan_id`, `jurusan_nama`, `jurusan_tanggal`) VALUES
+(1, 'TEKNIK PERMESINAN', '2023-04-01'),
+(2, 'TEKNIK KENDARAAN RINGAN OTOMOTIF', '2023-04-01'),
+(3, 'TEKNIK INSTALASI TENAGA LISTRIK', '2023-04-01'),
+(4, 'TEKNIK KOMPUTER DAN JARINGAN', '2023-04-01'),
+(5, 'REKAYASA PERANGKAT LUNAK', '2023-04-01'),
+(6, 'TATA KECANTIKAN KULIT DAN RAMBUT', '2023-04-01'),
+(7, 'TEKNIK ALAT BERAT', '2023-04-01'),
+(8, 'DESAIN KOMUNIKASI VISUAL', '2023-04-01');
 
 -- --------------------------------------------------------
 
@@ -228,6 +254,29 @@ INSERT INTO `t_peminatan` (`peminatan_id`, `peminatan_user`, `peminatan_tahun`, 
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `t_pendidikan`
+--
+
+CREATE TABLE `t_pendidikan` (
+  `pendidikan_id` int(11) NOT NULL,
+  `pendidikan_nama` text DEFAULT NULL,
+  `pendidikan_tanggal` date DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `t_pendidikan`
+--
+
+INSERT INTO `t_pendidikan` (`pendidikan_id`, `pendidikan_nama`, `pendidikan_tanggal`) VALUES
+(1, 'SD', '2023-04-01'),
+(2, 'SMP', '2023-04-01'),
+(3, 'SMA', '2023-04-01'),
+(4, 'SLTA', '2023-04-01'),
+(5, 'tidak ada', '2023-04-01');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `t_penilaian`
 --
 
@@ -273,8 +322,10 @@ CREATE TABLE `t_pribadi` (
 --
 
 INSERT INTO `t_pribadi` (`pribadi_id`, `pribadi_siswa`, `pribadi_data`, `pribadi_tanggal`, `pribadi_hapus`) VALUES
-(1, '3', '{\"a1\":\"Naruto Uzumaki\",\"a2\":\"Uzumaki\",\"a3\":\"laki-laki\",\"a4\":\"Blitar, 7 april 1996\",\"a5\":\"islam\",\"a6\":\"Indonesia\",\"a7\":\"2\",\"a8\":\"3\",\"a9\":\"0\",\"a10\":\"0\",\"a11\":\"-\",\"a12\":\"indonesia\",\"b1\":\"kademangan rt01 rw01\",\"b2\":\"085855011542\",\"b3\":\"orang_tua\",\"b4\":\"10\",\"c1\":\"a\",\"c2\":\"-\",\"c3\":\"-\",\"c4\":\"170\",\"c5\":\"80\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":\"091827190\",\"d3\":\"8496701\",\"d4\":\"4\",\"d5\":\"-\",\"d6\":\"-\",\"d7\":\"3A\",\"d8\":\"Menggombal\",\"d9\":\"Keren\",\"d10\":\"Siplah\",\"d11\":\"2022-06-14\",\"e1\":\"Supardi wicaksono\",\"e2\":\"Blitar, 4 April 1967\",\"e3\":\"Islam\",\"e4\":\"indonesia\",\"e5\":\"SMK\",\"e6\":\"Bank Titil\",\"e7\":\"100 juta\",\"e8\":\"kademangan rt01 rw01\",\"e9\":\"Masih hidup\",\"f1\":\"Sutiyah diningrat\",\"f2\":\"Kalimantan 9 agustus 1950\",\"f3\":\"Kejawen\",\"f4\":\"indonesia\",\"f5\":\"SMK\",\"f6\":\"Ibu rumah tangga\",\"f7\":\"150k\",\"f8\":\"kademangan rt01 rw01\",\"f9\":\"Masih hidup\",\"g1\":\"-\",\"g2\":\"-\",\"g3\":\"-\",\"g4\":\"-\",\"g5\":\"-\",\"g6\":\"-\",\"g7\":\"-\",\"g8\":\"kademangan rt01 rw01\",\"h1\":\"Menggambar\",\"h2\":\"Lompat tali\",\"h3\":\"Kemasyarakatan\",\"h4\":\"-\",\"i1\":\"2021\",\"i2\":\"3A\",\"i3\":\"MTS\",\"i4\":\"\",\"i5\":\"\",\"i6\":\"\",\"i7\":\"\",\"i8\":\"\",\"i9\":\"\",\"i10\":\"2022-06-13\",\"i11\":\"Jenuh\",\"i12\":\"-\",\"i13\":\"-\",\"i14\":\"-\",\"j1\":\"Universitas harapan bapak\",\"j2\":\"2022-06-28\",\"j3\":\"Bukacoding\",\"j4\":\"100.000.000\",\"k1\":\"eccbc87e4b5ce2fe28308fd9f2a7baf3_1.png\",\"k2\":\"eccbc87e4b5ce2fe28308fd9f2a7baf3_2.png\",\"id\":\"3\"}', '2022-06-12', 0),
-(7, '4', '{\"a1\":\"Sasuke Uciha\",\"a2\":\"Sasuke\",\"a3\":\"laki-laki\",\"a4\":\"Blitar, 7 April 1996\",\"a5\":\"Islam\",\"a6\":\"Indonesia\",\"a7\":\"2\",\"a8\":\"3\",\"a9\":\"0\",\"a10\":\"0\",\"a11\":\"Anak Yatim\",\"a12\":\"Bahasa Indonesia\",\"b1\":\"sumberjo\",\"b2\":\"085855011542\",\"b3\":\"orang_tua\",\"b4\":\"7 km\",\"c1\":\"ab\",\"c2\":\"Covid19\",\"c3\":\"Tidak ada\",\"c4\":\"172 cm\",\"c5\":\"80 kg\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":\"64672881991\",\"d3\":\"738827892901\",\"d4\":\"12 tahun\",\"d5\":\"tidak ada\",\"d6\":\"tidak ada\",\"d7\":\"TKJ 1\",\"d8\":\"System komputer\",\"d9\":\"Teknik Jaringan Komputer\",\"d10\":\"Komputer\",\"d11\":\"2022-01-02\",\"e1\":\"Fugaku Uchiha\",\"e2\":\"Blitar, 22\\/02\\/1968\",\"e3\":\"Islam\",\"e4\":\"Indonesia\",\"e5\":\"STM\",\"e6\":\"Pemimpin Clan uciha\",\"e7\":\"2 Juta\",\"e8\":\"Konoha Gakure\",\"e9\":\"Meninggal Dunia\",\"f1\":\"Mikoto\",\"f2\":\"Blitar, 18\\/05\\/1968\",\"f3\":\"Islam\",\"f4\":\"Indonesia\",\"f5\":\"SMEA\",\"f6\":\"Ibu Rumah Tangga\",\"f7\":\"2 Juta\",\"f8\":\"Konoha Kagure\",\"f9\":\"Meninggal\",\"g1\":\"tidak ada\",\"g2\":\"tidak ada\",\"g3\":\"tidak ada\",\"g4\":\"tidak ada\",\"g5\":\"tidak ada\",\"g6\":\"tidak ada\",\"g7\":\"tidak ada\",\"g8\":\"tidak ada\",\"h1\":\"Melukis\",\"h2\":\"Renang\",\"h3\":\"Karang Taruna\",\"h4\":\"tidak ada\",\"i1\":\"tidak ada\",\"i2\":\"tidak ada\",\"i3\":\"tidak ada\",\"i4\":\"tidak ada\",\"i5\":\"tidak ada\",\"i6\":\"tidak ada\",\"i7\":\"tidak ada\",\"i8\":\"tidak ada\",\"i9\":\"tidak ada\",\"i10\":\"2022-01-08\",\"i11\":\"tidak ada\",\"i12\":\"tidak ada\",\"i13\":\"tidak ada\",\"i14\":\"tidak ada\",\"j1\":\"Unisba\",\"j2\":\"2022-03-01\",\"j3\":\"Egnos Pratama\",\"j4\":\"2,5 Juta\",\"k1\":\"\",\"k2\":\"\",\"id\":\"4\"}', '2022-10-15', 0);
+(1, '3', '{\"a1\":\"Naruto Uzumaki\",\"a2\":\"Uzumaki\",\"a3\":\"laki-laki\",\"a4\":\"Blitar, 7 april 1996\",\"a5\":\"islam\",\"a6\":\"Indonesia\",\"a7\":\"2\",\"a8\":\"3\",\"a9\":\"0\",\"a10\":\"0\",\"a11\":\"-\",\"a12\":\"indonesia\",\"b1\":\"kademangan rt01 rw01\",\"b2\":\"085855011542\",\"b3\":\"orang_tua\",\"b4\":\"10\",\"c1\":\"a\",\"c2\":\"-\",\"c3\":\"-\",\"c4\":\"170\",\"c5\":\"80\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":\"091827190\",\"d3\":\"8496701\",\"d4\":\"4\",\"d5\":\"-\",\"d6\":\"-\",\"d7\":\"3A\",\"d8\":\"Menggombal\",\"d9\":\"Keren\",\"d10\":\"Siplah\",\"d11\":\"2022-06-14\",\"e1\":\"Supardi wicaksono\",\"e2\":\"Blitar, 4 April 1967\",\"e3\":\"Islam\",\"e4\":\"indonesia\",\"e5\":\"SMK\",\"e6\":\"Bank Titil\",\"e7\":\"100 juta\",\"e8\":\"kademangan rt01 rw01\",\"e9\":\"Masih hidup\",\"f1\":\"Sutiyah diningrat\",\"f2\":\"Kalimantan 9 agustus 1950\",\"f3\":\"Kejawen\",\"f4\":\"indonesia\",\"f5\":\"SMK\",\"f6\":\"Ibu rumah tangga\",\"f7\":\"150k\",\"f8\":\"kademangan rt01 rw01\",\"f9\":\"Masih hidup\",\"g1\":\"-\",\"g2\":\"-\",\"g3\":\"-\",\"g4\":\"-\",\"g5\":\"-\",\"g6\":\"-\",\"g7\":\"-\",\"g8\":\"kademangan rt01 rw01\",\"h1\":\"Menggambar\",\"h2\":\"Lompat tali\",\"h3\":\"Kemasyarakatan\",\"h4\":\"-\",\"i1\":\"2021\",\"i2\":\"3A\",\"i3\":\"MTS\",\"i4\":\"\",\"i5\":\"\",\"i6\":\"\",\"i7\":\"\",\"i8\":\"\",\"i9\":\"\",\"i10\":\"2022-06-13\",\"i11\":\"Jenuh\",\"i12\":\"-\",\"i13\":\"-\",\"i14\":\"-\",\"j1\":\"Universitas harapan bapak\",\"j2\":\"2022-06-28\",\"j3\":\"Bukacoding\",\"j4\":\"100.000.000\",\"k1\":\"eccbc87e4b5ce2fe28308fd9f2a7baf3_1.png\",\"k2\":\"eccbc87e4b5ce2fe28308fd9f2a7baf3_2.jpg\",\"id\":\"3\"}', '2022-06-12', 0),
+(7, '4', '{\"a1\":\"Sasuke Uciha\",\"a2\":\"Sasuke\",\"a3\":\"laki-laki\",\"a4\":\"Blitar\",\"a5\":\"7 April 1996\",\"a6\":\"Islam\",\"a7\":\"Indonesia\",\"a8\":\"2\",\"a9\":\"3\",\"a10\":\"0\",\"a11\":\"0\",\"a12\":\"yatim\",\"a13\":\"Bahasa Indonesia\",\"b1\":\"sumberjo\",\"b2\":\"085855011542\",\"b3\":\"orang_tua\",\"b4\":\"7 km\",\"c1\":\"ab\",\"c2\":\"Covid19\",\"c3\":\"Tidak ada\",\"c4\":\"172 cm\",\"c5\":\"80 kg\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":\"64672881991\",\"d3\":\"738827892901\",\"d4\":\"12 tahun\",\"d5\":\"tidak ada\",\"d6\":\"tidak ada\",\"d7\":\"TKJ 1\",\"d8\":\"TEKNIK PERMESINAN\",\"d9\":\"Teknik Jaringan Komputer\",\"d10\":\"Komputer\",\"d11\":\"02\\/01\\/2022\",\"e1\":\"Fugaku Uchiha\",\"e2\":\"Blitar\",\"e3\":\"22 februari 1968\",\"e4\":\"Islam\",\"e5\":\"Indonesia\",\"e6\":\"SMP\",\"e7\":\"Pemimpin Clan uciha\",\"e8\":\"2 Juta\",\"e9\":\"Konoha Gakure\",\"e10\":\"masih hidup\",\"f1\":\"Mikoto\",\"f2\":\"Blitar\",\"f3\":\"18 mei 1968\",\"f4\":\"Islam\",\"f5\":\"Indonesia\",\"f6\":\"SMP\",\"f7\":\"Ibu Rumah Tangga\",\"f8\":\"2 Juta\",\"f9\":\"Konoha Kagure\",\"f10\":\"meninggal dunia\",\"g1\":\"tidak ada\",\"g2\":\"tidak ada\",\"g3\":\"tidak ada\",\"g4\":\"tidak ada\",\"g5\":\"tidak ada\",\"g6\":\"tidak ada\",\"g7\":\"tidak ada\",\"g8\":\"tidak ada\",\"g9\":\"-\",\"h1\":\"Melukis\",\"h2\":\"Renang\",\"h3\":\"Karang Taruna\",\"h4\":\"tidak ada\",\"i1\":\"tidak ada\",\"i2\":\"tidak ada\",\"i3\":\"tidak ada\",\"i4\":\"tidak ada\",\"i5\":\"tidak ada\",\"i6\":\"tidak ada\",\"i7\":\"tidak ada\",\"i8\":\"tidak ada\",\"i9\":\"tidak ada\",\"i10\":\"2022-01-08\",\"i11\":\"tidak ada\",\"i12\":\"tidak ada\",\"i13\":\"tidak ada\",\"i14\":\"tidak ada\",\"j1\":\"Unisba\",\"j2\":\"2022-03-01\",\"j3\":\"Egnos Pratama\",\"j4\":\"2,5 Juta\",\"k1\":\"\",\"k2\":\"a87ff679a2f3e71d9181a67b7542122c_2.jpg\",\"id\":\"4\"}', '2022-10-15', 0),
+(10, '9', '{\"a1\":\"Bagas Pramono\",\"a2\":\"Bagas\",\"a3\":\"laki-laki\",\"a4\":\"Blitar\",\"a5\":\"07\\/04\\/1996\",\"a6\":\"Islam\",\"a7\":\"Indonesia\",\"a8\":2,\"a9\":2,\"a10\":0,\"a11\":0,\"a12\":\"yatim\",\"a13\":\"indonesia\",\"b1\":\"Dsn. Krajan RT01 RW01 Ds. Sumberjo Kec. Kademangan Kab. Blitar\",\"b2\":85855011542,\"b3\":\"orang_tua\",\"b4\":\"12 KM\",\"c1\":\"b\",\"c2\":\"tidak ada\",\"c3\":\"tidak ada\",\"c4\":\"170 CM\",\"c5\":\"80 CM\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":1702771671,\"d3\":7836191790,\"d4\":\"4 tahun\",\"d5\":\"tidak ada\",\"d6\":\"tidak ada\",\"d7\":\"tidak ada\",\"d8\":\"TEKNIK PERMESINAN\",\"d9\":\"MESIN\",\"d10\":\"tidak ada\",\"d11\":\"07\\/04\\/2023\",\"e1\":\"Ayah\",\"e2\":\"tempat\",\"e3\":\"07\\/04\\/1968\",\"e4\":\"Islam\",\"e5\":\"Indonesia\",\"e6\":\"SLTA\",\"e7\":\"Petani\",\"e8\":\"500.000\",\"e9\":\"alamat\",\"e10\":\"masih hidup\",\"f1\":\"Ibu\",\"f2\":\"blitar\",\"f3\":\"07\\/04\\/1956\",\"f4\":\"Islam\",\"f5\":\"Indonesia\",\"f6\":\"SLTA\",\"f7\":\"Ibu Rumah Tangga\",\"f8\":\"200.000\",\"f9\":\"Alamat\",\"f10\":\"masih hidup\",\"g1\":\"tidak ada\",\"g2\":\"tidak ada\",\"g3\":\"tidak ada\",\"g4\":\"tidak ada\",\"g5\":\"tidak ada\",\"g6\":\"tidak ada\",\"g7\":\"tidak ada\",\"g8\":\"0\",\"g9\":\"Alamat\",\"h1\":\"Menggambar\",\"h2\":\"Voly\",\"h3\":\"Pemuda Pancasila\",\"h4\":\"tidak ada\",\"i1\":\"tidak ada\",\"i2\":\"tidak ada\",\"i3\":\"tidak ada\",\"i4\":\"tidak ada\",\"i5\":\"tidak ada\",\"i6\":\"tidak ada\",\"i7\":\"tidak ada\",\"i8\":\"tidak ada\",\"i9\":\"tidak ada\",\"i10\":\"tidak ada\",\"i11\":\"tidak ada\",\"i12\":\"tidak ada\",\"i13\":\"tidak ada\",\"i14\":\"tidak ada\",\"j1\":\"tidak ada\",\"j2\":\"tidak ada\",\"j3\":\"tidak ada\",\"j4\":\"tidak ada\",\"k1\":\"\",\"k2\":\"\"}', '2023-04-29', 0),
+(11, '10', '{\"a1\":\"Diah Anggreeni\",\"a2\":\"Diah\",\"a3\":\"perempuan\",\"a4\":\"Blitar\",\"a5\":\"07\\/04\\/1996\",\"a6\":\"Islam\",\"a7\":\"Indonesia\",\"a8\":2,\"a9\":2,\"a10\":0,\"a11\":0,\"a12\":\"yatim\",\"a13\":\"indonesia\",\"b1\":\"Dsn. Krajan RT01 RW01 Ds. Sumberjo Kec. Kademangan Kab. Blitar\",\"b2\":85855011542,\"b3\":\"orang_tua\",\"b4\":\"12 KM\",\"c1\":\"b\",\"c2\":\"tidak ada\",\"c3\":\"tidak ada\",\"c4\":\"170 CM\",\"c5\":\"80 CM\",\"d1\":\"SMKN 1 KADEMANGAN\",\"d2\":1702771671,\"d3\":7836191790,\"d4\":\"4 tahun\",\"d5\":\"tidak ada\",\"d6\":\"tidak ada\",\"d7\":\"tidak ada\",\"d8\":\"TEKNIK PERMESINAN\",\"d9\":\"MESIN\",\"d10\":\"tidak ada\",\"d11\":\"07\\/04\\/2023\",\"e1\":\"Ayah\",\"e2\":\"tempat\",\"e3\":\"07\\/04\\/1968\",\"e4\":\"Islam\",\"e5\":\"Indonesia\",\"e6\":\"SLTA\",\"e7\":\"Petani\",\"e8\":\"500.000\",\"e9\":\"alamat\",\"e10\":\"masih hidup\",\"f1\":\"Ibu\",\"f2\":\"blitar\",\"f3\":\"07\\/04\\/1956\",\"f4\":\"Islam\",\"f5\":\"Indonesia\",\"f6\":\"SLTA\",\"f7\":\"Ibu Rumah Tangga\",\"f8\":\"200.000\",\"f9\":\"Alamat\",\"f10\":\"masih hidup\",\"g1\":\"tidak ada\",\"g2\":\"tidak ada\",\"g3\":\"tidak ada\",\"g4\":\"tidak ada\",\"g5\":\"tidak ada\",\"g6\":\"tidak ada\",\"g7\":\"tidak ada\",\"g8\":\"0\",\"g9\":\"Alamat\",\"h1\":\"Menggambar\",\"h2\":\"Voly\",\"h3\":\"Pemuda Pancasila\",\"h4\":\"tidak ada\",\"i1\":\"tidak ada\",\"i2\":\"tidak ada\",\"i3\":\"tidak ada\",\"i4\":\"tidak ada\",\"i5\":\"tidak ada\",\"i6\":\"tidak ada\",\"i7\":\"tidak ada\",\"i8\":\"tidak ada\",\"i9\":\"tidak ada\",\"i10\":\"tidak ada\",\"i11\":\"tidak ada\",\"i12\":\"tidak ada\",\"i13\":\"tidak ada\",\"i14\":\"tidak ada\",\"j1\":\"tidak ada\",\"j2\":\"tidak ada\",\"j3\":\"tidak ada\",\"j4\":\"tidak ada\",\"k1\":\"\",\"k2\":\"\"}', '2023-04-29', 0);
 
 -- --------------------------------------------------------
 
@@ -383,6 +434,12 @@ ALTER TABLE `t_import`
   ADD PRIMARY KEY (`import_id`);
 
 --
+-- Indexes for table `t_jurusan`
+--
+ALTER TABLE `t_jurusan`
+  ADD PRIMARY KEY (`jurusan_id`);
+
+--
 -- Indexes for table `t_kategori`
 --
 ALTER TABLE `t_kategori`
@@ -411,6 +468,12 @@ ALTER TABLE `t_pelajaran`
 --
 ALTER TABLE `t_peminatan`
   ADD PRIMARY KEY (`peminatan_id`);
+
+--
+-- Indexes for table `t_pendidikan`
+--
+ALTER TABLE `t_pendidikan`
+  ADD PRIMARY KEY (`pendidikan_id`);
 
 --
 -- Indexes for table `t_penilaian`
@@ -465,6 +528,12 @@ ALTER TABLE `t_import`
   MODIFY `import_id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Primary Key', AUTO_INCREMENT=9;
 
 --
+-- AUTO_INCREMENT for table `t_jurusan`
+--
+ALTER TABLE `t_jurusan`
+  MODIFY `jurusan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `t_kategori`
 --
 ALTER TABLE `t_kategori`
@@ -495,6 +564,12 @@ ALTER TABLE `t_peminatan`
   MODIFY `peminatan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=27;
 
 --
+-- AUTO_INCREMENT for table `t_pendidikan`
+--
+ALTER TABLE `t_pendidikan`
+  MODIFY `pendidikan_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `t_penilaian`
 --
 ALTER TABLE `t_penilaian`
@@ -504,7 +579,7 @@ ALTER TABLE `t_penilaian`
 -- AUTO_INCREMENT for table `t_pribadi`
 --
 ALTER TABLE `t_pribadi`
-  MODIFY `pribadi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `pribadi_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `t_sekolah`

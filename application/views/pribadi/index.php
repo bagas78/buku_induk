@@ -34,10 +34,10 @@
       <div class="box">
         <div class="box-header with-border">
 
-          <div <?=($level != 3)?'':'hidden'?> align="left">
+          <!-- <div <?=($level != 3)?'':'hidden'?> align="left">
             <a href="<?php echo base_url('assets/excel/pribadi.xlsx') ?>" title="Template Excel" Download><button class="btn btn-primary"><i class="fa fa-download"></i> Download Template</button></a>
             <button class="btn btn-success" data-toggle="modal" data-target="#modal-import"><i class="fa fa-upload"></i> Upload Excel</button>
-          </div>
+          </div> -->
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -125,40 +125,54 @@
                             </script>
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Tempat dan tanggal lahir</label>
+                            <label class="control-label">Tempat ( Lahir )</label>
                             <input name="a4" type="text" class="form-control" value="<?php echo @$data['a4'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Agama</label>
+                            <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
                             <input name="a5" type="text" class="form-control" value="<?php echo @$data['a5'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewarganegaraan</label>
+                            <label class="control-label">Agama</label>
                             <input name="a6" type="text" class="form-control" value="<?php echo @$data['a6'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Anak ke berapa</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="a7" type="text" class="form-control" value="<?php echo @$data['a7'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Jumlah saudara kandung</label>
+                            <label class="control-label">Anak ke berapa</label>
                             <input name="a8" type="text" class="form-control" value="<?php echo @$data['a8'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Jumlah saudara tiri</label>
+                            <label class="control-label">Jumlah saudara kandung</label>
                             <input name="a9" type="text" class="form-control" value="<?php echo @$data['a9'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Jumlah saudara singkat</label>
+                            <label class="control-label">Jumlah saudara tiri</label>
                             <input name="a10" type="text" class="form-control" value="<?php echo @$data['a10'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Anak yatim / piatu / yatim piatu</label>
+                            <label class="control-label">Jumlah saudara singkat</label>
                             <input name="a11" type="text" class="form-control" value="<?php echo @$data['a11'] ?>" />
                         </div>
                         <div class="form-group">
+                            <label class="control-label">Yatim / Piatu / Yatim Piatu</label>
+                            <select id="a12" name="a12" class="form-control">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="yatim">Yatim</option>
+                                <option value="piatu">Piatu</option>
+                                <option value="yatim piatu">Yatim Piatu</option>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#a12').val('<?php echo @$data['a12'] ?>').change();
+                            </script>
+
+                        </div>
+                        <div class="form-group">
                             <label class="control-label">Bahasa sehari-hari di rumah</label>
-                            <input name="a12" type="text" class="form-control" value="<?php echo @$data['a12'] ?>" />
+                            <input name="a13" type="text" class="form-control" value="<?php echo @$data['a13'] ?>" />
                         </div>
                         
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -283,7 +297,18 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Bidang keahlian</label>
-                            <input name="d8" type="text" class="form-control" value="<?php echo @$data['d8'] ?>" />
+                            <select id="d8" name="d8" class="form-control">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach (@$jurusan_data as $value): ?>
+                                    <option value="<?=@$value['jurusan_nama']?>"><?=@$value['jurusan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#d8').val('<?php echo @$data['d8'] ?>').change();
+                            </script>
+
+                            <!-- <input name="d8" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
                             <label class="control-label">Program keahlian</label>
@@ -295,7 +320,7 @@
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal/bulan/tahun</label>
-                            <input name="d11" type="date" class="form-control" value="<?php echo @$data['d11'] ?>" />
+                            <input name="d11" type="text" class="form-control" value="<?php echo @$data['d11'] ?>" />
                         </div>
 
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -312,36 +337,61 @@
                             <input name="e1" type="text" class="form-control" value="<?php echo @$data['e1'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Tempat dan tanggal lahir</label>
+                            <label class="control-label">Tempat ( Lahir )</label>
                             <input name="e2" type="text" class="form-control" value="<?php echo @$data['e2'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Agama</label>
+                            <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
                             <input name="e3" type="text" class="form-control" value="<?php echo @$data['e3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewarganegaraan</label>
+                            <label class="control-label">Agama</label>
                             <input name="e4" type="text" class="form-control" value="<?php echo @$data['e4'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pendidikan</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="e5" type="text" class="form-control" value="<?php echo @$data['e5'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pekerjaan</label>
-                            <input name="e6" type="text" class="form-control" value="<?php echo @$data['e6'] ?>" />
+                            <label class="control-label">Pendidikan</label>
+                            <select id="e6" class="form-control" name="e6">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pendidikan_data as $value): ?>
+                                    <option value="<?=$value['pendidikan_nama']?>"><?=$value['pendidikan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#e6').val('<?php echo @$data['e6'] ?>').change();
+                            </script>
+
+                            <!-- <input name="e5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pengeluaran perbulan</label>
+                            <label class="control-label">Pekerjaan</label>
                             <input name="e7" type="text" class="form-control" value="<?php echo @$data['e7'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
+                            <label class="control-label">Pengeluaran perbulan</label>
                             <input name="e8" type="text" class="form-control" value="<?php echo @$data['e8'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Masih hidup/meninggal dunia</label>
+                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
                             <input name="e9" type="text" class="form-control" value="<?php echo @$data['e9'] ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Masih hidup/meninggal dunia</label>
+                            <select id="e10" class="form-control" name="e10">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="masih hidup">masih hidup</option>
+                                <option value="meninggal dunia">meninggal dunia</option>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#e10').val('<?php echo @$data['e10'] ?>').change();
+                            </script>
+
+                            <!-- <input name="e9" type="text" class="form-control" value="" /> -->
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -357,37 +407,62 @@
                             <label class="control-label">Nama</label>
                             <input name="f1" type="text" class="form-control" value="<?php echo @$data['f1'] ?>" />
                         </div>
-                        <div class="form-group">
-                            <label class="control-label">Tempat dan tanggal lahir</label>
+                         <div class="form-group">
+                            <label class="control-label">Tempat ( Lahir )</label>
                             <input name="f2" type="text" class="form-control" value="<?php echo @$data['f2'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Agama</label>
+                            <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
                             <input name="f3" type="text" class="form-control" value="<?php echo @$data['f3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewarganegaraan</label>
+                            <label class="control-label">Agama</label>
                             <input name="f4" type="text" class="form-control" value="<?php echo @$data['f4'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pendidikan</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="f5" type="text" class="form-control" value="<?php echo @$data['f5'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pekerjaan</label>
-                            <input name="f6" type="text" class="form-control" value="<?php echo @$data['f6'] ?>" />
+                            <label class="control-label">Pendidikan</label>
+                            <select id="f6" class="form-control" name="f6">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pendidikan_data as $value): ?>
+                                    <option value="<?=$value['pendidikan_nama']?>"><?=$value['pendidikan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#f6').val('<?php echo @$data['f6'] ?>').change();
+                            </script>
+
+                            <!-- <input name="f5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pengeluaran perbulan</label>
+                            <label class="control-label">Pekerjaan</label>
                             <input name="f7" type="text" class="form-control" value="<?php echo @$data['f7'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
+                            <label class="control-label">Pengeluaran perbulan</label>
                             <input name="f8" type="text" class="form-control" value="<?php echo @$data['f8'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Masih hidup/meninggal dunia</label>
+                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
                             <input name="f9" type="text" class="form-control" value="<?php echo @$data['f9'] ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Masih hidup/meninggal dunia</label>
+                            <select id="f10" class="form-control" name="f10">
+                                <option value="" hidden>-- Pilih --</option>
+                                <option value="masih hidup">masih hidup</option>
+                                <option value="meninggal dunia">meninggal dunia</option>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#f10').val('<?php echo @$data['f10'] ?>').change();
+                            </script>
+
+                            <!-- <input name="f9" type="text" class="form-control" value="" /> -->
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -404,32 +479,47 @@
                             <input name="g1" type="text" class="form-control" value="<?php echo @$data['g1'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Tempat dan tanggal lahir</label>
+                            <label class="control-label">Tempat ( Lahir )</label>
                             <input name="g2" type="text" class="form-control" value="<?php echo @$data['g2'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Agama</label>
+                            <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
                             <input name="g3" type="text" class="form-control" value="<?php echo @$data['g3'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Kewarganegaraan</label>
+                            <label class="control-label">Agama</label>
                             <input name="g4" type="text" class="form-control" value="<?php echo @$data['g4'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pendidikan</label>
+                            <label class="control-label">Kewarganegaraan</label>
                             <input name="g5" type="text" class="form-control" value="<?php echo @$data['g5'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pekerjaan</label>
-                            <input name="g6" type="text" class="form-control" value="<?php echo @$data['g6'] ?>" />
+                            <label class="control-label">Pendidikan</label>
+                            <select id="g6" class="form-control" name="g6">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pendidikan_data as $value): ?>
+                                    <option value="<?=$value['pendidikan_nama']?>"><?=$value['pendidikan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#g6').val('<?php echo @$data['g6'] ?>').change();
+                            </script>
+
+                            <!-- <input name="g5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Pengeluaran perbulan</label>
+                            <label class="control-label">Pekerjaan</label>
                             <input name="g7" type="text" class="form-control" value="<?php echo @$data['g7'] ?>" />
                         </div>
                         <div class="form-group">
-                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
+                            <label class="control-label">Pengeluaran perbulan</label>
                             <input name="g8" type="text" class="form-control" value="<?php echo @$data['g8'] ?>" />
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label">Alamat/rumah/nomor telp/HP</label>
+                            <input name="g9" type="text" class="form-control" value="<?php echo @$data['g9'] ?>" />
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -512,7 +602,7 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Meninggalkan sekolah ini</h4>
                         <div class="form-group">
                             <label class="control-label">Tanggal meninggal sekolah</label>
-                            <input name="i10" type="date" class="form-control" value="<?php echo @$data['i10'] ?>" />
+                            <input name="i10" type="text" class="form-control" value="<?php echo @$data['i10'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alasan</label>
@@ -554,7 +644,7 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Bekerja di</h4>
                         <div class="form-group">
                             <label class="control-label">Tanggal mulai bekerja</label>
-                            <input name="j2" type="date" class="form-control" value="<?php echo @$data['j2'] ?>" />
+                            <input name="j2" type="text" class="form-control" value="<?php echo @$data['j2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nama perusahaan/lembaga</label>

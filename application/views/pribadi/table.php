@@ -32,7 +32,11 @@
       <div class="box">
         <div class="box-header with-border">
 
-          <br/>
+          <div align="left">
+            <a href="<?=base_url('assets/excel/pribadi_all.xlsx')?>" download=""><button title="Download template data pribadi" class="btn btn-primary"><i class="fa fa-download"></i> Download Template</button></a>
+            <button data-toggle="modal" data-target="#modal-import" title="Upload data pribadi" class="btn btn-success"><i class="fa fa-upload"></i> Upload Excel</button>
+          </div>
+
 
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
@@ -132,7 +136,7 @@
                     </div>
                   </div>
                 </div>
-
+ 
               <?php endforeach ?>
 
               </tfoot>
@@ -140,6 +144,34 @@
 
         </div>
       </div>
+
+<div class="modal fade" id="modal-import">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Upload Excel</h4>
+        </div>
+        <div class="modal-body">
+          <form role="form" method="post" action="<?php echo base_url('pribadi/import_pribadi') ?>" enctype="multipart/form-data">
+            <div class="box-body">
+              <div class="form-group">
+                <label>Pilih File</label>
+                <input required="" type="file" name="uploadFile" class="form-control">
+              </div>
+            </div>
+            <!-- /.box-body -->
+
+            <div class="box-footer">
+              <button type="submit" class="btn btn-primary">Submit</button>
+               <button type="reset" class="btn btn-danger">Reset</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
 
 <div class="modal fade" id="modal-penilaian">
   <div class="modal-dialog">
