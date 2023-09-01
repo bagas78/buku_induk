@@ -18,6 +18,7 @@ class Dashboard extends CI_Controller{
 		    $data['title'] = 'Dashboard';
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('dashboard/dashboard',$data);
+		    $this->load->view('v_template_admin/admin_footer');
  
 		}
 		else{

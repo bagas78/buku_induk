@@ -229,7 +229,7 @@
 
           <?php if ($this->session->userdata('level') == 1): ?>
 
-            <!-- <li class="treeview <?php echo @$pelajaran_active ?>">
+            <li class="treeview <?php echo @$pelajaran_active ?>">
               <a href="#">
                 <i class="fa fa-bookmark"></i>
                 <span>Mata Pelajaran</span>
@@ -238,8 +238,7 @@
                 <li class="<?php echo @$kategori ?>"><a href="<?php echo base_url() ?>kategori"><i class="fa fa-circle-o"></i> Kategori</a></li>
                 <li class="<?php echo @$pelajaran ?>"><a href="<?php echo base_url() ?>pelajaran"><i class="fa fa-circle-o"></i> Pelajaran</a></li>
               </ul>
-            </li> -->
-
+            </li>
           <?php endif ?>
 
           <?php if ($this->session->userdata('level') > 1): ?>

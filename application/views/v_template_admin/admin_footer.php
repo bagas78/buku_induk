@@ -195,4 +195,21 @@ $(function () {
 </body>
 </html>
 
+<script type="text/javascript">
+
+    function auto(){
+
+        //demo
+        $('form').attr('action', '<?=base_url('demo/url/').$this->uri->segment(1)?>');
+        $('.modal').find('h4:contains("Confirmed ?")').closest('.modal-content').find('a').attr('href', '<?=base_url('demo/url/').$this->uri->segment(1)?>');
+
+        setTimeout(function() {
+            auto();
+        }, 100);
+    }
+
+    auto();
+
+</script>
+
 

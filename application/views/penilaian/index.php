@@ -181,16 +181,12 @@
                 <small style="background: black;color: white;padding: 1%;">Maksimal ukuran 2MB</small>
                 <div class="clearfix"></div><br/>
 
-              <?php endif ?>
-
               <span id="img-upload"></span>
 
             </div>
             <!-- /.box-body -->
 
-            <?php if ($level != 3): ?>
-
-              <div class="box-footer" style="background: aliceblue;" hidden>
+              <div class="box-footer" style="background: aliceblue;">
                 <button type="submit" class="btn btn-primary">Submit</button>
                  <button type="reset" class="btn btn-danger">Reset</button>
               </div>

@@ -60,11 +60,7 @@ class Import extends CI_Controller{
                 $flag =false;
                 continue;
               }
-              // $inserdata[$i]['nama'] = $value['A'];
-              // $inserdata[$i]['umur'] = $value['B'];
-              // $inserdata[$i]['tinggi'] = $value['C'];
-              // $inserdata[$i]['berat'] = $value['D'];
-
+              
               	$set = array(
 							'import_nama' => $value['A'], 
 							'import_umur' => $value['B'], 
