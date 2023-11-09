@@ -17,7 +17,7 @@
 		.table-borderless > thead > tr > td,
 		.table-borderless > thead > tr > th {
 		    border: none;
-		    line-height: 5px;
+		    line-height: 6px;
 		}
   	</style>
 </head>
@@ -29,7 +29,7 @@
 	<br/>
 
 	<div class="row">
-		<div class="col-md-9 col-xs-9">
+		<div class="col-md-10 col-xs-10">
 			<table class="table table-borderless">
 
 				<!-- A -->
@@ -37,52 +37,64 @@
 					<th colspan="3">A. KETERANGAN TENTANG PESERTA DIDIK</th>
 				</tr>
 				<tr>
-					<td>1. Nama Lengkap Peserta Didik</td>
-					<td>: <?php echo $data['a1'] ?></td>
+					<td width="1">1.</td>
+					<td>Nama Lengkap Peserta Didik</td>
+					<td>: <?php echo @$data['a1'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160; Nama Panggilan</td>
-					<td>: <?php echo $data['a2'] ?></td>
+					<td>: <?php echo @$data['a2'] ?></td>
 				</tr>
 				<tr>
-					<td>2. jenis Kelamin</td>
-					<td>: <?php echo $data['a3'] ?></td>
+					<td>2.</td>
+					<td>jenis Kelamin</td>
+					<td>: <?php echo @$data['a3'] ?></td>
 				</tr>
 				<tr>
-					<td>3. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['a4'].', '.date_format(date_create($data['a5']), 'd M Y') ?></td>
+					<td>3. </td>
+					<td>Tempat dan tanggal lahir</td>
+					<td>: <?php echo @$data['a4'].', '.date_format(date_create(@$data['a5']), 'd M Y') ?></td>
 				</tr>
 				<tr>
-					<td>4. Agama</td>
-					<td>: <?php echo $data['a6'] ?></td>
+					<td>4. </td>
+					<td>Agama</td>
+					<td>: <?php echo @$data['a6'] ?></td>
 				</tr>
 				<tr>
-					<td>5. Kewarganegaraan</td>
-					<td>: <?php echo $data['a7'] ?></td>
+					<td>5. </td>
+					<td>Kewarganegaraan</td>
+					<td>: <?php echo @$data['a7'] ?></td>
 				</tr>
 				<tr>
-					<td>6. Anak keberapa</td>
-					<td>: <?php echo $data['a8'] ?></td>
+					<td>6. </td>
+					<td>Anak keberapa</td>
+					<td>: <?php echo @$data['a8'] ?></td>
 				</tr>
 				<tr>
-					<td>7. Jumlah saudara kandung</td>
-					<td>: <?php echo $data['a9'] ?></td>
+					<td>7. </td>
+					<td>Jumlah saudara kandung</td>
+					<td>: <?php echo @$data['a9'] ?></td>
 				</tr>
 				<tr>
-					<td>8. Jumlah saudara tiri</td>
-					<td>: <?php echo $data['a10'] ?></td>
+					<td>8. </td>
+					<td>Jumlah saudara tiri</td>
+					<td>: <?php echo @$data['a10'] ?></td>
 				</tr>
 				<tr>
-					<td>9. Jumlah saudara singkat</td>
-					<td>: <?php echo $data['a11'] ?></td>
+					<td>9. </td>
+					<td>Jumlah saudara singkat</td>
+					<td>: <?php echo @$data['a11'] ?></td>
 				</tr>
 				<tr>
-					<td>10. Anak yatim/piatu/yatim piatu</td>
-					<td>: <?php echo $data['a12'] ?></td>
+					<td>10. </td>
+					<td>Anak yatim/piatu/yatim piatu</td>
+					<td>: <?php echo @$data['a12'] ?></td>
 				</tr>
 				<tr>
-					<td>11. Bahasa sehari-hari di rumah</td>
-					<td>: <?php echo $data['a13'] ?></td>
+					<td>11. </td>
+					<td>Bahasa sehari-hari di rumah</td>
+					<td>: <?php echo @$data['a13'] ?></td>
 				</tr>
 
 				<!-- B -->
@@ -90,20 +102,24 @@
 					<th colspan="3">B. KETERANGAN TEMPAT TINGGAL</th>
 				</tr>
 				<tr>
-					<td>12. Alamat</td>
-					<td>: <?php echo $data['b1'] ?></td>
+					<td>12. </td>
+					<td>Alamat</td>
+					<td>: <?php echo @$data['b1'] ?></td>
 				</tr>
 				<tr>
-					<td>13. Nomor telepon/HP</td>
-					<td>: <?php echo $data['b2'] ?></td>
+					<td>13. </td>
+					<td>Nomor telepon/HP</td>
+					<td>: <?php echo @$data['b2'] ?></td>
 				</tr>
 				<tr>
-					<td>14. Tinggal dengan orang tua/saudara/di asmara/kost</td>
-					<td>: <?php echo $data['b3'] ?></td>
+					<td>14. </td>
+					<td>Tinggal dengan orang tua/saudara/di asmara/kost</td>
+					<td>: <?php echo @$data['b3'] ?></td>
 				</tr>
 				<tr>
-					<td>15. Jarak tempat tinggal ke sekolah</td>
-					<td>: <?php echo $data['b4'] ?> km</td>
+					<td>15. </td>
+					<td>Jarak tempat tinggal ke sekolah</td>
+					<td>: <?php echo @$data['b4'] ?> km</td>
 				</tr>
 
 				<!-- C -->
@@ -111,20 +127,24 @@
 					<th colspan="3">C. KETERANGAN KESEHATAN</th>
 				</tr>
 				<tr>
-					<td>16. Golongan darah</td>
-					<td>: <?php echo $data['c1'] ?></td>
+					<td>16. </td>
+					<td>Golongan darah</td>
+					<td>: <?php echo @$data['c1'] ?></td>
 				</tr>
 				<tr>
-					<td>17. Penyakit yang pernah di derita</td>
-					<td>: <?php echo $data['c2'] ?></td>
+					<td>17. </td>
+					<td>Penyakit yang pernah di derita</td>
+					<td>: <?php echo @$data['c2'] ?></td>
 				</tr>
 				<tr>
-					<td>18. Kelainan jasmani</td>
-					<td>: <?php echo $data['c3'] ?></td>
+					<td>18. </td>
+					<td>Kelainan jasmani</td>
+					<td>: <?php echo @$data['c3'] ?></td>
 				</tr>
 				<tr>
-					<td>19. Tinggi dan berat dan (saat diterima di sekolah ini)</td>
-					<td>: <?php echo $data['c4'] ?> cm</td>
+					<td>19. </td>
+					<td>Tinggi dan berat dan (saat diterima di sekolah ini)</td>
+					<td>: <?php echo @$data['c4'] ?> cm</td>
 				</tr>
 
 				<!-- D -->
@@ -132,60 +152,74 @@
 					<th colspan="3">D. KETERANGAN PENDIDIKAN</th>
 				</tr>
 				<tr>
-					<td>20. Pendidikan sebelumnya</td>
+					<td>20. </td>
+					<td>Pendidikan sebelumnya</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Tamatan dari</td>
-					<td>: <?php echo $data['d1'] ?></td>
+					<td>: <?php echo @$data['d1'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Tanggal dan nomor ijazah</td>
-					<td>: <?php echo $data['d2'] ?></td>
+					<td>: <?php echo @$data['d2'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; c. Tanggal dan nomor STL/SKHUN</td>
-					<td>: <?php echo $data['d3'] ?></td>
+					<td>: <?php echo @$data['d3'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; d. Lama belajar</td>
-					<td>: <?php echo $data['d4'] ?> tahun</td>
+					<td>: <?php echo @$data['d4'] ?> tahun</td>
 				</tr>
 				<tr>
-					<td>21. Pindahan</td>
+					<td>21. </td>
+					<td>Pindahan</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Dari sekolah</td>
-					<td>: <?php echo $data['d5'] ?></td>
+					<td>: <?php echo @$data['d5'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Alasan</td>
-					<td>: <?php echo $data['d6'] ?></td>
+					<td>: <?php echo @$data['d6'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>22. Diterima di sekolah ini</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Di kelas</td>
-					<td>: <?php echo $data['d7'] ?></td>
+					<td>: <?php echo @$data['d7'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Bidang keahlian</td>
-					<td>: <?php echo $data['d8'] ?></td>
+					<td>: <?php echo @$data['d8'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; c. Program keahlian</td>
-					<td>: <?php echo $data['d9'] ?></td>
+					<td>: <?php echo @$data['d9'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; d. Keahlian</td>
-					<td>: <?php echo $data['d10'] ?></td>
+					<td>: <?php echo @$data['d10'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; e. Tanggal/bulan/tahun</td>
-					<td>: <?php echo date_format(date_create($data['d11']), 'd/m/Y') ?></td>
+					<td>: <?php echo date_format(date_create(@$data['d11']), 'd/m/Y') ?></td>
 				</tr>
 
 				<!-- E -->
@@ -193,40 +227,49 @@
 					<th colspan="3">E. KETERANGAN TENTANG AYAH KANDUNG</th>
 				</tr>
 				<tr>
-					<td>23. Nama</td>
-					<td>: <?php echo $data['e1'] ?></td>
+					<td>23. </td>
+					<td>Nama</td>
+					<td>: <?php echo @$data['e1'] ?></td>
 				</tr>
 				<tr>
-					<td>24. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['e2'].', '.date_format(date_create($data['e3']), 'd M Y') ?></td>
+					<td>24. </td>
+					<td>Tempat dan tanggal lahir</td>
+					<td>: <?php echo @$data['e2'].', '.date_format(date_create(@$data['e3']), 'd M Y') ?></td>
 				</tr>
 				<tr>
-					<td>25. Agama</td>
-					<td>: <?php echo $data['e4'] ?></td>
+					<td>25. </td>
+					<td>Agama</td>
+					<td>: <?php echo @$data['e4'] ?></td>
 				</tr>
 				<tr>
-					<td>26. Kewarganegaraan</td>
-					<td>: <?php echo $data['e5'] ?></td>
+					<td>26. </td>
+					<td>Kewarganegaraan</td>
+					<td>: <?php echo @$data['e5'] ?></td>
 				</tr>
 				<tr>
-					<td>27. Pendidikan</td>
-					<td>: <?php echo $data['e6'] ?></td>
+					<td>27. </td>
+					<td>Pendidikan</td>
+					<td>: <?php echo @$data['e6'] ?></td>
 				</tr>
 				<tr>
-					<td>28. Pekerjaan</td>
-					<td>: <?php echo $data['e7'] ?></td>
+					<td>28. </td>
+					<td>Pekerjaan</td>
+					<td>: <?php echo @$data['e7'] ?></td>
 				</tr>
 				<tr>
-					<td>29. Pengeluaran perbulan</td>
-					<td>: <?php echo $data['e8'] ?></td>
+					<td>29. </td>
+					<td>Pengeluaran perbulan</td>
+					<td>: <?php echo @$data['e8'] ?></td>
 				</tr>
 				<tr>
-					<td>30. Alamat/rumah/nomor telp/HP</td>
-					<td>: <?php echo $data['e9'] ?></td>
+					<td>30. </td>
+					<td>Alamat/rumah/nomor telp/HP</td>
+					<td>: <?php echo @$data['e9'] ?></td>
 				</tr>
 				<tr>
-					<td>31. Masih hidup/meninggal dunia</td>
-					<td>: <?php echo $data['e10'] ?></td>
+					<td>31. </td>
+					<td>Masih hidup/meninggal dunia</td>
+					<td>: <?php echo @$data['e10'] ?></td>
 				</tr>
 
 				<!-- F -->
@@ -234,40 +277,49 @@
 					<th colspan="3">F. KETERANGAN TENTANG IBU KANDUNG</th>
 				</tr>
 				<tr>
-					<td>32. Nama</td>
-					<td>: <?php echo $data['f1'] ?></td>
+					<td>32. </td>
+					<td>Nama</td>
+					<td>: <?php echo @$data['f1'] ?></td>
 				</tr>
 				<tr>
-					<td>33. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['f2'].', '.date_format(date_create($data['f3']),'d M Y') ?></td>
+					<td>33. </td>
+					<td>Tempat dan tanggal lahir</td>
+					<td>: <?php echo @$data['f2'].', '.date_format(date_create(@$data['f3']),'d M Y') ?></td>
 				</tr>
 				<tr>
-					<td>34. Agama</td>
-					<td>: <?php echo $data['f4'] ?></td>
+					<td>34. </td>
+					<td>Agama</td>
+					<td>: <?php echo @$data['f4'] ?></td>
 				</tr>
 				<tr>
-					<td>35. Kewajiban</td>
-					<td>: <?php echo $data['f5'] ?></td>
+					<td>35. </td>
+					<td>Kewajiban</td>
+					<td>: <?php echo @$data['f5'] ?></td>
 				</tr>
 				<tr>
-					<td>36. Pendidikan</td>
-					<td>: <?php echo $data['f6'] ?></td>
+					<td>36. </td>
+					<td>Pendidikan</td>
+					<td>: <?php echo @$data['f6'] ?></td>
 				</tr>
 				<tr>
-					<td>37. Pekerjaan</td>
-					<td>: <?php echo $data['f7'] ?></td>
+					<td>37. </td>
+					<td>Pekerjaan</td>
+					<td>: <?php echo @$data['f7'] ?></td>
 				</tr>
 				<tr>
-					<td>38. Pengeluaran perbulan</td>
-					<td>: <?php echo $data['f8'] ?></td>
+					<td>38. </td>
+					<td>Pengeluaran perbulan</td>
+					<td>: <?php echo @$data['f8'] ?></td>
 				</tr>
 				<tr>
-					<td>39. Alamat/rumah/nomor telp/HP</td>
-					<td>: <?php echo $data['f9'] ?></td>
+					<td>39. </td>
+					<td>Alamat/rumah/nomor telp/HP</td>
+					<td>: <?php echo @$data['f9'] ?></td>
 				</tr>
 				<tr>
-					<td>40. Masih hidup/meninggal dunia</td>
-					<td>: <?php echo $data['f10'] ?></td>
+					<td>40. </td>
+					<td>Masih hidup/meninggal dunia</td>
+					<td>: <?php echo @$data['f10'] ?></td>
 				</tr>
 
 				<!-- G -->
@@ -275,36 +327,44 @@
 					<th colspan="3">G. KETERANGAN TENTANG WALI</th>
 				</tr>
 				<tr>
-					<td>41. Nama</td>
-					<td>: <?php echo $data['g1'] ?></td>
+					<td>41. </td>
+					<td>Nama</td>
+					<td>: <?php echo @$data['g1'] ?></td>
 				</tr>
 				<tr>
-					<td>42. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['g2'].', '.date_format(date_create($data['g3']), 'd M Y') ?></td>
+					<td>42. </td>
+					<td>Tempat dan tanggal lahir</td>
+					<td>: <?php echo @$data['g2'].', '.date_format(date_create(@$data['g3']), 'd M Y') ?></td>
 				</tr>
 				<tr>
-					<td>43. Agama</td>
-					<td>: <?php echo $data['g4'] ?></td>
+					<td>43. </td>
+					<td>Agama</td>
+					<td>: <?php echo @$data['g4'] ?></td>
 				</tr>
 				<tr>
-					<td>44. Kewajiban</td>
-					<td>: <?php echo $data['g5'] ?></td>
+					<td>44. </td>
+					<td>Kewajiban</td>
+					<td>: <?php echo @$data['g5'] ?></td>
 				</tr>
 				<tr>
-					<td>45. Pendidikan</td>
-					<td>: <?php echo $data['g6'] ?></td>
+					<td>45. </td>
+					<td>Pendidikan</td>
+					<td>: <?php echo @$data['g6'] ?></td>
 				</tr>
 				<tr>
-					<td>46. Pekerjaan</td>
-					<td>: <?php echo $data['g7'] ?></td>
+					<td>46. </td>
+					<td>Pekerjaan</td>
+					<td>: <?php echo @$data['g7'] ?></td>
 				</tr>
 				<tr>
-					<td>47. Pengeluaran perbulan</td>
-					<td>: <?php echo $data['g8'] ?></td>
+					<td>47. </td>
+					<td>Pengeluaran perbulan</td>
+					<td>: <?php echo @$data['g8'] ?></td>
 				</tr>
 				<tr>
-					<td>48. Alamat/rumah/nomor telp/HP</td>
-					<td>: <?php echo $data['g9'] ?></td>
+					<td>48. </td>
+					<td>Alamat/rumah/nomor telp/HP</td>
+					<td>: <?php echo @$data['g9'] ?></td>
 				</tr>
 				
 				<!-- H -->
@@ -312,20 +372,24 @@
 					<th colspan="3">H. KEGEMARAN PESERTA DIDIK</th>
 				</tr>
 				<tr>
-					<td>49. Kesenian</td>
-					<td>: <?php echo $data['h1'] ?></td>
+					<td>49. </td>
+					<td>Kesenian</td>
+					<td>: <?php echo @$data['h1'] ?></td>
 				</tr>
 				<tr>
-					<td>50. Olah raga</td>
-					<td>: <?php echo $data['h2'] ?></td>
+					<td>50. </td>
+					<td>Olah raga</td>
+					<td>: <?php echo @$data['h2'] ?></td>
 				</tr>
 				<tr>
-					<td>51. Kemasyarakatan/organisasi</td>
-					<td>: <?php echo $data['h3'] ?></td>
+					<td>51. </td>
+					<td>Kemasyarakatan/organisasi</td>
+					<td>: <?php echo @$data['h3'] ?></td>
 				</tr>
 				<tr>
-					<td>52. Lain-lain</td>
-					<td>: <?php echo $data['h4'] ?></td>
+					<td>52. </td>
+					<td>Lain-lain</td>
+					<td>: <?php echo @$data['h4'] ?></td>
 				</tr>
 
 				<!-- I -->
@@ -333,44 +397,54 @@
 					<th colspan="3">I. KETERANGAN PERKEMBANGAN PESERTA DIDIK</th>
 				</tr>
 				<tr>
-					<td>53. Menerima bea siswa</td>
-					<td>: Tahun <?php echo $data['i1'] ?> / Kls <?php echo $data['i2'] ?> dari <?php echo $data['i3'] ?></td>
+					<td>53. </td>
+					<td>Menerima bea siswa</td>
+					<td>: Tahun <?php echo @$data['i1'] ?> / Kls <?php echo @$data['i2'] ?> dari <?php echo @$data['i3'] ?></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td>: Tahun <?php echo $data['i4'] ?> / Kls <?php echo $data['i5'] ?> dari <?php echo $data['i6'] ?></td>
+					<td></td>
+					<td>: Tahun <?php echo @$data['i4'] ?> / Kls <?php echo @$data['i5'] ?> dari <?php echo @$data['i6'] ?></td>
 				</tr>
 				<tr>
 					<td></td>
-					<td>: Tahun <?php echo $data['i7'] ?> / Kls <?php echo $data['i8'] ?> dari <?php echo $data['i9'] ?></td>
+					<td></td>
+					<td>: Tahun <?php echo @$data['i7'] ?> / Kls <?php echo @$data['i8'] ?> dari <?php echo @$data['i9'] ?></td>
 				</tr>
 				<tr>
-					<td>54. Meninggalkan sekolah ini</td>
+					<td>54. </td>
+					<td>Meninggalkan sekolah ini</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Tanggal meninggal sekolah</td>
-					<td>: <?php echo date_format(date_create($data['i10']), 'd/m/Y') ?></td>
+					<td>: <?php echo date_format(date_create(@$data['i10']), 'd/m/Y') ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Alasan</td>
-					<td>: <?php echo $data['i11'] ?></td>
+					<td>: <?php echo @$data['i11'] ?></td>
 				</tr>
 				<tr>
-					<td>55. Akhir pendidikan</td>
+					<td>55. </td>
+					<td>Akhir pendidikan</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Lulus</td>
-					<td>: <?php echo $data['i12'] ?> Tahun</td>
+					<td>: <?php echo @$data['i12'] ?> Tahun</td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Nomor/tanggal ijazah</td>
-					<td>: <?php echo $data['i13'] ?></td>
+					<td>: <?php echo @$data['i13'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; c. Nomor/tanggal SKHUN</td>
-					<td>: <?php echo $data['i14'] ?></td>
+					<td>: <?php echo @$data['i14'] ?></td>
 				</tr>
 
 				<!-- J -->
@@ -378,35 +452,40 @@
 					<th colspan="3">J. KETERANGAN SETELAH SELESAI PENDIDIKAN</th>
 				</tr>
 				<tr>
-					<td>56. Melanjutkan ke</td>
-					<td>: <?php echo $data['j1'] ?></td>
+					<td>56. </td>
+					<td>Melanjutkan ke</td>
+					<td>: <?php echo @$data['j1'] ?></td>
 				</tr>
 				<tr>
-					<td>57. Bekerja di</td>
+					<td>57. </td>
+					<td>Bekerja di</td>
 					<td></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; a. Tanggal mulai bekerja</td>
-					<td>: <?php echo date_format(date_create($data['j2']), 'd/m/Y') ?></td>
+					<td>: <?php echo date_format(date_create(@$data['j2']), 'd/m/Y') ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; b. Nama perusahaan/lembaga</td>
-					<td>: <?php echo $data['j3'] ?></td>
+					<td>: <?php echo @$data['j3'] ?></td>
 				</tr>
 				<tr>
+					<td></td>
 					<td>&#160;&#160;&#160;&#160; c. Penghasilan</td>
-					<td>: <?php echo $data['j4'] ?></td>
+					<td>: <?php echo @$data['j4'] ?></td>
 				</tr>
 
 			</table>
 		</div>
-		<div class="col-md-3 col-xs-3" align="center">
+		<div class="col-md-2 col-xs-2" align="center">
 			<br><br>
 
-			<?php if ($data['k1'] == ''): ?>
+			<?php if (@$data['k1'] == ''): ?>
 				<img width="100" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
 			<?php else: ?>
-				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k1']) ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.@$data['k1']) ?>">
 			<?php endif ?>
 			
 			<h6 align="center">waktu di terima di sekolah ini</h6>
@@ -416,10 +495,10 @@
 			<br><br>
 			<br><br>
 			
-			<?php if ($data['k1'] == ''): ?>
+			<?php if (@$data['k1'] == ''): ?>
 				<img width="100" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
 			<?php else: ?>
-				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k2']) ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.@$data['k2']) ?>">
 			<?php endif ?>
 
 			<h6 align="center">waktu meninggalkan sekolah ini</h6>

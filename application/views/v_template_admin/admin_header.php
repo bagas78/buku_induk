@@ -253,7 +253,7 @@
               <a href="<?php echo base_url() ?>penilaian">
                 <i class="fa fa-pencil"></i> <span><?= ($this->session->userdata('level') == 2)?'Penilaian':'Nilai' ?> Semester</span>
               </a>
-            </li>
+            </li> 
 
             <li <?php echo @$lintas; ?>>
               <a href="<?php echo base_url() ?>lintas">

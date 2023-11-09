@@ -28,6 +28,8 @@
               <button title="Import excel peminatan" class="btn btn-success" onclick="modal('peminatan')"><i class="fa fa-upload"></i> Import Peminatan</button>
             </div>
 
+            <?php if ($level != 3): ?>
+
             <form action="" method="POST">
               
               <div class="row" style="margin-top: 20px;">
@@ -53,6 +55,8 @@
               </div>  
               
             </form>
+
+            <?php endif ?>
             
           <div class="box-tools pull-right">
             <button type="button" class="btn btn-box-tool" data-widget="collapse" data-toggle="tooltip" title="Collapse">
