@@ -1,6 +1,6 @@
 <?php
 class Siswa extends CI_Controller{
-
+ 
 	function __construct(){
 		parent::__construct();
 	}  
@@ -8,7 +8,7 @@ class Siswa extends CI_Controller{
 		if ( $this->session->userdata('login') == 1) {
 			$data['siswa'] = 'class="active"';
 		    $data['title'] = 'Siswa';
-		    $data['data'] = $this->db->query("SELECT * FROM t_user WHERE user_hapus = 0 AND user_level = '3'")->result_array();
+		    $data['data'] = $this->db->query("SELECT * FROM t_user as a JOIN t_pribadi as b ON a.user_id = b.pribadi_siswa WHERE a.user_hapus = 0 AND a.user_level = '3'")->result_array();
 
 		    $this->load->view('v_template_admin/admin_header',$data);
 		    $this->load->view('siswa/index',$data);
@@ -17,34 +17,54 @@ class Siswa extends CI_Controller{
 		}
 		else{
 			redirect(base_url('login'));
-		} 
+		}  
 	} 
 	function add(){ 
-		$x = $_POST['user_email'];
-        $cek = $this->db->query("SELECT * FROM t_user WHERE user_email = '$x'")->num_rows();
+		$email = $_POST['user_email'];
+		$name = $_POST['user_name'];
+		$nis = $_POST['user_nis'];
+		$nisn =  $_POST['user_nisn'];
+
+		//cek
+        $cek = $this->db->query("SELECT * FROM t_user WHERE user_email = '$email' AND user_nis = '$nis' AND user_nisn = '$nisn'")->num_rows();
 
 		if ($cek > 0) {
-			$this->session->set_flashdata('gagal','Email sudah di gunakan !!');
+			$this->session->set_flashdata('gagal','Email / NIS / NISN sudah di ada !!');
 			redirect(base_url('siswa'));
 		}else{
-			$cek = $this->db->query("SELECT * FROM t_user order by user_id desc limit 1")->row_array();
-			$id = $cek['user_id']+1;
+
+			//id
+			$user_id = $this->db->query("SELECT * FROM t_user order by user_id desc limit 1")->row_array();
+			$id = $user_id['user_id']+1;
+
 			$set = array(
 							'user_id' => $id,
-							'user_name' => $_POST['user_name'], 
-							'user_nis' => $_POST['user_nis'],
-							'user_nisn' => $_POST['user_nisn'], 
-							'user_email' => $x, 
+							'user_name' => $name, 
+							'user_nis' => $nis,
+							'user_nisn' => $nisn, 
+							'user_email' => $email, 
 							'user_password' => md5($_POST['user_password']),
 							'user_tanggal'	=> date('Y-m-d'),
 							'user_level' => 3,
 						);
-			$this->query_builder->add('t_user',$set);
+			$db = $this->query_builder->add('t_user',$set);
 
-			$set1 = array('detail_id_user' => $id);
-			$this->query_builder->add('t_detail_user',$set1);
+			if ($db == 1) {
 
-			$this->session->set_flashdata('success','Data berhasil di tambah');
+				//detail user
+				$set1 = array('detail_id_user' => $id);
+				$this->query_builder->add('t_detail_user',$set1);
+
+				//data pribadi
+				$set2 = array('pribadi_siswa' => $id, 'pribadi_data' => '{"a1":"'.$name.'"}');
+				$this->query_builder->add('t_pribadi',$set2);
+
+				$this->session->set_flashdata('success','Data berhasil di tambah');
+			}else{
+
+				$this->session->set_flashdata('gagal','Data gagal di tambah');
+			}
+
 			redirect(base_url('siswa'));
 		}
 	}
@@ -68,8 +88,14 @@ class Siswa extends CI_Controller{
 						'user_password' => md5($_POST['user_password']),
 						'user_tanggal'	=> date('Y-m-d'),
 					);
-		$this->query_builder->update('t_user',$set,'user_id ='.$id);
-		$this->session->set_flashdata('success','Data berhasil di rubah');
+		$db = $this->query_builder->update('t_user',$set,'user_id ='.$id);
+
+		if ($db == 1) {
+			$this->session->set_flashdata('success','Data berhasil di rubah');
+		}else{
+			$this->session->set_flashdata('gagal','Data gagal di rubah');
+		}
+
 		redirect(base_url('siswa'));
 	}
 	function import(){
@@ -122,12 +148,18 @@ class Siswa extends CI_Controller{
 
 				if ($nis != '') {
 
-					$cek = $this->db->query("SELECT * FROM t_user WHERE user_nis = '$nis' AND user_nisn = '$nisn' AND user_hapus = 0")->num_rows();
+					//cek
+					$cek = $this->db->query("SELECT * FROM t_user WHERE user_nis = '$nis' AND user_nisn = '$nisn' AND  user_email = '$email' AND user_hapus = 0")->num_rows();
 
 	              	if (@$cek == 0) {
+
+	              		//id
+						$user_id = $this->db->query("SELECT * FROM t_user order by user_id desc limit 1")->row_array();
+						$id = $user_id['user_id']+1;
 	         			
 	          			//save ke database
 	              		$set = array(
+	              						'user_id' => $id,
 	              						'user_name' => $name,
 	              						'user_nis' => $nis,
 	              						'user_nisn' => $nisn,
@@ -137,7 +169,18 @@ class Siswa extends CI_Controller{
 	              					);
 
 		            	$this->db->set($set);
-		            	$this->db->insert('t_user');
+		            	$db = $this->db->insert('t_user');
+
+		            	if ($db == 1) {
+
+							//detail user
+							$set1 = array('detail_id_user' => $id);
+							$this->query_builder->add('t_detail_user',$set1);
+
+							//data pribadi
+							$set2 = array('pribadi_siswa' => $id, 'pribadi_data' => '{"a1":"'.$name.'"}');
+							$this->query_builder->add('t_pribadi',$set2);
+						}
 
 	              		//nis tidak ada
 	              		$nis_success[] = $nis;

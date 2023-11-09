@@ -226,3 +226,15 @@
 
         </div>
       </div>
+
+<script type="text/javascript">
+      var level = '<?= $this->session->userdata('level'); ?>';
+
+      if (level == 3) {
+
+        $('input').attr('readonly', true).css('pointer-events', 'none');
+        $('img').css('pointer-events', 'none');
+       
+      }
+
+  </script>

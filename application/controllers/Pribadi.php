@@ -11,7 +11,7 @@ class Pribadi extends CI_Controller{
 			$id = $this->session->userdata('id');
 			$level = $this->session->userdata('level');
  
-			$data['pribadi'] = 'class="active"';
+			$data['pribadi'] = 'class="active"'; 
 		    $data['title'] = 'Data Pribadi';
 
 		    $data['tahun_data'] = $this->db->query("SELECT * FROM t_tahun WHERE tahun_hapus = 0 ORDER BY tahun_text ASC")->result_array();
@@ -29,9 +29,16 @@ class Pribadi extends CI_Controller{
 		    } else { 
 		    	// siswa
 
-		    	$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
+		    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_pribadi as b ON a.user_id = b.pribadi_siswa WHERE a.user_hapus = 0 AND a.user_id = '$id'")->row_array();
 
-		    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+		    	//atribute
+		    	$data['jurusan_data'] = $this->db->query("SELECT * FROM t_jurusan")->result_array();
+		    	$data['agama_data'] = $this->db->query("SELECT * FROM t_agama")->result_array();
+		    	$data['pekerjaan_data'] = $this->db->query("SELECT * FROM t_pekerjaan")->result_array();
+		    	$data['penghasilan_data'] = $this->db->query("SELECT * FROM t_penghasilan")->result_array();
+		    	$data['tinggal_data'] = $this->db->query("SELECT * FROM t_tinggal")->result_array();
+		    	$data['pendidikan_data'] = $this->db->query("SELECT * FROM t_pendidikan")->result_array();
+		    	$data['pengeluaran_data'] = $this->db->query("SELECT * FROM t_pengeluaran")->result_array();
 
 		    	$this->load->view('v_template_admin/admin_header',$data);
 			    $this->load->view('pribadi/index',$data);
@@ -52,10 +59,16 @@ class Pribadi extends CI_Controller{
 
 		$db = $this->db->query("SELECT * FROM t_pribadi WHERE pribadi_hapus = 0 AND pribadi_siswa = '$id'")->row_array();
 
-    	$data['data'] = json_decode(@$db['pribadi_data'], TRUE);
+    	$data['data'] = $this->db->query("SELECT * FROM t_user as a LEFT JOIN t_pribadi as b ON a.user_id = b.pribadi_siswa WHERE a.user_hapus = 0 AND  a.user_id = '$id'")->row_array();
 
+    	//atribute
     	$data['jurusan_data'] = $this->db->query("SELECT * FROM t_jurusan")->result_array();
+    	$data['agama_data'] = $this->db->query("SELECT * FROM t_agama")->result_array();
+    	$data['pekerjaan_data'] = $this->db->query("SELECT * FROM t_pekerjaan")->result_array();
+    	$data['penghasilan_data'] = $this->db->query("SELECT * FROM t_penghasilan")->result_array();
+    	$data['tinggal_data'] = $this->db->query("SELECT * FROM t_tinggal")->result_array();
     	$data['pendidikan_data'] = $this->db->query("SELECT * FROM t_pendidikan")->result_array();
+    	$data['pengeluaran_data'] = $this->db->query("SELECT * FROM t_pengeluaran")->result_array();
 
     	$this->load->view('v_template_admin/admin_header',$data);
 	    $this->load->view('pribadi/index',$data);

@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Print</title>
+	<title>Print</title>  
 
 	<!--Bootstrap 3.3.7 -->
   	<link rel="stylesheet" href="<?php echo base_url() ?>adminLTE/bower_components/bootstrap/dist/css/bootstrap.min.css"> 
@@ -17,18 +17,19 @@
 		.table-borderless > thead > tr > td,
 		.table-borderless > thead > tr > th {
 		    border: none;
+		    line-height: 5px;
 		}
   	</style>
 </head>
-<body style="padding: 1%; font-size: 12px;">
+<body style="font-size: 12px;">
 
-	<h4 align="center"><b>LEMBAR BUKU INDUK PESERTA DIDIK</b></h4>
-	<h5 align="center">NO. INDUK PESERTA NASIONAL / NO. INDUK SISWA SEKOLAH : <?php echo $x['user_nisn'].' / '.$x['user_nis'] ?></h5>
+	<h5 align="center"><b>LEMBAR BUKU INDUK PESERTA DIDIK</b></h5>
+	<h6 align="center">NO. INDUK PESERTA NASIONAL / NO. INDUK SISWA SEKOLAH : <?php echo $x['user_nisn'].' / '.$x['user_nis'] ?></h6>
 
 	<br/>
 
 	<div class="row">
-		<div class="col-md-10 col-xs-10">
+		<div class="col-md-9 col-xs-9">
 			<table class="table table-borderless">
 
 				<!-- A -->
@@ -49,39 +50,39 @@
 				</tr>
 				<tr>
 					<td>3. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['a4'] ?></td>
+					<td>: <?php echo $data['a4'].', '.date_format(date_create($data['a5']), 'd M Y') ?></td>
 				</tr>
 				<tr>
 					<td>4. Agama</td>
-					<td>: <?php echo $data['a5'] ?></td>
-				</tr>
-				<tr>
-					<td>5. Kewarganegaraan</td>
 					<td>: <?php echo $data['a6'] ?></td>
 				</tr>
 				<tr>
-					<td>6. Anak keberapa</td>
+					<td>5. Kewarganegaraan</td>
 					<td>: <?php echo $data['a7'] ?></td>
 				</tr>
 				<tr>
-					<td>7. Jumlah saudara kandung</td>
+					<td>6. Anak keberapa</td>
 					<td>: <?php echo $data['a8'] ?></td>
 				</tr>
 				<tr>
-					<td>8. Jumlah saudara tiri</td>
+					<td>7. Jumlah saudara kandung</td>
 					<td>: <?php echo $data['a9'] ?></td>
 				</tr>
 				<tr>
-					<td>9. Jumlah saudara singkat</td>
+					<td>8. Jumlah saudara tiri</td>
 					<td>: <?php echo $data['a10'] ?></td>
 				</tr>
 				<tr>
-					<td>10. Anak yatim/piatu/yatim piatu</td>
+					<td>9. Jumlah saudara singkat</td>
 					<td>: <?php echo $data['a11'] ?></td>
 				</tr>
 				<tr>
-					<td>11. Bahasa sehari-hari di rumah</td>
+					<td>10. Anak yatim/piatu/yatim piatu</td>
 					<td>: <?php echo $data['a12'] ?></td>
+				</tr>
+				<tr>
+					<td>11. Bahasa sehari-hari di rumah</td>
+					<td>: <?php echo $data['a13'] ?></td>
 				</tr>
 
 				<!-- B -->
@@ -184,7 +185,7 @@
 				</tr>
 				<tr>
 					<td>&#160;&#160;&#160;&#160; e. Tanggal/bulan/tahun</td>
-					<td>: <?php echo $data['d11'] ?></td>
+					<td>: <?php echo date_format(date_create($data['d11']), 'd/m/Y') ?></td>
 				</tr>
 
 				<!-- E -->
@@ -197,35 +198,35 @@
 				</tr>
 				<tr>
 					<td>24. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['e2'] ?></td>
+					<td>: <?php echo $data['e2'].', '.date_format(date_create($data['e3']), 'd M Y') ?></td>
 				</tr>
 				<tr>
 					<td>25. Agama</td>
-					<td>: <?php echo $data['e3'] ?></td>
-				</tr>
-				<tr>
-					<td>26. Kewajiban</td>
 					<td>: <?php echo $data['e4'] ?></td>
 				</tr>
 				<tr>
-					<td>27. Pendidikan</td>
+					<td>26. Kewarganegaraan</td>
 					<td>: <?php echo $data['e5'] ?></td>
 				</tr>
 				<tr>
-					<td>28. Pekerjaan</td>
+					<td>27. Pendidikan</td>
 					<td>: <?php echo $data['e6'] ?></td>
 				</tr>
 				<tr>
-					<td>29. Pengeluaran perbulan</td>
+					<td>28. Pekerjaan</td>
 					<td>: <?php echo $data['e7'] ?></td>
 				</tr>
 				<tr>
-					<td>30. Alamat/rumah/nomor telp/HP</td>
+					<td>29. Pengeluaran perbulan</td>
 					<td>: <?php echo $data['e8'] ?></td>
 				</tr>
 				<tr>
-					<td>31. Masih hidup/meninggal dunia</td>
+					<td>30. Alamat/rumah/nomor telp/HP</td>
 					<td>: <?php echo $data['e9'] ?></td>
+				</tr>
+				<tr>
+					<td>31. Masih hidup/meninggal dunia</td>
+					<td>: <?php echo $data['e10'] ?></td>
 				</tr>
 
 				<!-- F -->
@@ -238,35 +239,35 @@
 				</tr>
 				<tr>
 					<td>33. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['f2'] ?></td>
+					<td>: <?php echo $data['f2'].', '.date_format(date_create($data['f3']),'d M Y') ?></td>
 				</tr>
 				<tr>
 					<td>34. Agama</td>
-					<td>: <?php echo $data['f3'] ?></td>
-				</tr>
-				<tr>
-					<td>35. Kewajiban</td>
 					<td>: <?php echo $data['f4'] ?></td>
 				</tr>
 				<tr>
-					<td>36. Pendidikan</td>
+					<td>35. Kewajiban</td>
 					<td>: <?php echo $data['f5'] ?></td>
 				</tr>
 				<tr>
-					<td>37. Pekerjaan</td>
+					<td>36. Pendidikan</td>
 					<td>: <?php echo $data['f6'] ?></td>
 				</tr>
 				<tr>
-					<td>38. Pengeluaran perbulan</td>
+					<td>37. Pekerjaan</td>
 					<td>: <?php echo $data['f7'] ?></td>
 				</tr>
 				<tr>
-					<td>39. Alamat/rumah/nomor telp/HP</td>
+					<td>38. Pengeluaran perbulan</td>
 					<td>: <?php echo $data['f8'] ?></td>
 				</tr>
 				<tr>
-					<td>40. Masih hidup/meninggal dunia</td>
+					<td>39. Alamat/rumah/nomor telp/HP</td>
 					<td>: <?php echo $data['f9'] ?></td>
+				</tr>
+				<tr>
+					<td>40. Masih hidup/meninggal dunia</td>
+					<td>: <?php echo $data['f10'] ?></td>
 				</tr>
 
 				<!-- G -->
@@ -279,31 +280,31 @@
 				</tr>
 				<tr>
 					<td>42. Tempat dan tanggal lahir</td>
-					<td>: <?php echo $data['g2'] ?></td>
+					<td>: <?php echo $data['g2'].', '.date_format(date_create($data['g3']), 'd M Y') ?></td>
 				</tr>
 				<tr>
 					<td>43. Agama</td>
-					<td>: <?php echo $data['g3'] ?></td>
-				</tr>
-				<tr>
-					<td>44. Kewajiban</td>
 					<td>: <?php echo $data['g4'] ?></td>
 				</tr>
 				<tr>
-					<td>45. Pendidikan</td>
+					<td>44. Kewajiban</td>
 					<td>: <?php echo $data['g5'] ?></td>
 				</tr>
 				<tr>
-					<td>46. Pekerjaan</td>
+					<td>45. Pendidikan</td>
 					<td>: <?php echo $data['g6'] ?></td>
 				</tr>
 				<tr>
-					<td>47. Pengeluaran perbulan</td>
+					<td>46. Pekerjaan</td>
 					<td>: <?php echo $data['g7'] ?></td>
 				</tr>
 				<tr>
-					<td>48. Alamat/rumah/nomor telp/HP</td>
+					<td>47. Pengeluaran perbulan</td>
 					<td>: <?php echo $data['g8'] ?></td>
+				</tr>
+				<tr>
+					<td>48. Alamat/rumah/nomor telp/HP</td>
+					<td>: <?php echo $data['g9'] ?></td>
 				</tr>
 				
 				<!-- H -->
@@ -349,7 +350,7 @@
 				</tr>
 				<tr>
 					<td>&#160;&#160;&#160;&#160; a. Tanggal meninggal sekolah</td>
-					<td>: <?php echo $data['i10'] ?></td>
+					<td>: <?php echo date_format(date_create($data['i10']), 'd/m/Y') ?></td>
 				</tr>
 				<tr>
 					<td>&#160;&#160;&#160;&#160; b. Alasan</td>
@@ -386,7 +387,7 @@
 				</tr>
 				<tr>
 					<td>&#160;&#160;&#160;&#160; a. Tanggal mulai bekerja</td>
-					<td>: <?php echo $data['j2'] ?></td>
+					<td>: <?php echo date_format(date_create($data['j2']), 'd/m/Y') ?></td>
 				</tr>
 				<tr>
 					<td>&#160;&#160;&#160;&#160; b. Nama perusahaan/lembaga</td>
@@ -399,29 +400,29 @@
 
 			</table>
 		</div>
-		<div class="col-md-2 col-xs-2">
-			<br><br><br><br>
+		<div class="col-md-3 col-xs-3" align="center">
+			<br><br>
 
 			<?php if ($data['k1'] == ''): ?>
-				<img width="150" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
 			<?php else: ?>
-				<img width="150" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k1']) ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k1']) ?>">
 			<?php endif ?>
 			
-			<h5 align="center"><small>waktu di terima di sekolah ini</small></h5>
+			<h6 align="center">waktu di terima di sekolah ini</h6>
 
 			<div class="clearfix"></div>
 
-			<br><br><br><br>
-			<br><br><br><br>
+			<br><br>
+			<br><br>
 			
 			<?php if ($data['k1'] == ''): ?>
-				<img width="150" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/3x4.png') ?>">
 			<?php else: ?>
-				<img width="150" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k2']) ?>">
+				<img width="100" src="<?php echo base_url('assets/gambar/pribadi/'.$data['k2']) ?>">
 			<?php endif ?>
 
-			<h5 align="center"><small>waktu meninggalkan sekolah ini</small></h5>
+			<h6 align="center">waktu meninggalkan sekolah ini</h6>
 		</div>
 	</div>
 </body>

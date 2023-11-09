@@ -1,11 +1,13 @@
 <?php $level = $this->session->userdata('level'); ?>
 
+<?php $val = json_decode(@$data['pribadi_data'], true); ?>
+
 <section class="content-header">
       <h1>
         <?php echo $title; ?>
         <small>Control panel</small>
       </h1> 
-      <ol class="breadcrumb">
+      <ol class="breadcrumb"> 
         <li><a href="#"><i class="fa fa-dashboard"></i> Home</a></li>
         <li class="active">Dashboard</li>
       </ol>
@@ -21,7 +23,7 @@
         <?php echo $this->session->flashdata('gagal'); ?>
       </div>
     <?php endif ?>
-  
+   
     <?php if ($this->session->flashdata('success')): ?>
       <div class="alert alert-success alert-dismissible">
          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
@@ -106,11 +108,11 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Nama lengkap peserta didik</label>
-                            <input name="a1" type="text" class="form-control" value="<?php echo @$data['a1'] ?>" />
+                            <input readonly name="a1" type="text" class="form-control" value="<?php echo @$data['user_name'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nama Panggilan</label>
-                            <input name="a2" type="text" class="form-control" value="<?php echo @$data['a2'] ?>" />
+                            <input name="a2" type="text" class="form-control" value="<?php echo @$val['a2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">jenis Kelamin</label>
@@ -121,40 +123,50 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#a3').val('<?php echo @$data['a3'] ?>').change();
+                                $('#a3').val('<?php echo @$val['a3'] ?>').change();
                             </script>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tempat ( Lahir )</label>
-                            <input name="a4" type="text" class="form-control" value="<?php echo @$data['a4'] ?>" />
+                            <input name="a4" type="text" class="form-control" value="<?php echo @$val['a4'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
-                            <input name="a5" type="text" class="form-control" value="<?php echo @$data['a5'] ?>" />
+                            <input name="a5" type="date" class="form-control" value="<?php echo @$val['a5'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Agama</label>
-                            <input name="a6" type="text" class="form-control" value="<?php echo @$data['a6'] ?>" />
+                            <select class="form-control" name="a6" id="a6">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($agama_data as $key): ?>
+                                    <option value="<?=$key['agama_nama']?>"><?=$key['agama_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#a6').val('<?php echo @$val['a6'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kewarganegaraan</label>
-                            <input name="a7" type="text" class="form-control" value="<?php echo @$data['a7'] ?>" />
+                            <input name="a7" type="text" class="form-control" value="<?php echo @$val['a7'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Anak ke berapa</label>
-                            <input name="a8" type="text" class="form-control" value="<?php echo @$data['a8'] ?>" />
+                            <input name="a8" type="text" class="form-control" value="<?php echo @$val['a8'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Jumlah saudara kandung</label>
-                            <input name="a9" type="text" class="form-control" value="<?php echo @$data['a9'] ?>" />
+                            <input name="a9" type="text" class="form-control" value="<?php echo @$val['a9'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Jumlah saudara tiri</label>
-                            <input name="a10" type="text" class="form-control" value="<?php echo @$data['a10'] ?>" />
+                            <input name="a10" type="text" class="form-control" value="<?php echo @$val['a10'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Jumlah saudara singkat</label>
-                            <input name="a11" type="text" class="form-control" value="<?php echo @$data['a11'] ?>" />
+                            <input name="a11" type="text" class="form-control" value="<?php echo @$val['a11'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Yatim / Piatu / Yatim Piatu</label>
@@ -166,13 +178,13 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#a12').val('<?php echo @$data['a12'] ?>').change();
+                                $('#a12').val('<?php echo @$val['a12'] ?>').change();
                             </script>
 
                         </div>
                         <div class="form-group">
                             <label class="control-label">Bahasa sehari-hari di rumah</label>
-                            <input name="a13" type="text" class="form-control" value="<?php echo @$data['a13'] ?>" />
+                            <input name="a13" type="text" class="form-control" value="<?php echo @$val['a13'] ?>" />
                         </div>
                         
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -186,30 +198,30 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Alamat</label>
-                            <input name="b1" type="text" class="form-control" value="<?php echo @$data['b1'] ?>" />
+                            <input name="b1" type="text" class="form-control" value="<?php echo @$val['b1'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nomor telepon/HP</label>
-                            <input name="b2" type="text" class="form-control" value="<?php echo @$data['b2'] ?>" />
+                            <input name="b2" type="text" class="form-control" value="<?php echo @$val['b2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tinggal dengan orang tua/saudara/di asmara/kost</label>
-                            <select id="b3" name="b3" class="form-control">
-                                <option value="" hidden="">-- Pilih --</option>
-                                <option value="orang_tua">Orang tua</option>
-                                <option value="saudara">Saudara</option>
-                                <option value="asrama">Asrama</option>
-                                <option value="kost">Kost</option>
+
+                            <select class="form-control" name="b3" id="b3">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($tinggal_data as $key): ?>
+                                    <option value="<?=$key['tinggal_nama']?>"><?=$key['tinggal_nama']?></option>
+                                <?php endforeach ?>
                             </select>
 
                             <script type="text/javascript">
-                                $('#b3').val('<?php echo @$data['b3'] ?>').change();
+                                $('#b3').val('<?php echo @$val['b3'] ?>').change();
                             </script>
 
                         </div>
                         <div class="form-group">
                             <label class="control-label">Jarak tempat tinggal ke sekolah (Km)</label>
-                            <input name="b4" type="text" class="form-control" value="<?php echo @$data['b4'] ?>" />
+                            <input name="b4" type="text" class="form-control" value="<?php echo @$val['b4'] ?>" />
                         </div>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
                     </div>
@@ -231,26 +243,26 @@
                             </select>     
 
                             <script type="text/javascript">
-                                $('#c1').val('<?php echo @$data['c1'] ?>').change();
+                                $('#c1').val('<?php echo @$val['c1'] ?>').change();
                             </script>
 
                         </div>
                         <div class="form-group">
                             <label class="control-label">Penyakit yang pernah di derita</label>
-                            <input name="c2" type="text" class="form-control" value="<?php echo @$data['c2'] ?>" />
+                            <input name="c2" type="text" class="form-control" value="<?php echo @$val['c2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kelainan jasmani</label>
-                            <input name="c3" type="text" class="form-control" value="<?php echo @$data['c3'] ?>" />
+                            <input name="c3" type="text" class="form-control" value="<?php echo @$val['c3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tinggi (cm)</label>
-                            <input name="c4" type="text" class="form-control" value="<?php echo @$data['c4'] ?>" />
+                            <input name="c4" type="text" class="form-control" value="<?php echo @$val['c4'] ?>" />
                             <small class="text-danger">* Saat diterima di sekolah ini</small>
                         </div>
                         <div class="form-group">
                             <label class="control-label">Berat (kg)</label>
-                            <input name="c5" type="text" class="form-control" value="<?php echo @$data['c5'] ?>" />
+                            <input name="c5" type="text" class="form-control" value="<?php echo @$val['c5'] ?>" />
                             <small class="text-danger">* Saat diterima di sekolah ini</small>
                         </div>
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -265,35 +277,35 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Pendidikan sebelumnya</h4>
                         <div class="form-group">
                             <label class="control-label">Tamatan dari</label>
-                            <input name="d1" type="text" class="form-control" value="<?php echo @$data['d1'] ?>" />
+                            <input name="d1" type="text" class="form-control" value="<?php echo @$val['d1'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal dan nomor ijazah</label>
-                            <input name="d2" type="text" class="form-control" value="<?php echo @$data['d2'] ?>" />
+                            <input name="d2" type="text" class="form-control" value="<?php echo @$val['d2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal dan nomor STL/SKHUN</label>
-                            <input name="d3" type="text" class="form-control" value="<?php echo @$data['d3'] ?>" />
+                            <input name="d3" type="text" class="form-control" value="<?php echo @$val['d3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Lama belajar (Tahun)</label>
-                            <input name="d4" type="text" class="form-control" value="<?php echo @$data['d4'] ?>" />
+                            <input name="d4" type="text" class="form-control" value="<?php echo @$val['d4'] ?>" />
                         </div>
 
                         <h4 style="background: #ddd; padding: 0.5%;">Pindahan</h4>
                         <div class="form-group">
                             <label class="control-label">Dari sekolah</label>
-                            <input name="d5" type="text" class="form-control" value="<?php echo @$data['d5'] ?>" />
+                            <input name="d5" type="text" class="form-control" value="<?php echo @$val['d5'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alasan</label>
-                            <input name="d6" type="text" class="form-control" value="<?php echo @$data['d6'] ?>" />
+                            <input name="d6" type="text" class="form-control" value="<?php echo @$val['d6'] ?>" />
                         </div>
 
                         <h4 style="background: #ddd; padding: 0.5%;">Diterima di sekolah ini</h4>
                         <div class="form-group">
                             <label class="control-label">Di kelas</label>
-                            <input name="d7" type="text" class="form-control" value="<?php echo @$data['d7'] ?>" />
+                            <input name="d7" type="text" class="form-control" value="<?php echo @$val['d7'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Bidang keahlian</label>
@@ -305,22 +317,22 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#d8').val('<?php echo @$data['d8'] ?>').change();
+                                $('#d8').val('<?php echo @$val['d8'] ?>').change();
                             </script>
 
                             <!-- <input name="d8" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
                             <label class="control-label">Program keahlian</label>
-                            <input name="d9" type="text" class="form-control" value="<?php echo @$data['d9'] ?>" />
+                            <input name="d9" type="text" class="form-control" value="<?php echo @$val['d9'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Keahlian</label>
-                            <input name="d10" type="text" class="form-control" value="<?php echo @$data['d10'] ?>" />
+                            <input name="d10" type="text" class="form-control" value="<?php echo @$val['d10'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal/bulan/tahun</label>
-                            <input name="d11" type="text" class="form-control" value="<?php echo @$data['d11'] ?>" />
+                            <input name="d11" type="date" class="form-control" value="<?php echo @$val['d11'] ?>" />
                         </div>
 
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -334,23 +346,33 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Nama</label>
-                            <input name="e1" type="text" class="form-control" value="<?php echo @$data['e1'] ?>" />
+                            <input name="e1" type="text" class="form-control" value="<?php echo @$val['e1'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tempat ( Lahir )</label>
-                            <input name="e2" type="text" class="form-control" value="<?php echo @$data['e2'] ?>" />
+                            <input name="e2" type="text" class="form-control" value="<?php echo @$val['e2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
-                            <input name="e3" type="text" class="form-control" value="<?php echo @$data['e3'] ?>" />
+                            <input name="e3" type="date" class="form-control" value="<?php echo @$val['e3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Agama</label>
-                            <input name="e4" type="text" class="form-control" value="<?php echo @$data['e4'] ?>" />
+                            <select class="form-control" name="e4" id="e4">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($agama_data as $key): ?>
+                                    <option value="<?=$key['agama_nama']?>"><?=$key['agama_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#e4').val('<?php echo @$val['e4'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kewarganegaraan</label>
-                            <input name="e5" type="text" class="form-control" value="<?php echo @$data['e5'] ?>" />
+                            <input name="e5" type="text" class="form-control" value="<?php echo @$val['e5'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pendidikan</label>
@@ -362,22 +384,42 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#e6').val('<?php echo @$data['e6'] ?>').change();
+                                $('#e6').val('<?php echo @$val['e6'] ?>').change();
                             </script>
 
-                            <!-- <input name="e5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pekerjaan</label>
-                            <input name="e7" type="text" class="form-control" value="<?php echo @$data['e7'] ?>" />
+                            <select class="form-control" name="e7" id="e7">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pekerjaan_data as $key): ?>
+                                    <option value="<?=$key['pekerjaan_nama']?>"><?=$key['pekerjaan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#e7').val('<?php echo @$val['e7'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pengeluaran perbulan</label>
-                            <input name="e8" type="text" class="form-control" value="<?php echo @$data['e8'] ?>" />
+
+                            <select class="form-control" name="e8" id="e8">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pengeluaran_data as $key): ?>
+                                    <option value="<?=$key['pengeluaran_nama']?>"><?=$key['pengeluaran_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#e8').val('<?php echo @$val['e8'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alamat/rumah/nomor telp/HP</label>
-                            <input name="e9" type="text" class="form-control" value="<?php echo @$data['e9'] ?>" />
+                            <input name="e9" type="text" class="form-control" value="<?php echo @$val['e9'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Masih hidup/meninggal dunia</label>
@@ -388,7 +430,7 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#e10').val('<?php echo @$data['e10'] ?>').change();
+                                $('#e10').val('<?php echo @$val['e10'] ?>').change();
                             </script>
 
                             <!-- <input name="e9" type="text" class="form-control" value="" /> -->
@@ -405,23 +447,33 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Nama</label>
-                            <input name="f1" type="text" class="form-control" value="<?php echo @$data['f1'] ?>" />
+                            <input name="f1" type="text" class="form-control" value="<?php echo @$val['f1'] ?>" />
                         </div>
                          <div class="form-group">
                             <label class="control-label">Tempat ( Lahir )</label>
-                            <input name="f2" type="text" class="form-control" value="<?php echo @$data['f2'] ?>" />
+                            <input name="f2" type="text" class="form-control" value="<?php echo @$val['f2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
-                            <input name="f3" type="text" class="form-control" value="<?php echo @$data['f3'] ?>" />
+                            <input name="f3" type="date" class="form-control" value="<?php echo @$val['f3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Agama</label>
-                            <input name="f4" type="text" class="form-control" value="<?php echo @$data['f4'] ?>" />
+                            <select class="form-control" name="f4" id="f4">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($agama_data as $key): ?>
+                                    <option value="<?=$key['agama_nama']?>"><?=$key['agama_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#f4').val('<?php echo @$val['f4'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kewarganegaraan</label>
-                            <input name="f5" type="text" class="form-control" value="<?php echo @$data['f5'] ?>" />
+                            <input name="f5" type="text" class="form-control" value="<?php echo @$val['f5'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pendidikan</label>
@@ -433,22 +485,44 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#f6').val('<?php echo @$data['f6'] ?>').change();
+                                $('#f6').val('<?php echo @$val['f6'] ?>').change();
                             </script>
 
                             <!-- <input name="f5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pekerjaan</label>
-                            <input name="f7" type="text" class="form-control" value="<?php echo @$data['f7'] ?>" />
+
+                            <select class="form-control" name="f7" id="f7">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pekerjaan_data as $key): ?>
+                                    <option value="<?=$key['pekerjaan_nama']?>"><?=$key['pekerjaan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#f7').val('<?php echo @$val['f7'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pengeluaran perbulan</label>
-                            <input name="f8" type="text" class="form-control" value="<?php echo @$data['f8'] ?>" />
+
+                            <select class="form-control" name="f8" id="f8">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pengeluaran_data as $key): ?>
+                                    <option value="<?=$key['pengeluaran_nama']?>"><?=$key['pengeluaran_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#f8').val('<?php echo @$val['f8'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alamat/rumah/nomor telp/HP</label>
-                            <input name="f9" type="text" class="form-control" value="<?php echo @$data['f9'] ?>" />
+                            <input name="f9" type="text" class="form-control" value="<?php echo @$val['f9'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Masih hidup/meninggal dunia</label>
@@ -459,7 +533,7 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#f10').val('<?php echo @$data['f10'] ?>').change();
+                                $('#f10').val('<?php echo @$val['f10'] ?>').change();
                             </script>
 
                             <!-- <input name="f9" type="text" class="form-control" value="" /> -->
@@ -476,23 +550,33 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Nama</label>
-                            <input name="g1" type="text" class="form-control" value="<?php echo @$data['g1'] ?>" />
+                            <input name="g1" type="text" class="form-control" value="<?php echo @$val['g1'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tempat ( Lahir )</label>
-                            <input name="g2" type="text" class="form-control" value="<?php echo @$data['g2'] ?>" />
+                            <input name="g2" type="text" class="form-control" value="<?php echo @$val['g2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Tanggal Bulan Tahun ( Lahir )</label>
-                            <input name="g3" type="text" class="form-control" value="<?php echo @$data['g3'] ?>" />
+                            <input name="g3" type="date" class="form-control" value="<?php echo @$val['g3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Agama</label>
-                            <input name="g4" type="text" class="form-control" value="<?php echo @$data['g4'] ?>" />
+                            <select class="form-control" name="g4" id="g4">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($agama_data as $key): ?>
+                                    <option value="<?=$key['agama_nama']?>"><?=$key['agama_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#g4').val('<?php echo @$val['g4'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kewarganegaraan</label>
-                            <input name="g5" type="text" class="form-control" value="<?php echo @$data['g5'] ?>" />
+                            <input name="g5" type="text" class="form-control" value="<?php echo @$val['g5'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pendidikan</label>
@@ -504,22 +588,44 @@
                             </select>
 
                             <script type="text/javascript">
-                                $('#g6').val('<?php echo @$data['g6'] ?>').change();
+                                $('#g6').val('<?php echo @$val['g6'] ?>').change();
                             </script>
 
                             <!-- <input name="g5" type="text" class="form-control" value="" /> -->
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pekerjaan</label>
-                            <input name="g7" type="text" class="form-control" value="<?php echo @$data['g7'] ?>" />
+
+                            <select class="form-control" name="g7" id="g7">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pekerjaan_data as $key): ?>
+                                    <option value="<?=$key['pekerjaan_nama']?>"><?=$key['pekerjaan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#g7').val('<?php echo @$val['g7'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Pengeluaran perbulan</label>
-                            <input name="g8" type="text" class="form-control" value="<?php echo @$data['g8'] ?>" />
+
+                            <select class="form-control" name="g8" id="g8">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($pengeluaran_data as $key): ?>
+                                    <option value="<?=$key['pengeluaran_nama']?>"><?=$key['pengeluaran_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#g8').val('<?php echo @$val['g8'] ?>').change();
+                            </script>
+
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alamat/rumah/nomor telp/HP</label>
-                            <input name="g9" type="text" class="form-control" value="<?php echo @$data['g9'] ?>" />
+                            <input name="g9" type="text" class="form-control" value="<?php echo @$val['g9'] ?>" />
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -533,19 +639,19 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Kesenian</label>
-                            <input name="h1" type="text" class="form-control" value="<?php echo @$data['h1'] ?>" />
+                            <input name="h1" type="text" class="form-control" value="<?php echo @$val['h1'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Olah raga</label>
-                            <input name="h2" type="text" class="form-control" value="<?php echo @$data['h2'] ?>" />
+                            <input name="h2" type="text" class="form-control" value="<?php echo @$val['h2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Kemasyarakatan/organisasi</label>
-                            <input name="h3" type="text" class="form-control" value="<?php echo @$data['h3'] ?>" />
+                            <input name="h3" type="text" class="form-control" value="<?php echo @$val['h3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Lain-lain</label>
-                            <input name="h4" type="text" class="form-control" value="<?php echo @$data['h4'] ?>" />
+                            <input name="h4" type="text" class="form-control" value="<?php echo @$val['h4'] ?>" />
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -560,41 +666,41 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Menerima bea siswa</h4>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Tahun</label>
-                            <input name="i1" type="text" class="form-control" value="<?php echo @$data['i1'] ?>" />
+                            <input name="i1" type="text" class="form-control" value="<?php echo @$val['i1'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Kelas</label>
-                            <input name="i2" type="text" class="form-control" value="<?php echo @$data['i2'] ?>" />
+                            <input name="i2" type="text" class="form-control" value="<?php echo @$val['i2'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Dari</label>
-                            <input name="i3" type="text" class="form-control" value="<?php echo @$data['i3'] ?>" />
+                            <input name="i3" type="text" class="form-control" value="<?php echo @$val['i3'] ?>" />
                         </div>
 
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Tahun</label>
-                            <input name="i4" type="text" class="form-control" value="<?php echo @$data['i4'] ?>" />
+                            <input name="i4" type="text" class="form-control" value="<?php echo @$val['i4'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Kelas</label>
-                            <input name="i5" type="text" class="form-control" value="<?php echo @$data['i5'] ?>" />
+                            <input name="i5" type="text" class="form-control" value="<?php echo @$val['i5'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Dari</label>
-                            <input name="i6" type="text" class="form-control" value="<?php echo @$data['i6'] ?>" />
+                            <input name="i6" type="text" class="form-control" value="<?php echo @$val['i6'] ?>" />
                         </div>
 
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Tahun</label>
-                            <input name="i7" type="text" class="form-control" value="<?php echo @$data['i7'] ?>" />
+                            <input name="i7" type="text" class="form-control" value="<?php echo @$val['i7'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Kelas</label>
-                            <input name="i8" type="text" class="form-control" value="<?php echo @$data['i8'] ?>" />
+                            <input name="i8" type="text" class="form-control" value="<?php echo @$val['i8'] ?>" />
                         </div>
                         <div class="form-group col-md-4 col-xs-4">
                             <label class="control-label">Dari</label>
-                            <input name="i9" type="text" class="form-control" value="<?php echo @$data['i9'] ?>" />
+                            <input name="i9" type="text" class="form-control" value="<?php echo @$val['i9'] ?>" />
                         </div>
 
                         <div class="clearfix"></div>
@@ -602,11 +708,11 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Meninggalkan sekolah ini</h4>
                         <div class="form-group">
                             <label class="control-label">Tanggal meninggal sekolah</label>
-                            <input name="i10" type="text" class="form-control" value="<?php echo @$data['i10'] ?>" />
+                            <input name="i10" type="date" class="form-control" value="<?php echo @$val['i10'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Alasan</label>
-                            <textarea name="i11" class="form-control"><?php echo @$data['i11'] ?></textarea>
+                            <textarea name="i11" class="form-control"><?php echo @$val['i11'] ?></textarea>
                         </div>
 
                         <div class="clearfix"></div>
@@ -614,15 +720,15 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Akhir pendidikan</h4>
                         <div class="form-group">
                             <label class="control-label">Lulus (tahun)</label>
-                            <input name="i12" type="text" class="form-control" value="<?php echo @$data['i12'] ?>" />
+                            <input name="i12" type="text" class="form-control" value="<?php echo @$val['i12'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nomor/tanggal ijazah</label>
-                            <input name="i13" type="text" class="form-control" value="<?php echo @$data['i13'] ?>" />
+                            <input name="i13" type="text" class="form-control" value="<?php echo @$val['i13'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nomor/tanggal SKHUN</label>
-                            <input name="i14" type="text" class="form-control" value="<?php echo @$data['i14'] ?>" />
+                            <input name="i14" type="text" class="form-control" value="<?php echo @$val['i14'] ?>" />
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -636,7 +742,7 @@
                     <div class="panel-body">
                         <div class="form-group">
                             <label class="control-label">Melanjutkan ke</label>
-                            <input name="j1" type="text" class="form-control" value="<?php echo @$data['j1'] ?>" />
+                            <input name="j1" type="text" class="form-control" value="<?php echo @$val['j1'] ?>" />
                         </div>
 
                         <div class="clearfix"></div>
@@ -644,15 +750,26 @@
                         <h4 style="background: #ddd; padding: 0.5%;">Bekerja di</h4>
                         <div class="form-group">
                             <label class="control-label">Tanggal mulai bekerja</label>
-                            <input name="j2" type="text" class="form-control" value="<?php echo @$data['j2'] ?>" />
+                            <input name="j2" type="date" class="form-control" value="<?php echo @$val['j2'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Nama perusahaan/lembaga</label>
-                            <input name="j3" type="text" class="form-control" value="<?php echo @$data['j3'] ?>" />
+                            <input name="j3" type="text" class="form-control" value="<?php echo @$val['j3'] ?>" />
                         </div>
                         <div class="form-group">
                             <label class="control-label">Penghasilan</label>
-                            <input name="j4" type="text" class="form-control" value="<?php echo @$data['j4'] ?>" />
+
+                            <select class="form-control" name="j4" id="j4">
+                                <option value="" hidden>-- Pilih --</option>
+                                <?php foreach ($penghasilan_data as $key): ?>
+                                    <option value="<?=$key['penghasilan_nama']?>"><?=$key['penghasilan_nama']?></option>
+                                <?php endforeach ?>
+                            </select>
+
+                            <script type="text/javascript">
+                                $('#j4').val('<?php echo @$val['j4'] ?>').change();
+                            </script>
+
                         </div>
                        
                         <button class="btn btn-primary nextBtn pull-right" type="button">Next</button>
@@ -667,13 +784,13 @@
                         <div class="form-group">
                             <label class="control-label">Upload foto 3 x 4 (waktu di terima sekolah ini)</label>
                             <input name="file1" type="file" class="form-control" accept="image/*" />
-                            <input type="hidden" name="k1" value="<?php echo @$data['k1'] ?>">
+                            <input type="hidden" name="k1" value="<?php echo @$val['k1'] ?>">
 
-                            <?php if (@GetImageSize(base_url('assets/gambar/pribadi/').@$data['k1'])): ?>
+                            <?php if (@GetImageSize(base_url('assets/gambar/pribadi/').@$val['k1'])): ?>
                             
-                            <a href="<?php echo base_url('assets/gambar/pribadi/').@$data['k1'] ?>" target="_blank"><button type="button" class="btn btn-xs btn-success">Lihat <i class="fa fa-eye"></i></button></a>
+                            <a href="<?php echo base_url('assets/gambar/pribadi/').@$val['k1'] ?>" target="_blank"><button type="button" class="btn btn-xs btn-success">Lihat <i class="fa fa-eye"></i></button></a>
                             
-                            <a href="<?php echo base_url('pribadi/delete_foto/'.@$data['k1']) ?>"><button type="button" class="btn btn-xs btn-danger">Hapus <i class="fa fa-trash"></i></button></a>
+                            <a href="<?php echo base_url('pribadi/delete_foto/'.@$val['k1']) ?>"><button type="button" class="btn btn-xs btn-danger">Hapus <i class="fa fa-trash"></i></button></a>
 
                             <?php endif ?>
 
@@ -681,13 +798,13 @@
                         <div class="form-group">
                             <label class="control-label">Upload foto 3 x 4 (waktu meninggalkan sekolah ini)</label>
                             <input name="file2" type="file" class="form-control" accept="image/*" />
-                            <input type="hidden" name="k2" value="<?php echo @$data['k2'] ?>">
+                            <input type="hidden" name="k2" value="<?php echo @$val['k2'] ?>">
 
-                            <?php if (@GetImageSize(base_url('assets/gambar/pribadi/').@$data['k2'])): ?>
+                            <?php if (@GetImageSize(base_url('assets/gambar/pribadi/').@$val['k2'])): ?>
                             
-                            <a href="<?php echo base_url('assets/gambar/pribadi/').@$data['k2'] ?>" target="_blank"><button type="button" class="btn btn-xs btn-success">Lihat <i class="fa fa-eye"></i></button></a>
+                            <a href="<?php echo base_url('assets/gambar/pribadi/').@$val['k2'] ?>" target="_blank"><button type="button" class="btn btn-xs btn-success">Lihat <i class="fa fa-eye"></i></button></a>
 
-                            <a href="<?php echo base_url('pribadi/delete_foto/'.@$data['k2']) ?>"><button type="button" class="btn btn-xs btn-danger">Hapus <i class="fa fa-trash"></i></button></a>
+                            <a href="<?php echo base_url('pribadi/delete_foto/'.@$val['k2']) ?>"><button type="button" class="btn btn-xs btn-danger">Hapus <i class="fa fa-trash"></i></button></a>
                             
                             <?php endif ?>
 
@@ -737,31 +854,31 @@
   </div>
 
   <script type="text/javascript">
-      var level = '<?= $this->session->userdata('level'); ?>';
+      // var level = '<?= $this->session->userdata('level'); ?>';
 
-      if (level == 3) {
+      // if (level == 3) {
 
-        $('.btn-danger').remove();
-        $('input[type="file"]').remove();
+      //   $('.btn-danger').remove();
+      //   $('input[type="file"]').remove();
 
-        $('input').css({
-            'pointer-events': 'none',
-            'border': 'none',
-        });
+      //   $('input').css({
+      //       'pointer-events': 'none',
+      //       'border': 'none',
+      //   });
 
-        $('select').css({
-            'pointer-events': 'none',
-            'border': 'none',
-        });
+      //   $('select').css({
+      //       'pointer-events': 'none',
+      //       'border': 'none',
+      //   });
 
-        for (var i = 1; i <= 4; i++) {
+      //   for (var i = 1; i <= 4; i++) {
             
-             $('input[name="j'+i+'"]').css({
-                'pointer-events': '',
-                'border': '',
-            });
-        }
+      //        $('input[name="j'+i+'"]').css({
+      //           'pointer-events': '',
+      //           'border': '',
+      //       });
+      //   }
        
-      }
+      // }
 
   </script>

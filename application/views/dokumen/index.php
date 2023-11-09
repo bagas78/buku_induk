@@ -69,6 +69,8 @@
                   <td style="width: 80px;">
                     <div>
                         <a href="<?php echo base_url('assets/gambar/dokumen/'.$key['dokumen_file']) ?>" download><button class="btn btn-xs btn-success" type="button"><i class="fa fa-download"></i></button></a>
+
+                        <a href="<?php echo base_url('assets/gambar/dokumen/'.$key['dokumen_file']) ?>" target="_BLANK"><button class="btn btn-xs btn-info" type="button"><i class="fa fa-eye"></i></button></a>
                     
                         <?php if($this->session->userdata('level') == 3): ?>
                             <button onclick="res()" class="btn btn-xs btn-primary" data-toggle="modal" data-target="#modal-edit<?php echo $key['dokumen_id'] ?>"><i class="fa fa-edit"></i></button>

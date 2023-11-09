@@ -1,5 +1,5 @@
  <?php
-class Query_builder{ 
+class Query_builder{  
   protected $sql;
   function __construct(){
         $this->sql = &get_instance();
@@ -8,8 +8,14 @@ class Query_builder{
    return $this->sql->db->query("SELECT * FROM $table WHERE user_email = '$email' AND user_password = '$pass'")->result_array();
   }
   function add($table,$set){
-  	$db = $this->sql->db->set($set);
-  	$db = $this->sql->db->insert($table);
+  	$this->sql->db->set($set);
+  	
+    if ($this->sql->db->insert($table)) {
+      $db = 1;
+    }else{
+      $db = 0;
+    }
+
   	return $db;
   }
   function view($table){ 
@@ -45,8 +51,14 @@ class Query_builder{
   	$this->sql->db->query("SELECT * FROM $table where $where")->num_rows();
   }
   function delete($table,$where){
-  	$db = $this->sql->db->where($where);
-  	$db = $this->sql->db->delete($table);
+  	$this->sql->db->where($where);
+
+    if ($this->sql->db->delete($table)) {
+      $db = 1;
+    }else{
+      $db = 0;
+    }
+
   	return $db;
   }
   function num_rows($table){
@@ -54,9 +66,15 @@ class Query_builder{
   	$this->sql->db->query("SELECT * FROM $table")->num_rows();
   }
   function update($table,$set,$where){
-  	$db = $this->sql->db->set($set);
-  	$db = $this->sql->db->where($where);
-  	$db = $this->sql->db->update($table);
+  	$this->sql->db->set($set);
+  	$this->sql->db->where($where);
+
+    if ($this->sql->db->update($table)) {
+      $db = 1;
+    }else{
+      $db = 0;
+    }
+
   	return $db;
   }
 }
