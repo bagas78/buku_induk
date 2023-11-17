@@ -44,7 +44,7 @@ class Dokumen extends CI_Controller{
 			//replace name foto
 			$type = explode(".", $filename);
 	    	$no = count($type) - 1;
-	    	$new_name = md5($id).'.'.$type[$no];
+	    	$new_name = md5($id).time().'.'.$type[$no];
 	    	///////////////////	
 
 	    	//jenis file boleh di upload

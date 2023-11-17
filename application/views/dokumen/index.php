@@ -54,7 +54,7 @@
                 <th <?=($level == 3)? 'hidden':''?>>Siswa</th>
                 <th>Dokumen</th>
                 <th>Type</th>
-                <th>Action</th>
+                <th width="80">Action</th>
               </tr>
               </thead>
               <tbody>
