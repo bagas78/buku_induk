@@ -18,7 +18,7 @@
 		.table-borderless > thead > tr > th {
 		    border: none;
 		    line-height: 6px;
-		}
+		} 
   	</style>
 </head>
 <body style="font-size: 12px;">
@@ -30,7 +30,7 @@
 
 	<div class="row">
 		<div class="col-md-10 col-xs-10">
-			<table class="table table-borderless">
+			<table class="table table-bordeless">
 
 				<!-- A -->
 				<tr>
@@ -54,7 +54,7 @@
 				<tr>
 					<td>3. </td>
 					<td>Tempat dan tanggal lahir</td>
-					<td>: <?php echo @$data['a4'].', '.date_format(date_create(@$data['a5']), 'd M Y') ?></td>
+					<td>: <?= date_format(date_create(@$data['a5']), 'd M Y'); ?></td>
 				</tr>
 				<tr>
 					<td>4. </td>
@@ -234,7 +234,7 @@
 				<tr>
 					<td>24. </td>
 					<td>Tempat dan tanggal lahir</td>
-					<td>: <?php echo @$data['e2'].', '.date_format(date_create(@$data['e3']), 'd M Y') ?></td>
+					<td>: <?= @$data['e2'].', '.date_format(date_create(@$data['e3']), 'd M Y'); ?></td>
 				</tr>
 				<tr>
 					<td>25. </td>
@@ -284,7 +284,7 @@
 				<tr>
 					<td>33. </td>
 					<td>Tempat dan tanggal lahir</td>
-					<td>: <?php echo @$data['f2'].', '.date_format(date_create(@$data['f3']),'d M Y') ?></td>
+					<td>: <?= @$data['f2'].', '.date_format(date_create(@$data['f3']),'d M Y'); ?></td>
 				</tr>
 				<tr>
 					<td>34. </td>
@@ -334,7 +334,7 @@
 				<tr>
 					<td>42. </td>
 					<td>Tempat dan tanggal lahir</td>
-					<td>: <?php echo @$data['g2'].', '.date_format(date_create(@$data['g3']), 'd M Y') ?></td>
+					<td>: <?= @$data['g2'].', '.date_format(date_create(@$data['g3']), 'd M Y'); ?></td>
 				</tr>
 				<tr>
 					<td>43. </td>
@@ -508,10 +508,24 @@
 </html>
 
 <script type="text/javascript">
+	
  	window.print();
     window.onafterprint = back;
 
     function back() {
         window.history.back();
     }
+
+   function auto(){
+
+   	$('th').css('border-top', 'none');
+   	$('td').css('border-top', 'none');
+
+    setTimeout(function() {
+        auto();
+    }, 100);
+  }
+
+  auto();
+
 </script>
